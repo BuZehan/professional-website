@@ -1,0 +1,58 @@
+$breakpoints: (
+  "mobile": (
+    0px,
+    991px,
+  ),
+  "pad": (
+   768px,
+   992px
+  ),
+  "desktop": (
+   992px
+  ),
+);
+
+@mixin respondTo($breakname) {
+  $bp: map-get($breakpoints, $breakname);
+  @if type-of($bp) == "list" {
+    $min: nth($bp, 1);
+    $max: nth($bp, 2);
+    @media (min-width: $min) and (max-width: $max) {
+      @content;
+    }
+  } @else {
+    @media (min-width: $bp) {
+      @content;
+    }
+  }
+}
+
+body{
+  // 花青色
+  --HUAQING:#2376b7;
+  // 茶花红
+  --CHAHUAHONG:#ee3f4d;
+  // 枣红
+  --ZAOHONG:#7c1823;
+  // 满天星紫
+  --MANTIANXINGZI:#2e317c;
+  font-family: var(--el-font-family);
+}
+
+@include respondTo('desktop') {
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 3px;
+  }
+  /* 滑块部分 */
+  ::-webkit-scrollbar-thumb { 
+    border-radius: 5px;
+    background-color:#cfcfcf;
+  }
+  /* 轨道部分 */
+  ::-webkit-scrollbar-track {   
+    /* box-shadow: inset 0 0 5px rgba(0,0,0,0.2); */
+    background: transparent;
+    border-radius: 6px;
+  }
+}
