@@ -1,60 +1,41 @@
 <template>
   <view class="news-card-wrapper">
-    <el-row class="m" justify="center">
-      <el-col v-showMeta="i % 2 == 0 ? `animate__fadeInLeft` : `animate__fadeInRight`" v-for="card, i in cardNum" :key="i" :xs="12" :sm="12" :md="12">
-        <el-card :body-style="{ padding: '0px' }">
-          <image mode="widthFix" src="https://test.hebic.cn/uploadfile/2023/1106/20231106083305653.jpg" class="image" />
-          <view class="content" style="padding: 4px">
-            <h4>2023年华为ICT人才联盟双选会</h4>
-            <view class="desc">给用人企业和24届毕业生搭建了很好的对接平台，积极的促进了24届毕业生的就业，谱写了我校与华为公司合作的新篇章</view>
-            <view class="time">
-              <!-- <time class="time">发布于:2023-11-06 08:29:57 </time> -->
-              <!-- <el-button>查看详情</el-button> -->
-              <view class="month">11月</view>
-              <view class="year">2023年</view>
-            </view>
-          </view>
-        </el-card>
-      </el-col>
-    </el-row>
     <!-- PC -->
-    <el-row :gutter="20" justify="center" class="pc-el-row">
-      <el-col   :xs="24" :sm="18" :lg="16">
+    <el-row justify="center" class="pc-el-row">
+      <el-col :xs="24" :sm="20" :md="20" :lg="16">
         <view v-showMeta="`animate__bounceInLeft`" class="title" style="margin-bottom: 80rpx;">
-          <view class="h1">新闻动态</view>
+          <view class="h1 hidden-sm-and-down">新闻动态</view>
           <p></p>
-          <view @tap="navgationTo('news')" class="mMore">更多</view>
-          <view @tap="pcNavgationTo('8')" class="pcMore">更多</view>
+          <view @tap="navgationTo('news')" class="mMore hidden-sm-and-down">更多</view>
+          <view @tap="pcNavgationTo('8')" class="pcMore hidden-sm-and-down">更多</view>
         </view>
-        <el-row justify="start" class="pc-child-el-row">
-          <el-col :xs="24" :sm="11" :lg="12">
+        <el-row justify="center" class="pc-child-el-row">
+          <el-col :xs="22" :sm="{ span: 10, offset: 1 }" :md="{span:12,offset:0}" :lg="12">
             <CardLeft />
           </el-col>
-          <el-col :xs="24" :sm="11" :lg="12">
+          <el-col :xs="22" :sm="{ span: 10, offset: 1 }" :md="{span:12,offset:0}" :lg="12">
             <CardLeft />
           </el-col>
-          <el-col :xs="24" :sm="11" :lg="12">
+          <el-col :xs="22" :sm="{ span: 10, offset: 1 }" :md="{span:12,offset:0}" :lg="12">
             <CardLeft />
           </el-col>
-          <el-col :xs="24" :sm="11" :lg="12">
+          <el-col :xs="22" :sm="{ span: 10, offset: 1 }" :md="{span:12,offset:0}" :lg="12">
             <CardLeft />
           </el-col>
         </el-row>
       </el-col>
-      <el-col   :xs="24" :sm="18" :lg="8">
-        <view v-showMeta="`animate__bounceInRight`" class="title" style="margin-bottom: 80rpx;">
-          <view  class="h1">通知公告</view>
+      <el-col :xs="24" :sm="24" :lg="8">
+        <el-row v-showMeta="`animate__bounceInRight`" class="title" style="margin-bottom: 80rpx;">
+          <view class="h1 hidden-sm-and-down">通知公告</view>
           <p></p>
-          <view @tap="navgationTo('news')" class="mMore">更多</view>
-          <view @tap="pcNavgationTo('8')" class="pcMore">更多</view>
-        </view>
-        <CardRight />
-        <CardRight />
-        <CardRight />
-        <CardRight />
-        <CardRight />
-        <CardRight />
-        <CardRight />
+          <view @tap="navgationTo('news')" class="mMore hidden-sm-and-down">更多</view>
+          <view @tap="pcNavgationTo('8')" class="pcMore hidden-sm-and-down">更多</view>
+        </el-row>
+        <el-row>
+          <el-col :xs="24" v-for="i in 7" :key="i">
+            <CardRight />
+          </el-col>
+        </el-row>
       </el-col>
     </el-row>
   </view>
@@ -95,13 +76,6 @@ const pcNavgationTo = (e) => {
       display: flex;
     }
 
-    .pcMore {
-      display: none;
-    }
-
-    .pc-el-row {
-      display: none !important;
-    }
 
     .el-row {
       .el-col {
@@ -118,6 +92,7 @@ const pcNavgationTo = (e) => {
       height: fit-content;
       position: relative;
       min-height: 440rpx;
+
       .image {
         width: 100%;
         height: 240rpx !important;
@@ -185,11 +160,13 @@ const pcNavgationTo = (e) => {
         }
       }
     }
+
     @media screen and (min-width:768px) and (max-width:992px) {
-      .m{
+      .m {
         width: 86vw;
         margin: 0 auto;
       }
+
       .el-card {
         width: 600rpx !important;
         height: 400rpx !important;
@@ -254,14 +231,6 @@ const pcNavgationTo = (e) => {
 
         .pc-child-el-row {
           width: 100%;
-          display: flex;
-          align-items: center;
-          justify-content: space-around;
-
-          .el-col {
-            display: flex;
-            align-items: center;
-          }
         }
       }
     }

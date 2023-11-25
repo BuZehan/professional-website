@@ -15,22 +15,22 @@
             <view class="content">
               <el-row>
                 <!-- 菜单切换 -->
-                <el-col :xs="24" :md="4" v-showMeta="`animate__fadeInLeft`">
+                <el-col :xs="24"  :md="4" v-showMeta="`animate__fadeInLeft`">
                   <el-row justify="center" class="news-menu">
-                    <el-col :class="{ active: currentIndex === 0 || currentIndex === 2 }" :xs="12" :md="24"
+                    <el-col :class="{ active: currentIndex === 0 || currentIndex === 2 }" :xs="12" :sm="10" :md="20" :lg="24"
                       @tap="toogleComponent(0)">
                       新闻动态
                     </el-col>
                   </el-row>
                   <el-row justify="center" class="news-menu">
-                    <el-col :class="{ active: currentIndex === 1 || currentIndex === 3 }" :xs="12" :md="24"
+                    <el-col :class="{ active: currentIndex === 1 || currentIndex === 3 }" :xs="12" :sm="10" :md="20" :lg="24"
                       @tap="toogleComponent(1)">
                       通知公告
                     </el-col>
                   </el-row>
                 </el-col>
                 <!-- 组件切换 -->
-                <el-col class="component-wrapper" :xs="24" :md="20">
+                <el-col class="component-wrapper" :xs="24" :sm="{span:16,offset:4}" :md="20">
                   <Transition name="el-fade-in" mode="out-in">
                     <KeepAlive>
                       <component :is="Components[currentIndex]" />
@@ -60,16 +60,7 @@ import Footer from "@/components/app-footer/app-footer.vue";
 import backgroundImg from "../background-img/background-img.vue";
 // 石榴背景
 import sl from '@/static/sl.jpg';
-// pc端---跳转
-const pcNavgationTo = (e) => {
-  PubSub.publish('navgation-event', { e })
-};
-// 跳转---移动端
-const navgationTo = (url) => {
-  uni.navigateTo({
-    url: `/pages/${url}/${url}`,
-  });
-};
+
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
 })
@@ -106,6 +97,7 @@ const target = ref(null)
   position: relative;
   .container-content {
     height: fit-content !important;
+  overflow: hidden;
 
 
     .trans {

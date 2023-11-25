@@ -126,7 +126,7 @@ const listData = ref([
     ],
   },
   {
-    title: "优秀毕业生",
+    title: "优秀校友",
     name: "7",
     path: "/pages/index/child/connect/connect",
   },
@@ -138,25 +138,9 @@ const handleSelect = (key, keyPath) => {
   activeStr.value = key;
   $emits("changeComponents", key);
 };
-
-// :deep(.is-active) {
-//       border-bottom: 2px solid #d00202 !important;
-//       color: #d00202 !important;
-//     }
-
-//     :deep(.el-menu-item) {
-//       &:hover {
-//         background-color: #d0020218;
-//         color: #d00202;
-//       }
-//     }
-
-//     :deep(.el-sub-menu__title) {
-//       &:hover {
-//         background-color: #d0020218;
-//         color: #d00202;
-//       }
-//     }
+PubSub.subscribe("changeActive", (msg, data) => {
+  activeStr.value = data.index;
+});
 
 </script>
 

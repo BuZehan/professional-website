@@ -8,9 +8,9 @@
       <!-- 轮播图 -->
       <Swiper />
       <!-- 新闻动态 -->
-      <view  class="block news">
+      <view class="block news">
         <view class="title newsForMobile">新闻通知</view>
-        <view  class="title-e newsForMobile">News And Notice</view>
+        <view class="title-e newsForMobile">News And Notice</view>
         <view class="content">
           <NewsTrends />
         </view>
@@ -119,7 +119,7 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import PubSub from "pubsub-js";
 import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
@@ -148,7 +148,7 @@ const navgationTo = (url) => {
 };
 // pc端跳转
 const pcNavgationTo = (e) => {
-  PubSub.publish('navgation-event', { e,index:true })
+  PubSub.publish('navgation-event', { e, index: true })
 };
 import zykc_img from "../../static/zykc.png"
 const url = zykc_img
@@ -162,20 +162,22 @@ import xxfh from "@/static/company/xxhf.png"
 import zjb from "@/static/company/zj-b.png"
 const companyArr = [
   { name: 'huawei', path: huawei },
-  { name: "xxfh", path: xxfh }, 
-  { name: "h3c", path: H3C }, 
-   { name: "hjkj", path: hjkj }, 
-   { name: "trx", path: trx },
-   { name: "zjb", path: zjb }]
+  { name: "xxfh", path: xxfh },
+  { name: "h3c", path: H3C },
+  { name: "hjkj", path: hjkj },
+  { name: "trx", path: trx },
+  { name: "zjb", path: zjb }]
 
 
 </script>
 
 <style scoped lang="scss">
 @import "../../style.scss";
-button{
+
+button {
   border: none;
 }
+
 @include respondTo("mobile") {
   .mFooter {
     display: none;
@@ -392,13 +394,16 @@ button{
       margin-bottom: 30rpx;
     }
   }
+
   .index-container {
     .mFooter {
       display: none !important;
     }
+
     .m-header {
       display: none;
     }
+
     .major {
       background-image: url('../../static/wg.png');
       background-position: center center;
@@ -406,6 +411,7 @@ button{
       box-sizing: border-box;
       padding: 50rpx 0;
       max-width: 1920px;
+
       .content {
         box-sizing: border-box;
         padding: 0 20rpx;
@@ -433,6 +439,7 @@ button{
         }
       }
     }
+
     .news {
       .newsForMobile {
         display: none;

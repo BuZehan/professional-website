@@ -36,17 +36,13 @@
 .card-left {
     width: 94%;
     height: 750rpx;
-    margin: 0 auto;
-    margin-right: 10rpx;
-    margin-bottom: 10rpx;
     margin-bottom: 40rpx;
     cursor: pointer;
     transition: all .4s;
     position: relative;
-    box-sizing: border-box;
     transform-origin: bottom;
     box-sizing: border-box;
-
+    max-width: 400px;
     .content {
         height: 740rpx;
         transform: translateY(40rpx);
@@ -186,7 +182,7 @@
             padding:10rpx;
             width:100rpx;
             height: 80rpx;
-            background-color: var(--CHAHUAHONG);
+            background-color: rgb(200,20,20);
             .day{
                 font-weight: 900;
                 font-size: 34rpx;
@@ -197,6 +193,12 @@
 @include respondTo('pad') {
     .card-left{
         width: 60vw;
+    }
+}
+
+@include respondTo('mobile') {
+    .card-left{
+        margin: 0 auto;
     }
 }
 </style>

@@ -73,14 +73,6 @@ const data = [
                 display: flex;
                 align-items: center;
                 justify-content: center;
-    
-                div {
-                    background: url('../../static/hcdy.jpg') no-repeat center center;
-                    background-size: cover;
-                    width: 100px;
-                    height: 100px;
-                    border-radius: 50%;
-                }
             }
         }
     }
@@ -122,13 +114,7 @@ const data = [
                 align-items: center;
                 justify-content: center;
     
-                div {
-                    background: url('../../static/hcdy.jpg') no-repeat center center;
-                    background-size: cover;
-                    width: 100px;
-                    height: 100px;
-                    border-radius: 50%;
-                }
+              
             }
         }
     }

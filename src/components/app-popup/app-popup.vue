@@ -87,7 +87,7 @@ const listData = ref([
     ],
   },
   {
-    title: "优秀毕业生",
+    title: "优秀校友",
     name: "7",
     path: "/pages/index/child/outstanding-graduate/outstanding-graduate",
   },

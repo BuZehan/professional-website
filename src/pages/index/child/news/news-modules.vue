@@ -2,18 +2,19 @@
     <view class="inform-modules">
         <template v-for="i in 5" :key="i">
             <!-- Mobile -->
-            <view v-if="i % 2 === 1" @tap="goToDetailM(i)" class="pc-container-r hidden-md-and-up" v-showMeta="`animate__fadeInRight`">
+            <view v-if="i % 2 === 1" @tap="goToDetailM(i)" class="pc-container-r hidden-md-and-up"
+                v-showMeta="`animate__fadeInRight`">
                 <el-row class="news-item">
-                    <el-col :xs="24" :sm="6" :xl="5" class="img-wrapper">
+                    <el-col :xs="24" :xl="5" class="img-wrapper">
                         <el-image class="image" fit="fill"
                             src="https://test.hebic.cn/uploadfile/2023/1121/20231121085353148.jpg" />
                     </el-col>
-                    <el-col :xs="24" :sm="3" :xl="2" class="time">
+                    <el-col :xs="24" :xl="2" class="time">
                         <el-row>
-                            <el-col :xs="3" :sm="24" :xl="17">
+                            <el-col :xs="3" :xl="17">
                                 <view class="year">2023</view>
                             </el-col>
-                            <el-col :xs="5" :sm="24">
+                            <el-col :xs="5">
                                 <view class="day">11-21</view>
                             </el-col>
                         </el-row>
@@ -21,7 +22,7 @@
                                 <Right />
                             </el-icon></view>
                     </el-col>
-                    <el-col :xs="24" :sm="15" class="desc">
+                    <el-col :xs="24" class="desc">
                         <view class="desc-title">网络专业学生积极参与2023年华为ICT大赛</view>
                         <p>2023年11月18日，我校兴安校区举办了“华为中国大学生ICT大赛2023-2024”河北省初赛，共有229名网络工程专业学生参与了比赛。
                             当天上午10点，由王雷老师组织，229名网络工程专业学生参加了华为公司主办的2023年中国大学生ICT大赛河北省初赛。
@@ -31,17 +32,17 @@
             </view>
             <view v-if="i % 2 === 0" @tap="goToDetailM(i)" class="pc-container-l hidden-md-and-up"
                 v-showMeta="`animate__fadeInLeft`">
-                <el-col :xs="24" :sm="6" class="img-wrapper">
+                <el-col :xs="24" :md="6" class="img-wrapper">
                     <el-image class="image" fit="fill"
                         src="https://7069324.s61i.faiusr.com/2/AD0IjL2vAxACGAAg7t-dvwUo4JTmrAMw3gI44AE.jpg" />
                 </el-col>
                 <el-row class="news-item">
-                    <el-col :xs="24" :sm="3" :xl="2" class="time">
+                    <el-col :xs="24" :md="3" :xl="2" class="time">
                         <el-row>
-                            <el-col :xs="3" :sm="24" :xl="17">
+                            <el-col :xs="3" :md="24" :xl="17">
                                 <view class="year">2023</view>
                             </el-col>
-                            <el-col :xs="5" :sm="24">
+                            <el-col :xs="5" :md="24">
                                 <view class="day">11-21</view>
                             </el-col>
                         </el-row>
@@ -52,7 +53,7 @@
                     <view class="more hidden-sm-and-down" @tap="goToDetail(i)"><el-icon :size="26">
                             <Right />
                         </el-icon></view>
-                    <el-col :xs="24" :sm="15" class="desc">
+                    <el-col :xs="24" :md="15" class="desc">
                         <view class="desc-title">国家精品课程</view>
                         <p>是一所有理想的大学，也是清华人实现自己梦想的来到这里，你将获得学术大师对你人生梦想的指点，你将触碰到科技和学术梦想的前沿，你将沐浴在共同追寻梦想的良好氛围中
                         </p>
@@ -63,16 +64,16 @@
             <!-- PC -->
             <view v-if="i % 2 === 1" class="pc-container-r  hidden-sm-and-down" v-showMeta="`animate__fadeInRight`">
                 <el-row class="news-item">
-                    <el-col :xs="24" :sm="6" :xl="5" class="img-wrapper">
+                    <el-col :xs="24" :md="6" :xl="5" class="img-wrapper">
                         <el-image class="image" fit="fill"
                             src="https://test.hebic.cn/uploadfile/2023/1121/20231121085353148.jpg" />
                     </el-col>
-                    <el-col :xs="24" :sm="3" :xl="2" class="time">
+                    <el-col :xs="24" :md="3" :xl="2" class="time">
                         <el-row>
-                            <el-col :xs="3" :sm="24" :xl="17">
+                            <el-col :xs="3" :md="24" :xl="17">
                                 <view class="year">2023</view>
                             </el-col>
-                            <el-col :xs="5" :sm="24">
+                            <el-col :xs="5" :md="24">
                                 <view class="day">11-21</view>
                             </el-col>
                         </el-row>
@@ -80,7 +81,7 @@
                                 <Right />
                             </el-icon></view>
                     </el-col>
-                    <el-col :xs="24" :sm="15" class="desc">
+                    <el-col :xs="24" :md="15" class="desc">
                         <view class="desc-title">网络专业学生积极参与2023年华为ICT大赛</view>
                         <p>2023年11月18日，我校兴安校区举办了“华为中国大学生ICT大赛2023-2024”河北省初赛，共有229名网络工程专业学生参与了比赛。
                             当天上午10点，由王雷老师组织，229名网络工程专业学生参加了华为公司主办的2023年中国大学生ICT大赛河北省初赛。
@@ -90,19 +91,19 @@
             </view>
             <view v-if="i % 2 === 0" class="pc-container-l hidden-sm-and-down" v-showMeta="`animate__fadeInLeft`">
                 <el-row class="news-item">
-                    <el-col :xs="24" :sm="3" :xl="2" class="time">
+                    <el-col :xs="24" :md="3" :xl="2" class="time">
                         <view class="year">2022</view>
                         <view class="day">8-05</view>
                         <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(i)">
                                 <Right />
                             </el-icon></view>
                     </el-col>
-                    <el-col :xs="24" :sm="15" :xl="17" class="desc">
+                    <el-col :xs="24" :md="15" :xl="17" class="desc">
                         <view class="desc-title">国家精品课程</view>
                         <p>是一所有理想的大学，也是清华人实现自己梦想的来到这里，你将获得学术大师对你人生梦想的指点，你将触碰到科技和学术梦想的前沿，你将沐浴在共同追寻梦想的良好氛围中
                         </p>
                     </el-col>
-                    <el-col :xs="24" :sm="6" :xl="5" class="img-wrapper">
+                    <el-col :xs="24" :md="6" :xl="5" class="img-wrapper">
                         <el-image class="image" fit="fill"
                             src="https://7069324.s61i.faiusr.com/2/AD0IjL2vAxACGAAg7t-dvwUo4JTmrAMw3gI44AE.jpg" />
                     </el-col>

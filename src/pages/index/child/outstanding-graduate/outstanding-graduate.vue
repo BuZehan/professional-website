@@ -7,48 +7,51 @@
     <view class="container-content">
       <backgroundImg />
       <view class="trans">
-        <AppBreadcrumb :currentPageTxtArr="['优秀毕业生']" />
-      <el-row justify="center">
-        <el-col :xs="{ span: 18}" :sm="{ span:18 }" :md="{ span: 18 }">
-          <view class="title">优秀毕业生</view>
-          <p class="line"></p>
-          <view class="content">
-            
-          </view>
-        </el-col>
-      </el-row>
+        <AppBreadcrumb :currentPageTxtArr="['优秀校友']" />
+        <el-row justify="center">
+          <el-col :xs="{ span: 23 }" :sm="{ span: 22 }" :xl="20">
+            <view class="title">优秀校友</view>
+            <p class="line"></p>
+            <view class="content">
+              <Transition name="el-fade-in">
+                <keep-alive>
+                  <component :is="components[currentIdnex]" />
+                </keep-alive>
+              </Transition>
+            </view>
+          </el-col>
+        </el-row>
       </view>
     </view>
-    <Footer class="footer"/>
+    <Footer class="footer" />
   </view>
 </template>
 
 <script setup>
-import {onActivated} from 'vue'
-import OutstandingGraduate from "@/pages/index/components/outstanding-graduate/outstanding-graduate.vue";
-
+import { onActivated, onUnmounted ,ref} from 'vue';
+import PubSub from 'pubsub-js';
 // 面包屑
 import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
 import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
 // 页脚
-import Footer from "@/components/app-footer/app-footer.vue"
+import Footer from "@/components/app-footer/app-footer.vue";
 // 背景图
 import backgroundImg from "../background-img/background-img.vue";
-// pc端---跳转
-const pcNavgationTo = (e) => {
-  PubSub.publish('navgation-event', { e })
-};
-// 跳转---移动端
-const navgationTo = (url) => {
-  uni.navigateTo({
-    url: `/pages/${url}/${url}`,
-  });
-};
-
+// 路由数组
+import StuShow from './stu-show.vue';
+import StuDetail from './stu-detail.vue';
+const currentIdnex = ref(0)
+const components = [StuShow, StuDetail];
+PubSub.subscribe('stu-click-event', (msg, data) => {
+  currentIdnex.value = data.v
+})
 
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
+})
+onUnmounted(() => {
+  PubSub.unsubscribe('stu-click-event')
 })
 </script>
 
@@ -60,9 +63,11 @@ onActivated(() => {
 
   .container-content {
     height: fit-content !important;
- .trans{
-        transform: translateY(-40rpx);
-      }
+
+    .trans {
+      transform: translateY(-40rpx);
+    }
+
     .daohang {
       .el-col {
         display: flex;
@@ -111,9 +116,10 @@ onActivated(() => {
 
 @include respondTo("mobile") {
   .container {
-    .footer{
+    .footer {
       display: flex;
     }
+
     .m-header {
       display: block;
       position: fixed;
@@ -124,9 +130,11 @@ onActivated(() => {
     .container-content {
       margin-top: 100rpx;
       height: calc(100vh - 100rpx);
-      .trans{
+
+      .trans {
         transform: translateY(-100rpx);
       }
+
       .title {
         height: 80rpx;
         font-size: 70rpx;
@@ -146,14 +154,16 @@ onActivated(() => {
 
 @include respondTo("desktop") {
   .container {
-    .footer{
+    .footer {
       display: none;
     }
-    .container-content{
-      .trans{
+
+    .container-content {
+      .trans {
         transform: translateY(-145px);
       }
     }
+
     .m-header {
       display: none;
     }

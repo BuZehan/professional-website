@@ -74,6 +74,7 @@ const changeComponents = (index) => {
 };
 
 PubSub.subscribe('navgation-event', (msg, data) => {
+  PubSub.publish('changeActive', {index:data.e});
   changeComponents(data.e);
 })
 

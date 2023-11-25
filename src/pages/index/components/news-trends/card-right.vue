@@ -68,7 +68,7 @@
       .card-left-title{
          color: #fff;
         background: rgb(238,63,77);
-        background: linear-gradient(to bottom, rgba(238,63,77,1) , rgba(192,44,56,1) 100%);
+        background: linear-gradient(to bottom, rgba(238,63,77,1) , rgba(200,20,20,1) 100%);
       }
      }
    }
