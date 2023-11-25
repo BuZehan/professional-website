@@ -24,7 +24,7 @@
           <image mode="widthFix" src="../../static/logo.png" />
         </el-col>
         <el-col class="app-menu" :sm="18" :md="16" :lg="16">
-          <el-menu :default-active="activeStr" class="el-menu-demo" mode="horizontal" :ellipsis="false"
+          <el-menu :default-active="activeStr"  class="el-menu-demo" mode="horizontal" :ellipsis="false"
             @select="handleSelect">
             <template v-for="item in listData" :key="item.title">
               <el-menu-item v-if="!item.children" :index="item.name">{{
@@ -133,7 +133,7 @@ const listData = ref([
   { title: "专业新闻", name: "8", path: "/pages/index/child/news/news" },
 ]);
 const $emits = defineEmits(["changeComponents"]);
-const activeStr = ref("")
+const activeStr = ref("1")
 const handleSelect = (key, keyPath) => {
   activeStr.value = key;
   $emits("changeComponents", key);
@@ -158,11 +158,12 @@ PubSub.subscribe("changeActive", (msg, data) => {
     .el-row {
       height: 100rpx;
       overflow: hidden;
-      background-color: var(--HUAQING);
+      background:linear-gradient(92deg, var(--Footer) 0%, var(--Footer-DEEP) 100%);
 
       .el-col {
         height: 100%;
         display: flex;
+        
         justify-content: center;
         align-items: center;
       }

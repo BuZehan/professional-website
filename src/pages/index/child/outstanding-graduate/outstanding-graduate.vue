@@ -15,7 +15,7 @@
             <view class="content">
               <Transition name="el-fade-in">
                 <keep-alive>
-                  <component :is="components[currentIdnex]" />
+                  <component :is="components[UseStuInfoStore.currentRouterIndex]" />
                 </keep-alive>
               </Transition>
             </view>
@@ -38,21 +38,18 @@ import AppPopup from "@/components/app-popup/app-popup.vue";
 import Footer from "@/components/app-footer/app-footer.vue";
 // 背景图
 import backgroundImg from "../background-img/background-img.vue";
+// 仓库状态数据
+import {StuInfoStore} from '@/store/modules/stu.js';
+const UseStuInfoStore = StuInfoStore();
 // 路由数组
 import StuShow from './stu-show.vue';
 import StuDetail from './stu-detail.vue';
-const currentIdnex = ref(0)
 const components = [StuShow, StuDetail];
-PubSub.subscribe('stu-click-event', (msg, data) => {
-  currentIdnex.value = data.v
-})
 
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
 })
-onUnmounted(() => {
-  PubSub.unsubscribe('stu-click-event')
-})
+
 </script>
 
 <style scoped lang="scss">

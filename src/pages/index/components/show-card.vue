@@ -1,6 +1,6 @@
 <template>
     <view>
-        <view class="show-card-container" :style="{ width: width + 'vw' }">
+        <view class="show-card-container" @tap="clikCardEvent" :style="{ width: width + 'vw' }">
             <view class="title">{{ data.title }}</view>
             <view class="des">{{ data.desc }}</view>
             <!-- 一张图 -->
@@ -92,10 +92,7 @@ const imgArrLength = computed((): number => {
 })
 // 发布时间
 // import { calculateTime } from '@/utils/utils'
-import { useIntersectionObserver } from '@vueuse/core'
-import { nextTick } from 'vue'
 import { uni } from '@dcloudio/uni-h5';
-import { onLoad } from '@dcloudio/uni-app';
 import PubSub from 'pubsub-js';
 // const releaseTime = computed(() => {
 //     return calculateTime(+$props.data.timestamp)
@@ -106,13 +103,15 @@ const imgNum578 = computed(() => {
     const numArr = [4, 5, 7, 8]
     return numArr.includes(len)
 })
-const $emit = defineEmits(['PlayHandler']);
+const $emits = defineEmits(['PlayHandler','clikCardEvent']);
 
+// 视频播放
 const videoPlay = () => {
     if ($props.vId != '') {
-        $emit('PlayHandler', $props.vId)
+        $emits('PlayHandler', $props.vId)
     }
 }
+// 视频暂停
 PubSub.subscribe('v-pause', (msg, data) => {
     if (data.playId != $props.vId) {
         let videoContext = uni.createVideoContext(`video${$props.vId}`)
@@ -120,6 +119,11 @@ PubSub.subscribe('v-pause', (msg, data) => {
     }
     console.log(data.playId);
 })
+
+// 自定义事件
+const clikCardEvent = () => {
+    $emits('clikCardEvent')
+}
 </script>
       
     

@@ -2,7 +2,7 @@
     <view class="graduate-container">
         <el-row>
             <el-col :lg="12"  v-for="stu in stuList" :key="stu.desc">
-                <ShowCard :width="90" @PlayHandler="videoPlayHandler" :vId="stu?.id"  :data="stu" />
+                <ShowCard @clikCardEvent="clikCardEvent" :width="90" @PlayHandler="videoPlayHandler" :vId="stu?.id"  :data="stu" />
             </el-col>
         </el-row>
     </view>
@@ -75,6 +75,12 @@ const stuList = [
 const videoPlayHandler = (e) => {
 console.log('child',e);
 PubSub.publish('v-pause',{playId:e})
+}
+// 点击卡片
+const clikCardEvent = (e) => {
+    uni.navigateTo({
+        url: `/pages/index/child/outstanding-graduate/outstanding-graduate?id=${1}`,
+    })
 }
 </script>
    

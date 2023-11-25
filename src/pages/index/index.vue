@@ -105,13 +105,14 @@
       </view>
       <!-- 优秀毕业生 -->
       <view class="outstanding-graduate block" v-showMeta="`animate__fadeInRight`">
-        <view class="title">优秀毕业生</view>
-        <view class="title-e">Outstanding Graduates</view>
+        <view class="title">优秀校友</view>
+        <view class="title-e">Outstanding Alumni</view>
         <view class="content">
-          <OutstandingGraduate />
+          <OutstandingGraduate class="hidden-md-and-up" />
+          <PcOutandingGraduate :isPC="true" class="hidden-sm-and-down"/>
         </view>
         <el-button class="m-el-btn-jump" @tap="navgationTo('outstanding-graduate')">了解更多</el-button>
-        <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('7-1')">了解更多</el-button>
+        <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('7')">了解更多</el-button>
       </view>
     </view>
     <AppFooter class="mFooter" />
@@ -139,6 +140,7 @@ import News from "./components/news-cards/news-cards.vue"
 import Company from "./components/company/company.vue";
 // 毕业生
 import OutstandingGraduate from "./components/outstanding-graduate/outstanding-graduate.vue";
+import PcOutandingGraduate from "@/pages/index/child/outstanding-graduate/stu-show.vue"
 
 // 跳转专业介绍---移动端
 const navgationTo = (url) => {

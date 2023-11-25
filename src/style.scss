@@ -34,9 +34,12 @@ body{
   --CHAHUAHONG:#ee3f4d;
   // 枣红
   --ZAOHONG:#7c1823;
+  // 殷红
+  --YINHONG:#82111f;
   // 满天星紫
   --MANTIANXINGZI:#2e317c;
-  --MAIN:rgb(200,20,20);
+  --Footer:rgb(175, 32, 32);
+  --Footer-DEEP:var(--ZAOHONG);
   font-family: var(--el-font-family);
 }
 
@@ -48,7 +51,7 @@ body{
   /* 滑块部分 */
   ::-webkit-scrollbar-thumb { 
     border-radius: 5px;
-    background-color:#cfcfcf;
+    background-color:#ffcfcf;
   }
   /* 轨道部分 */
   ::-webkit-scrollbar-track {   

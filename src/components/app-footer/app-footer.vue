@@ -38,7 +38,7 @@ const data = [
 @include respondTo('mobile') {
     .app-footer {
         width: 100vw;
-        background-color: var(--HUAQING);
+        background:linear-gradient(92deg, var(--Footer) 0%, var(--Footer-DEEP) 100%);
         display: flex;
         height: 300px;
         overflow: hidden;
@@ -48,24 +48,25 @@ const data = [
         margin-top: 50px;
         .el-row {
             width: 100%;
-            .el-col{
-                margin-bottom: 100rpx;
-            }
             .left {
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: center;
+                .el-image{
+                    transform: scale(.8);
+                    transform-origin: left center;
+                }
             }
     
             .center {
                 display: flex;
                 align-items: flex-start;
-                justify-content: center;
                 flex-direction: column;
-    
+                transform:  translateY(-50rpx);
                 p {
                     color: #eee;
-                    margin-bottom: 20px;
+                    margin-bottom: 10rpx;
+                    font-size: 28rpx;
                 }
             }
     
@@ -81,7 +82,7 @@ const data = [
 @include respondTo('desktop') {
     .app-footer {
         width: 100vw;
-        background-color: var(--ZAOHONG);
+        background:linear-gradient(92deg, var(--Footer) 0%, var(--Footer-DEEP) 100%);
         display: flex;
         height: 200px;
         justify-content: flex-start;
@@ -95,6 +96,10 @@ const data = [
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                .el-image{
+                    transform: scale(.8);
+                    transform-origin: left center;
+                }
             }
     
             .center {
@@ -105,7 +110,7 @@ const data = [
     
                 p {
                     color: #eee;
-                    margin-bottom: 20px;
+                    margin-bottom:6px;
                 }
             }
     

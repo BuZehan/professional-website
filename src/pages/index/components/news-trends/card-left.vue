@@ -2,7 +2,7 @@
     <view class="card-left" v-showMeta="`animate__fadeInLeft`">
         <view class="content">
                 <el-image fit="fill"
-                    src="https://www.cs.tsinghua.edu.cn/__local/1/E0/35/4397E8391305420A3A3E4F28767_926302EA_1E8CAF.jpeg" />
+                    src="https://test.hebic.cn/uploadfile/2023/1121/20231121085353148.jpg" />
                 <view class="time">
                     <view class="day">06</view>
                     <view class="year">2023-11</view>
