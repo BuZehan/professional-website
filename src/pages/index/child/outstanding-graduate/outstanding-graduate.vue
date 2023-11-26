@@ -5,9 +5,9 @@
       <AppHeader />
     </template>
     <view class="container-content">
-      <backgroundImg />
+      <backgroundImg :img="stu_img_list"/>
       <view class="trans">
-        <AppBreadcrumb :currentPageTxtArr="['优秀校友']" />
+        <AppBreadcrumb :currentPageTxtArr="['优秀校友']" @changePage="changePage" />
         <el-row justify="center">
           <el-col :xs="{ span: 23 }" :sm="{ span: 22 }" :xl="20">
             <view class="title">优秀校友</view>
@@ -49,7 +49,15 @@ const components = [StuShow, StuDetail];
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
 })
+// 面包屑点击事件
+const changePage = (i) => {
+  UseStuInfoStore.updateCurrentRouterIndex(0)
+}
 
+// 学生图片列表
+import img1 from '@/pages/index/components/outstanding-graduate/image/21-17-bk-hhy/1.jpg'
+import img2 from '@/pages/index/components/outstanding-graduate/image/21-17-bk-hhy/2.jpg'
+const stu_img_list = [img1,img2]
 </script>
 
 <style scoped lang="scss">

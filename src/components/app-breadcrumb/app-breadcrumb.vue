@@ -57,6 +57,7 @@ const changePage = (i) => {
    
 <style scoped lang='scss'>
 .daohang {
+    background-color: #ffffff1c;
     .el-col {
         display: flex;
         align-items: center;

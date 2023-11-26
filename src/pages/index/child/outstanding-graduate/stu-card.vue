@@ -4,10 +4,10 @@
             <el-image fit="cover" :src="stu_img" />
         </el-col>
         <el-col :xs="16" :sm="16" class="right-text">
-            <view class="title">斯泽夫学长在清华经管学院2021毕业典礼演讲</view>
+            <view class="title">{{data.title}}</view>
             <view class="line"></view>
             <view class="desc">
-                登上大舞台融入新格局——在清华经管学院2021毕业典礼上的演讲全国政协常委，哈电集团董事长、党委书记斯泽夫2021年6月27日斯泽夫各位敬爱的老师、亲爱的同学们：大家下午好！我是斯泽夫，清华经管学院93级校友，很高兴作为今年毕业典礼的主讲嘉宾在这里跟大家分享我的观点。我学经济管理何为“经管”，我认为就是“经世济民，求社会之功；管财理家，谋大众之利”，1993年当我来到清华经管学院的时候，正是秉持着这样的理念，我...
+                <p v-for="desc , i in data.desc" :key="i">{{desc}}"></p>
             </view>
             <view class="detail">查看详情<el-icon class="icon" style="vertical-align: middle">
                     <DArrowRight />
@@ -21,7 +21,12 @@
 //    学生图片 展示
 import stu_img from '@/pages/index/components/outstanding-graduate/image/21-17-bk-hhy/1.jpg'
 import { DArrowRight } from '@element-plus/icons-vue'
-
+const $props = defineProps({
+    data:{
+        type:Object,
+        default:() => {}
+    }
+})
 </script>
    
    

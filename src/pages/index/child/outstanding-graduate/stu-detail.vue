@@ -1,6 +1,15 @@
 <template>
    <view class="stu-detail">
-
+      <el-row class="stu-detail-row" justify="center">
+         <el-col class="title" :xs="24" :sm="24" :md="20">
+               {{ UseStuInfoStore.currentStuData.title }}
+         </el-col>
+         <el-col class="desc" :xs="24" :sm="24" :md="20">
+            <p v-for="desc , i in UseStuInfoStore.currentStuData.desc" :key="i">
+               {{ desc }}
+            </p>
+         </el-col>
+      </el-row>
       <el-button @tap="back">返回</el-button>
    </view>
 </template>
@@ -16,4 +25,28 @@ const back = () => {
 </script>
    
    
-<style scoped lang='scss'></style>
+<style scoped lang='scss'>
+@import "@/style.scss";
+
+.stu-detail-row {
+   text-indent: 0 !important;
+   .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60rpx;
+      margin-bottom: 100rpx;
+   }
+   .desc{
+      font-weight: normal;
+      text-indent: 70rpx;
+      line-height: 60rpx;
+      p{
+         margin: 40rpx auto;
+      }
+   }
+}
+.el-button{
+   float: right;
+}
+</style>

@@ -39,6 +39,7 @@ const data = [
     .app-footer {
         width: 100vw;
         background:linear-gradient(92deg, var(--Footer) 0%, var(--Footer-DEEP) 100%);
+        background: var(--ZAOHONG);
         display: flex;
         height: 300px;
         overflow: hidden;
@@ -83,6 +84,7 @@ const data = [
     .app-footer {
         width: 100vw;
         background:linear-gradient(92deg, var(--Footer) 0%, var(--Footer-DEEP) 100%);
+        background: var(--ZAOHONG);
         display: flex;
         height: 200px;
         justify-content: flex-start;

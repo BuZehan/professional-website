@@ -66,7 +66,7 @@ const pcNavgationTo = (e) => {
 
 @include respondTo('mobile') {
   .news-card-wrapper {
-    width: 100vw;
+    width: 100%;
 
     .m {
       display: flex;
@@ -192,7 +192,7 @@ const pcNavgationTo = (e) => {
 
     .pc-el-row {
       max-width: 1440px;
-      width: 100vw;
+      width: 100%;
       display: flex;
 
       .el-col {

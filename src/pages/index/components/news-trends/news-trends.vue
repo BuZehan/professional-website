@@ -1,7 +1,9 @@
 <template>
-    <view class="news-container">
+    <el-row class="news-container">
+       <el-col :xs="24" :sm="24" :md="20" :lg="20">
         <NewsCard />
-    </view>
+       </el-col>
+    </el-row>
 </template>
    
    

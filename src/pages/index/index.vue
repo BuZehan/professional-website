@@ -17,7 +17,7 @@
         <el-button class="m-el-btn-jump" @tap="navgationTo('news')">了解更多</el-button>
       </view>
       <!-- 专业介绍 -->
-      <view class="block major" v-showMeta="`animate__fadeInLeft`">
+      <view class="block major" v-showMeta="`animate__fadeInLsrcListeft`">
         <view class="title" style="color: #fff;">网络工程</view>
         <view class="title-e" style="color: #eee;">Network Project</view>
         <view class="content">
@@ -52,23 +52,16 @@
         <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('3')">了解更多</el-button>
       </view>
       <!-- 专业课程 -->
-      <view class="block zykc" v-showMeta="`animate__fadeInRight`">
+      <el-row justify="center" class="block zykc" v-showMeta="`animate__fadeInRight`">
         <view class="title">专业课程</view>
         <view class="title-e">Specialized Courses</view>
-        <view class="content">
-          <view class="desc">
-            “1+3战略”:一个基础，三个方向：以数通为基础，大力发展云计算、移动互联网5G、ICT融合创新三个方向。
-          </view>
-          <div class="image">
-            <el-image :lazy="true" :hide-on-click-modal="true" :src="url" :zoom-rate="1.2" :max-scale="7" :min-scale="0.2"
-              :preview-src-list="srcList" :initial-index="4" fit="cover" />
-          </div>
-          <view class="tip">点击图片查看大图</view>
-        </view>
+        <el-col :xs="24" :sm="24" :md="20" >
+        <SpecializedCourses />
+        </el-col>
         <el-button class="m-el-btn-jump" @tap="navgationTo('specialized-courses')">了解更多</el-button>
         <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('4')">了解更多</el-button>
 
-      </view>
+      </el-row>
       <!-- 实验室 -->
       <view class="block lab" v-showMeta="`animate__fadeInLeft`">
         <view class="title">教学实验室</view>
@@ -132,6 +125,8 @@ import MovableSwiper from "./components/teaching-team/teaching-team.vue";
 import Swiper from "./components/swiper.vue";
 // 新闻动态
 import NewsTrends from "./components/news-trends/news-trends.vue";
+// 专业课程
+import SpecializedCourses from "./components/specialized-courses/specialized-courses.vue";
 // 实验室
 import Lab from "./components/lab/lab.vue"
 // 证书
@@ -152,9 +147,6 @@ const navgationTo = (url) => {
 const pcNavgationTo = (e) => {
   PubSub.publish('navgation-event', { e, index: true })
 };
-import zykc_img from "../../static/zykc.png"
-const url = zykc_img
-const srcList = [zykc_img]
 // 合作企业
 import huawei from "@/static/company/huawei_logo.png"
 import hjkj from "@/static/company/hjkj.png"
@@ -314,21 +306,7 @@ button {
         }
       }
 
-      .zykc {
-        width: 94vw;
-        margin-left: 3vw;
-
-        .el-image {
-          box-shadow: 0 0 80rpx 0 #5e5e5e21;
-        }
-
-        .tip {
-          color: #999;
-          font-size: 26rpx;
-          text-align: center;
-          margin-bottom: 20rpx;
-        }
-      }
+  
 
       .lab {
         width: 94vw;
@@ -459,31 +437,6 @@ button {
       }
     }
 
-    .zykc {
-      .desc {
-        margin: 20px auto;
-        margin-bottom: 8px;
-      }
-
-      .image {
-        display: flex;
-        justify-content: center;
-      }
-
-      .el-image {
-        width: 30vw;
-        border: 2rpx solid #999;
-        border-radius: 8rpx;
-        margin: 20rpx auto;
-      }
-
-      .tip {
-        color: #999;
-        font-size: 26rpx;
-        text-align: center;
-        margin-bottom: 20rpx;
-      }
-    }
 
     .lab {
       width: 100vw;
@@ -506,4 +459,13 @@ button {
       }
     }
   }
-}</style>
+}
+
+// 专业课程
+.zykc{
+  width: 100vw;
+  .el-col{
+    width: 100%;
+  }  
+}
+</style>
