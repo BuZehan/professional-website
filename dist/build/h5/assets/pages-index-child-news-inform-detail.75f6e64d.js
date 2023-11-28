@@ -1,1 +1,0 @@
-import{a,c as e,w as s,i as t,y as r}from"./index-407bc2bb.js";import{_ as o}from"./_plugin-vue_export-helper.1b428a4d.js";const n=o({},[["render",function(o,n){const d=t;return a(),e(d,{class:"new-detail"},{default:s((()=>[r(" 通知详情 ")])),_:1})}],["__scopeId","data-v-6b67d2b4"]]);export{n as default};

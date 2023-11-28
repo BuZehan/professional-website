@@ -50,6 +50,9 @@
 		},
 		{
 			"path":"pages/index/child/outstanding-graduate/outstanding-graduate"
+		},
+		{
+			"path":"pages/index/child/outstanding-graduate/stu-detail-m"
 		}
 	],
 	"globalStyle": {

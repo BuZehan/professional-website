@@ -1,13 +1,13 @@
 <template>
     <el-row class="stu-card">
         <el-col :xs="8" :sm="8" class="image-wrapper">
-            <el-image fit="cover" :src="stu_img" />
+            <el-image fit="cover" :src="data.imgList[0]" />
         </el-col>
         <el-col :xs="16" :sm="16" class="right-text">
-            <view class="title">{{data.title}}</view>
+            <view class="title">{{ data.title }}</view>
             <view class="line"></view>
             <view class="desc">
-                <p v-for="desc , i in data.desc" :key="i">{{desc}}"></p>
+                <p v-for="desc, i in data.desc" :key="i">{{ desc }}"></p>
             </view>
             <view class="detail">查看详情<el-icon class="icon" style="vertical-align: middle">
                     <DArrowRight />
@@ -19,12 +19,11 @@
    
 <script setup>
 //    学生图片 展示
-import stu_img from '@/pages/index/components/outstanding-graduate/image/21-17-bk-hhy/1.jpg'
 import { DArrowRight } from '@element-plus/icons-vue'
 const $props = defineProps({
-    data:{
-        type:Object,
-        default:() => {}
+    data: {
+        type: Object,
+        default: () => { }
     }
 })
 </script>
@@ -32,6 +31,7 @@ const $props = defineProps({
    
 <style scoped lang='scss'>
 @import '@/style.scss';
+
 @include respondTo('mobile') {
     .stu-card {
         width: 100%;
@@ -39,34 +39,37 @@ const $props = defineProps({
         display: flex;
         justify-content: flex-start;
         cursor: pointer;
+
         .image-wrapper {
             overflow: hidden;
             height: 300rpx;
             margin-bottom: 18rpx;
+
             .el-image {
                 width: 100%;
                 height: 100%;
             }
-    
+
         }
-    
+
         .right-text {
             width: 100%;
             box-sizing: border-box;
             padding-left: 20rpx;
+
             .title {
                 display: flex;
                 align-items: flex-start;
                 font-size: 30rpx;
             }
-    
+
             .line {
                 height: 1rpx;
                 width: 100%;
                 background-color: #ccc;
                 margin: 8rpx auto;
             }
-    
+
             .desc {
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
@@ -79,12 +82,12 @@ const $props = defineProps({
                 line-height: 46rpx;
                 font-size: 28rpx;
             }
-    
+
             .detail {
                 color: rgb(200, 20, 20);
                 font-size: 30rpx;
                 font-weight: normal;
-    
+
                 .icon {
                     margin-bottom: 2rpx;
                     margin-left: 10rpx;
@@ -94,48 +97,50 @@ const $props = defineProps({
         }
     }
 }
-@include respondTo ('desktop'){
+
+@include respondTo ('desktop') {
     .stu-card {
         width: 100%;
         height: 100%;
         display: flex;
         justify-content: flex-start;
         cursor: pointer;
-    
+
         &:hover {
             .image-wrapper {
                 .el-image {
                     transform: scale(1.1);
                 }
             }
-            .icon{
+
+            .icon {
                 transform: translateX(100%);
             }
         }
-    
+
         .image-wrapper {
             overflow: hidden;
-    
+
             .el-image {
                 width: 480rpx;
                 height: 100%;
                 overflow: hidden;
                 transition: all .5s;
             }
-    
+
         }
-    
+
         .right-text {
             width: 100%;
             box-sizing: border-box;
             padding-left: 60rpx;
-    
+
             .title {
                 display: flex;
                 align-items: flex-start;
                 font-size: 38rpx;
             }
-    
+
             .line {
                 height: 1rpx;
                 width: 100%;
@@ -143,7 +148,7 @@ const $props = defineProps({
                 margin-top: 70rpx;
                 margin-bottom: 20rpx;
             }
-    
+
             .desc {
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
@@ -156,12 +161,12 @@ const $props = defineProps({
                 line-height: 46rpx;
                 font-size: 28rpx;
             }
-    
+
             .detail {
                 color: rgb(200, 20, 20);
                 font-size: 30rpx;
                 font-weight: normal;
-    
+
                 .icon {
                     margin-bottom: 2rpx;
                     margin-left: 10rpx;
@@ -170,5 +175,4 @@ const $props = defineProps({
             }
         }
     }
-}
-</style>
+}</style>

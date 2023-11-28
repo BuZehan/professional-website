@@ -45,4 +45,7 @@ export const pageIndexSetting = [
 	{
 		"path":"pages/index/child/news/inform-detail"
 	},
+	{
+		"path":"pages/index/child/outstanding-graduate/stu-detail-m"
+	}
 ]

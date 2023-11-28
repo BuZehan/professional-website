@@ -15,22 +15,22 @@
             <view class="content">
               <el-row>
                 <!-- 菜单切换 -->
-                <el-col :xs="24"  :md="4" v-showMeta="`animate__fadeInLeft`">
+                <el-col :xs="24" :md="{ span: 4 }" v-showMeta="`animate__fadeInLeft`">
                   <el-row justify="center" class="news-menu">
-                    <el-col :class="{ active: currentIndex === 0 || currentIndex === 2 }" :xs="12" :sm="10" :md="20" :lg="24"
-                      @tap="toogleComponent(0)">
+                    <el-col :class="{ active: currentIndex === 0 || currentIndex === 2 }" :xs="12" :sm="10" :md="20"
+                      :lg="24" @tap="toogleComponent(0)">
                       新闻动态
                     </el-col>
                   </el-row>
                   <el-row justify="center" class="news-menu">
-                    <el-col :class="{ active: currentIndex === 1 || currentIndex === 3 }" :xs="12" :sm="10" :md="20" :lg="24"
-                      @tap="toogleComponent(1)">
+                    <el-col :class="{ active: currentIndex === 1 || currentIndex === 3 }" :xs="12" :sm="10" :md="20"
+                      :lg="24" @tap="toogleComponent(1)">
                       通知公告
                     </el-col>
                   </el-row>
                 </el-col>
                 <!-- 组件切换 -->
-                <el-col class="component-wrapper" :xs="24" :sm="{span:16,offset:4}" :md="20">
+                <el-col class="component-wrapper" :xs="{span:22,offset:1}" :sm="{ span: 18, offset:3 }" :md="{ span: 20,offset:0 }">
                   <Transition name="el-fade-in" mode="out-in">
                     <KeepAlive>
                       <component :is="Components[currentIndex]" />
@@ -84,6 +84,9 @@ PubSub.subscribe('go-to-detail', (msg, data) => {
     currentIndex.value = 3;
   }
 })
+PubSub.subscribe('back-event',(msg,data) => {
+  currentIndex.value = data.index
+})
 // 滚动页面
 const target = ref(null)
 
@@ -95,9 +98,10 @@ const target = ref(null)
 
 .container-news {
   position: relative;
+
   .container-content {
     height: fit-content !important;
-  overflow: hidden;
+    overflow: hidden;
 
 
     .trans {
@@ -177,7 +181,7 @@ const target = ref(null)
 
     .component-wrapper {
       box-sizing: border-box;
-      padding: 0 40rpx;
+      width: 100%;
     }
   }
 }
@@ -198,6 +202,7 @@ const target = ref(null)
     .container-content {
       margin-top: 100rpx;
       overflow-y: scroll;
+
       .trans {
         transform: translateY(-100rpx);
       }
@@ -247,10 +252,12 @@ const target = ref(null)
       font-size: 32rpx;
       font-weight: bold;
       color: #333;
-
       view {
         text-indent: 60rpx;
         margin-bottom: 20rpx;
+      }
+      .component-wrapper{
+        padding-left: 80rpx;
       }
     }
   }

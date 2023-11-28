@@ -16,8 +16,8 @@
         </view>
         <el-button class="m-el-btn-jump" @tap="navgationTo('news')">了解更多</el-button>
       </view>
-      <!-- 专业介绍 -->
-      <view class="block major" v-showMeta="`animate__fadeInLsrcListeft`">
+      <!-- 专业介绍 -- mobile-->
+      <view class="block major hidden-md-and-up" v-showMeta="`animate__fadeInLsrcListeft`">
         <view class="title" style="color: #fff;">网络工程</view>
         <view class="title-e" style="color: #eee;">Network Project</view>
         <view class="content">
@@ -38,9 +38,9 @@
           </view>
         </view>
         <el-button class="m-el-btn-jump wlgc-btn" @tap="navgationTo('specialty-instruction')">了解更多</el-button>
-        <el-button class="pc-el-btn-jump wlgc-btn" @tap="pcNavgationTo('2')">了解更多</el-button>
       </view>
-
+      <!-- 左图右文  专业介绍 -->
+      <SpecialtyInstruction v-showMeta="`animate__fadeInRight`" />
       <!-- 师资团队 -->
       <view class="block teaching-team" v-showMeta="`animate__fadeInRight`">
         <view class="title">师资团队</view>
@@ -55,13 +55,13 @@
       <el-row justify="center" class="block zykc" v-showMeta="`animate__fadeInRight`">
         <view class="title">专业课程</view>
         <view class="title-e">Specialized Courses</view>
-        <el-col :xs="24" :sm="24" :md="20" >
-        <SpecializedCourses />
+        <el-col :xs="24" :sm="24" :md="20">
+          <SpecializedCourses />
         </el-col>
         <el-button class="m-el-btn-jump" @tap="navgationTo('specialized-courses')">了解更多</el-button>
         <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('4')">了解更多</el-button>
-
       </el-row>
+
       <!-- 实验室 -->
       <view class="block lab" v-showMeta="`animate__fadeInLeft`">
         <view class="title">教学实验室</view>
@@ -102,7 +102,7 @@
         <view class="title-e">Outstanding Alumni</view>
         <view class="content">
           <OutstandingGraduate class="hidden-md-and-up" />
-          <PcOutandingGraduate :isPC="true" class="hidden-sm-and-down"/>
+          <PcOutandingGraduate :isPC="true" class="hidden-sm-and-down" />
         </view>
         <el-button class="m-el-btn-jump" @tap="navgationTo('outstanding-graduate')">了解更多</el-button>
         <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('7')">了解更多</el-button>
@@ -136,7 +136,8 @@ import Company from "./components/company/company.vue";
 // 毕业生
 import OutstandingGraduate from "./components/outstanding-graduate/outstanding-graduate.vue";
 import PcOutandingGraduate from "@/pages/index/child/outstanding-graduate/stu-show.vue"
-
+// 专业介绍 左图右文
+import SpecialtyInstruction from "./components/specialty-instruction/specialty-instruction.vue";
 // 跳转专业介绍---移动端
 const navgationTo = (url) => {
   uni.navigateTo({
@@ -242,16 +243,35 @@ button {
       margin-top: 100rpx;
 
       .major {
-        background-image: url('../../static/wg.png');
-        background-position: center center;
+        background: url('../../static/banner-scholl.jpg') no-repeat center;
         background-size: cover;
         color: #333;
+        overflow: hidden;
+        position: relative;
+
+        &::before {
+          position: absolute;
+          z-index: 1;
+          width: 100%;
+          height: 100%;
+          background-color: #00000091;
+          content: "";
+        }
 
         .title {
           margin-top: 80rpx;
+          position: static;
+          z-index: 5;
+        }
+
+        .title-e {
+          position: static;
+          z-index: 5;
         }
 
         .content {
+          position: static;
+          z-index: 5;
           margin-top: 20rpx;
           box-sizing: border-box;
           padding: 0 20rpx;
@@ -274,7 +294,9 @@ button {
         }
 
         .m-el-btn-jump {
-          margin-bottom: 100rpx;
+          margin-bottom: 10rpx;
+          position: static;
+          z-index: 5;
         }
 
       }
@@ -306,7 +328,7 @@ button {
         }
       }
 
-  
+
 
       .lab {
         width: 94vw;
@@ -341,6 +363,8 @@ button {
     .wlgc-btn {
       color: #333 !important;
       border: #333;
+      position: relative;
+      z-index: 5;
 
       &:hover {
         background-color: #fff !important;
@@ -385,14 +409,33 @@ button {
     }
 
     .major {
-      background-image: url('../../static/wg.png');
-      background-position: center center;
+      background: url('../../static/banner-scholl.jpg') no-repeat bottom right;
       background-size: cover;
-      box-sizing: border-box;
+      color: #333;
+      overflow: hidden;
+      position: relative;
+
+      &::before {
+        position: absolute;
+        z-index: 1;
+        width: 100%;
+        height: 100%;
+        background-color: #00000091;
+        content: "";
+      }
+
       padding: 50rpx 0;
       max-width: 1920px;
 
+      .title,
+      .title-e {
+        position: relative;
+        z-index: 5;
+      }
+
       .content {
+        position: relative;
+        z-index: 5;
         box-sizing: border-box;
         padding: 0 20rpx;
         width: 70%;
@@ -462,10 +505,10 @@ button {
 }
 
 // 专业课程
-.zykc{
+.zykc {
   width: 100vw;
-  .el-col{
+
+  .el-col {
     width: 100%;
-  }  
-}
-</style>
+  }
+}</style>

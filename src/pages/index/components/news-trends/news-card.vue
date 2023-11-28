@@ -188,6 +188,8 @@ const pcNavgationTo = (e) => {
 
     .pcMore {
       display: flex;
+      cursor: pointer;
+
     }
 
     .pc-el-row {

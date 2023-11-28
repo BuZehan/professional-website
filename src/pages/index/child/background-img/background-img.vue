@@ -3,8 +3,8 @@
         <el-image :src="img" fit="cover" />
     </view>
     <view v-else-if="imgType === 'array'">
-        <swiper class="swiper" autoplay :interval="3000" circular easing-function="easeInCubic">
-            <swiper-item v-for="(_img, index) in img" :key="index">
+        <swiper class="swiper" autoplay  circular >
+            <swiper-item @tap="click" v-for="(_img, index) in img" :key="index">
                 <el-image fit="cover" :src="_img" />
             </swiper-item>
         </swiper>
@@ -24,6 +24,10 @@ const $props = defineProps({
 const imgType = computed(() => {
     return typeof $props.img === 'string' ? $props.img.length > 0 ? 'string' : '' : 'array'
 })
+
+const click = () => {
+    console.log(12);
+}
 </script>
    
    
@@ -48,6 +52,8 @@ const imgType = computed(() => {
 
 .swiper {
     height: 400px;
+    position: relative;
+    z-index: -5;
 
     .el-image {
         width: 100vw;
@@ -62,6 +68,19 @@ const imgType = computed(() => {
     .bg-img-wrapper,
     .el-image {
         height: 340rpx !important;
+    }
+
+    .swiper {
+        height: 340rpx;
+        position: relative;
+        z-index: -5;
+
+        .el-image {
+            width: 100vw;
+            max-width: 1920px;
+            background-size: cover;
+            height: 400px;
+        }
     }
 }
 </style>

@@ -10,7 +10,7 @@
             </p>
          </el-col>
       </el-row>
-      <el-button @tap="back">返回</el-button>
+      <el-button @tap="back" color="rgb(200,20,20)">返回</el-button>
    </view>
 </template>
 <script setup>
@@ -28,25 +28,54 @@ const back = () => {
 <style scoped lang='scss'>
 @import "@/style.scss";
 
-.stu-detail-row {
-   text-indent: 0 !important;
-   .title {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 60rpx;
-      margin-bottom: 100rpx;
-   }
-   .desc{
-      font-weight: normal;
-      text-indent: 70rpx;
-      line-height: 60rpx;
-      p{
-         margin: 40rpx auto;
+
+
+@include respondTo('mobile') {
+   .stu-detail-row {
+      text-indent: 0 !important;
+      .title {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 34rpx;
+         font-weight: bold;
+         margin-bottom:50rpx;
+      }
+      .desc{
+         font-weight: normal;
+         text-indent: 70rpx;
+         line-height: 60rpx;
+         p{
+            margin-bottom: 20rpx;
+         }
       }
    }
+   .el-button{
+      float: right;
+   }
 }
-.el-button{
-   float: right;
+
+@include respondTo('desktop') {
+   .stu-detail-row {
+      text-indent: 0 !important;
+      .title {
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 60rpx;
+         margin-bottom: 100rpx;
+      }
+      .desc{
+         font-weight: normal;
+         text-indent: 70rpx;
+         line-height: 60rpx;
+         p{
+            margin: 40rpx auto;
+         }
+      }
+   }
+   .el-button{
+      float: right;
+   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <view class="app-header">
     <el-row class="hidden-md-and-up" justify="space-between">
-      <el-col class="app-logo" :xs="16" :sm="10">
+      <el-col class="app-logo" :xs="16" :sm="9">
         <image mode="widthFix" src="../../static/logo-sm.png" />
       </el-col>
       <el-col class="app-menu" :xs="4" :sm="2">
@@ -158,8 +158,8 @@ PubSub.subscribe("changeActive", (msg, data) => {
     .el-row {
       height: 100rpx;
       overflow: hidden;
+      position: relative;
       background:linear-gradient(92deg, var(--Footer) 0%, var(--Footer-DEEP) 100%);
-
       .el-col {
         height: 100%;
         display: flex;
@@ -171,11 +171,11 @@ PubSub.subscribe("changeActive", (msg, data) => {
       .app-logo {
         width: 100%;
         height: 100rpx;
-
+        box-sizing: border-box;
         image {
           width: 100%;
           padding-left: 8rpx;
-          max-height: 100rpx;
+          max-height: 90rpx;
         }
       }
 
@@ -241,8 +241,6 @@ PubSub.subscribe("changeActive", (msg, data) => {
     }
   }
 }
-
-@media screen and (min-width: 425px) and (max-width:767px) {}
 
 @include respondTo("desktop") {
   .app-pc-navigation {

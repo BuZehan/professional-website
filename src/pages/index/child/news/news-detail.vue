@@ -14,6 +14,8 @@
                 <p v-else>{{ c }}</p>
             </el-col>
         </el-row>
+        <el-button color="rgb(200,20,20)" class="hidden-sm-and-down btn" type="primary" @tap="back">返回</el-button>
+        <el-button color="rgb(200,20,20)" class="hidden-md-and-up btn" type="primary" @tap="Mback">返回</el-button>
         <Footer class="hidden-md-and-up"/>
     </view>
 </template>
@@ -52,12 +54,27 @@ onMounted(() => {
 
    })
 })
+
+const back = () => {
+    console.log(123);
+    PubSub.publish('back-event',{index:0})
+}
+// 移动端返回
+const Mback = () => {
+    uni.navigateBack({
+        delta: 1
+    })
+}
 </script>
    
    
 <style scoped lang='scss'>
 @import '@/style.scss';
 
+
+.btn{
+    float: right;
+}
 
 @include respondTo('mobile') {
     .news-detail {

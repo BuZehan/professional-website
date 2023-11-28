@@ -18,13 +18,14 @@
 </template>
 
 <script setup>
-import { ref, onUnmounted, onMounted,nextTick } from "vue";
+import { ref, onUnmounted, onMounted, nextTick, watch } from "vue";
 import PubSub from "pubsub-js";
 import { debounce } from '@/utils'
 import { MainStore } from "@/store"
 import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
 import Index from "../index/index.vue";
+import { windowResize } from '@/hooks'
 // 页脚
 import AppFooter from "@/components/app-footer/app-footer.vue"
 // 专业介绍
@@ -39,7 +40,6 @@ import Laboratory from "../index/child/laboratory/laboratory.vue";
 import OutstandingGraduate from "../index/child/outstanding-graduate/outstanding-graduate";
 // 新闻动态
 import News from "../index/child/news/news";
-
 // 二级路由
 // 合作企业
 import Huawei from "../index/child/enterprise/huawei.vue";
@@ -48,7 +48,7 @@ import XinXiangHongFu from "../index/child/enterprise/xin-xiang-hong-fu.vue";
 import HaoJingTechnology from "../index/child/enterprise/hao-jing-technology.vue";
 import TianRongXin from "../index/child/enterprise/tian-rong-xin.vue";
 import ZhongJing from "../index/child/enterprise/zhong-jing.vue";
-import { onShow } from "@dcloudio/uni-app";
+const UseMainStore = MainStore()
 
 const ComponentsArray = [
   [Index],
@@ -74,7 +74,8 @@ const changeComponents = (index) => {
 };
 
 PubSub.subscribe('navgation-event', (msg, data) => {
-  PubSub.publish('changeActive', {index:data.e});
+  PubSub.publish('changeActive', { index: data.e });
+  console.log(data.e);
   changeComponents(data.e);
 })
 
@@ -93,24 +94,8 @@ onUnmounted(() => {
   PubSub.unsubscribe('scroll-top');
 })
 
-const UseMainStore = MainStore()
-// onMounted(() => {
-//   layout.value.$el.addEventListener("scroll", (e) => {
-//     debounce(UseMainStore.setMobileScrollY(e.target.scrollTop),500)
-//   });
-// })
 
-window.addEventListener('resize',(e) => {
-  let w = window.innerWidth;
-  if(w >= 992){
-    // PC
-    // window.location.href = '/'
-  }
-  if(w < 992) {
-    // mobile
-
-  }
-})
+windowResize()
 </script>
 
 <style scoped lang="scss">

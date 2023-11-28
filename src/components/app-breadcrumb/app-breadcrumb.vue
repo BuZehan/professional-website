@@ -3,9 +3,9 @@
         <el-col :xs="{ span: 20 }" :sm="{ span: 20 }" :md="{ span: 18 }">
             <el-image src="../../static/wz.png" />
             <el-breadcrumb :separator-icon="ArrowRight">
-                <el-breadcrumb-item @tap="navgationTo(mParams)" class="hidden-sm-and-up">{{ txt }}</el-breadcrumb-item>
-                <el-breadcrumb-item @tap="pcNavgationTo(pcParams)" class="hidden-xs-only">{{ txt }}</el-breadcrumb-item>
-                <el-breadcrumb-item v-for="t,i in currentPageTxtArr" @tap="changePage(i,t)" :key="t">{{ t }}</el-breadcrumb-item>
+                <el-breadcrumb-item  @tap="navgationTo(mParams)" class="hidden-sm-and-up">{{ txt }}</el-breadcrumb-item>
+                <el-breadcrumb-item  @tap="pcNavgationTo(pcParams)" class="hidden-xs-only">{{ txt }}</el-breadcrumb-item>
+                <el-breadcrumb-item  v-for="t,i in currentPageTxtArr" @tap="changePage(i,t)" :key="t">{{ t }}</el-breadcrumb-item>
             </el-breadcrumb>
         </el-col>
     </el-row>
@@ -16,7 +16,7 @@
 import { uni } from '@dcloudio/uni-h5';
 import { ArrowRight } from '@element-plus/icons-vue'
 
-defineProps({
+const $props = defineProps({
     txt: {
         type: String,
         default: '首页'
@@ -44,7 +44,6 @@ const navgationTo = (url) => {
         url: `/pages/${url}/${url}`,
     });
 };
-
 const $emits =defineEmits(['changePage'])
 // 点击当前页面
 const changePage = (i) => {
@@ -52,12 +51,15 @@ const changePage = (i) => {
         $emits('changePage',0)
     }
 };
+
+
 </script>
    
    
 <style scoped lang='scss'>
 .daohang {
-    background-color: #ffffff1c;
+    position: relative;
+    z-index: 10;
     .el-col {
         display: flex;
         align-items: center;

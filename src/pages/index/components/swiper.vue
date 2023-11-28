@@ -86,13 +86,13 @@ const ul = ref(null)
 
     .m-swiper {
       .swiper {
-        height: 460rpx;
+        height: 50vmin;
+        min-height: 460rpx;
       }
 
       .swiper-item {
         display: block;
-        height: 460rpx;
-
+        height: 100%;
         .swiper-img {
           width: 100vw;
           height: 100%;

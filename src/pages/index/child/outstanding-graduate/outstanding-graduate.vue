@@ -5,9 +5,9 @@
       <AppHeader />
     </template>
     <view class="container-content">
-      <backgroundImg :img="stu_img_list"/>
+      <backgroundImg :img="UseStuInfoStore.currentRouterIndex === 0 ? '' : stu_img_list"/>
       <view class="trans">
-        <AppBreadcrumb :currentPageTxtArr="['优秀校友']" @changePage="changePage" />
+        <AppBreadcrumb class="bread" :currentPageTxtArr="['优秀校友']" @changePage="changePage" />
         <el-row justify="center">
           <el-col :xs="{ span: 23 }" :sm="{ span: 22 }" :xl="20">
             <view class="title">优秀校友</view>
@@ -28,7 +28,7 @@
 </template>
 
 <script setup>
-import { onActivated, onUnmounted ,ref} from 'vue';
+import { onActivated, computed ,ref,watch} from 'vue';
 import PubSub from 'pubsub-js';
 // 面包屑
 import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
@@ -53,11 +53,9 @@ onActivated(() => {
 const changePage = (i) => {
   UseStuInfoStore.updateCurrentRouterIndex(0)
 }
-
-// 学生图片列表
-import img1 from '@/pages/index/components/outstanding-graduate/image/21-17-bk-hhy/1.jpg'
-import img2 from '@/pages/index/components/outstanding-graduate/image/21-17-bk-hhy/2.jpg'
-const stu_img_list = [img1,img2]
+const stu_img_list = computed(() => {
+ return  UseStuInfoStore.currentStuData.imgList.length > 0 ? UseStuInfoStore.currentStuData.imgList : ''
+})
 </script>
 
 <style scoped lang="scss">
@@ -65,7 +63,7 @@ const stu_img_list = [img1,img2]
 
 .container {
   position: relative;
-
+  height: 100vh;
   .container-content {
     height: fit-content !important;
 
@@ -137,14 +135,21 @@ const stu_img_list = [img1,img2]
       height: calc(100vh - 100rpx);
 
       .trans {
-        transform: translateY(-100rpx);
+        transform: translateY(-60rpx);
+        .bread{
+          background-color: rgba(0, 0, 0, 0.363);
+          padding: 0 !important;
+        }
       }
 
       .title {
         height: 80rpx;
         font-size: 70rpx;
+        margin-top: 40rpx;
       }
-
+      .line{
+        margin-top: 46rpx;
+      }
       .content {
         line-height: 50rpx;
 
