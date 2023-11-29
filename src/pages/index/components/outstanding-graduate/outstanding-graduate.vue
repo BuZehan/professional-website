@@ -36,8 +36,6 @@ import pj_img_1 from './image/pj/1.jpg'
 import pj_img_2 from './image/pj/2.jpg'
 import pj_img_3 from './image/pj/3.jpg'
 import pj_img_4 from './image/pj/4.jpg'
-import pj_img_5 from './image/pj/5.jpg'
-import pj_img_6 from './image/pj/6.jpg'
 const stuList = [
     {
         title: '21届毕业生--17网工本科班--胡海洋',
@@ -52,7 +50,7 @@ const stuList = [
     {
         title:'丰沃创新---2022年华三杯大赛培训讲师--2022.9',
         desc:'庞杰晋升副主管',
-        imgArr:[pj_img_1,pj_img_2,pj_img_4,pj_img_6],
+        imgArr:[pj_img_1,pj_img_2,pj_img_4],
     },
     // {
     //     title:'22届毕业生--18级本科班--王冲',

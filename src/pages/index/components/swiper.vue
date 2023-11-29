@@ -45,10 +45,7 @@ const PCSwiperArr = [{
 // 移动端
 // 实验室
 import mbanner1 from "@/static/mbanner/1.jpg";
-import mbanner2 from "@/static/mbanner/2.jpg";
-import mbanner3 from "@/static/mbanner/3.webp";
-import video from '@/static/mbanner/cloud.mp4'
-const MSwiperArr = [{ name: "img", url: mbanner1 }, { name: "img", url: mbanner2 }, { name: "img", url: mbanner3 }, { name: "img", url: 'https://test.hebic.cn/uploadfile/2023/1106/20231106083424630.jpg' }];
+const MSwiperArr = [{ name: "img", url: mbanner1 }, { name: "img", url: 'https://test.hebic.cn/uploadfile/2023/1106/20231106083424630.jpg' }];
 
 // 轮播
 const currentImg = ref(0)

@@ -16,7 +16,7 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
     server: {
       //同plugins同级
       port: 8080, //本地端口号
-      host: "192.168.59.232",
+      host: "192.168.192.232",
       proxy: {
         //配置代理服务器
         "/api": {

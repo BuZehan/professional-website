@@ -3,12 +3,12 @@
         <SwiperCard :dataArray="collegeArray" class="m-card" />
         <view class="pc-card">
             <el-row justify="start" :gutter="20">
-                <el-col v-for="card, i in cardNum" :key="i" :sm="8" :lg="6">
+                <el-col v-for="card, i in collegeArray" :key="i" :sm="8" :lg="6">
                     <el-card shadow="hover" :body-style="{ padding: '0px' }">
                         <el-image src="../../../../static/news/1.jpg" class="image" />
                         <div style="padding: 14px">
-                            <view class="title">华为中国大学生ICT大赛</view>
-                            <view class="desc">河北传媒学院代表队</view>
+                            <view class="title">{{card.title}}</view>
+                            <view class="desc">{{card.desc}}</view>
                         </div>
                     </el-card>
                 </el-col>
@@ -27,9 +27,8 @@ import auth from '@/static/news/authorization.jpg'
 const collegeArray = [{ img: auth, title: '华为ICT学院授权证书', desc: '河北传媒学院，', time: '2021.11.10', label: 'index' },
 { img: img1, title: '华为中国大学生ICT大赛2021', desc: '实践赛-河北赛区本科组云赛道中荣获三等奖', time: '2021.11.10' },
 { img: img2, title: '华为中国大学生ICT大赛2021', desc: '实践赛-河北赛区本科组网络赛道中荣获三等奖', time: '2021.11.10' },
-{ img: img3, title: '华为中国大学生ICT大赛2021', desc: '实践赛-河北赛区本科组网络赛道中荣获三等奖', time: '2021.11.10' },
+{ img: img3, title: '华为中国大学生ICT大赛2021------压缩图', desc: '实践赛-河北赛区本科组网络赛道中荣获三等奖', time: '2021.11.10' },
 ]
-const cardNum = ref(5)
 </script>
 
 <style scoped lang="scss">
