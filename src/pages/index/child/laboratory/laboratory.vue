@@ -141,7 +141,7 @@ const RoomData = ref([
     name: "3. 兴B312（公共机房11）"
   },
   {
-    name: "4. VR虚拟全景图"
+    name: "4. VR虚拟全景"
   },
 ])
 const currentRoomIndex = ref(0)

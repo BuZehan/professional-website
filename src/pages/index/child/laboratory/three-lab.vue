@@ -26,8 +26,10 @@ import gsap from 'gsap'
 //导入轨道控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
-
-const sceneList = [{ name: "B207", url: "/HDR/office.jpg", type: 'jpg' }, { name: "测试-夜晚", url: "/HDR/night.jpg", type: 'jpg' }, { name: "测试-白天", url: "/HDR/sky.jpg", type: 'jpg' }]
+import img1 from "@/static/HDR/office.jpg"
+import img2 from "@/static/HDR/night.jpg"
+import img3 from "@/static/HDR/sky.jpg"
+const sceneList = [{ name: "B207", url: img1, type: 'jpg' }, { name: "测试-夜晚", url: img2, type: 'jpg' }, { name: "测试-白天", url: img3, type: 'jpg' }]
 const currentTexture = ref(sceneList[0].url)
 
 // 1、 创建场景    
@@ -188,9 +190,10 @@ console.log('scene :', scene);
 @include respondTo('desktop') {
     .lab-wrapper {
         width: 100%;
+
         .three {
             width: 100%;
-            height:70vh;
+            height: 70vh;
             overflow: hidden;
         }
 
@@ -199,4 +202,5 @@ console.log('scene :', scene);
 
 
     }
-}</style>
+}
+</style>

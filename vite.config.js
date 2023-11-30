@@ -13,7 +13,7 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
     plugins: [
       uni(),
     ],
-    publicDir:'public',
+    // publicDir:'public',
     css: {
       preprocessorOptions: {
         scss: {
@@ -35,8 +35,6 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
         },
       },
     },
-    //打包
-    lintOnSave: false,
-    publicPath: './', // 基本路径
+    // publicDir:"public"
   };
 });
