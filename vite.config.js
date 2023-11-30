@@ -1,5 +1,6 @@
 import { defineConfig, loadEnv } from "vite";
 import uni from "@dcloudio/vite-plugin-uni";
+import { publish } from "pubsub-js";
 // https://vitejs.dev/config/
 /**
  * mode 当前环境模式 command 在 Vite 的 API 中，在开发环境下
@@ -12,6 +13,7 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
     plugins: [
       uni(),
     ],
+    publicDir:'public',
     css: {
       preprocessorOptions: {
         scss: {

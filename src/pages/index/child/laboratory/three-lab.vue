@@ -27,7 +27,7 @@ import gsap from 'gsap'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 
-const sceneList = [{ name: "B207", url: "/public/HDR/office.jpg", type: 'jpg' }, { name: "测试-夜晚", url: "/public/HDR/night.jpg", type: 'jpg' }, { name: "测试-白天", url: "/public/HDR/sky.jpg", type: 'jpg' }]
+const sceneList = [{ name: "B207", url: "/HDR/office.jpg", type: 'jpg' }, { name: "测试-夜晚", url: "/HDR/night.jpg", type: 'jpg' }, { name: "测试-白天", url: "/HDR/sky.jpg", type: 'jpg' }]
 const currentTexture = ref(sceneList[0].url)
 
 // 1、 创建场景    
