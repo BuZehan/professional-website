@@ -59,7 +59,6 @@ onBeforeUnmount(() => {
     PubSub.unsubscribe('teacher-event')
     PubSub.unsubscribe('page-scroll')
 })
-
 // 页面滚动
 onActivated(() => {
     PubSub.publish('page-scroll', { scroll: true })
@@ -69,7 +68,6 @@ onActivated(() => {
    
    
 <style scoped lang='scss'>
-@import '@/style.scss';
 .teacher-info {
     font-weight: 300;
 

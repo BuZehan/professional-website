@@ -19,13 +19,13 @@
 
 <script setup>
 import { ref, onUnmounted, onMounted, nextTick, watch } from "vue";
-import PubSub from "pubsub-js";
-import { debounce } from '@/utils'
-import { MainStore } from "@/store"
 import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
 import Index from "../index/index.vue";
 import { windowResize } from '@/hooks'
+import { MainStore } from "@/store"
+import PubSub from "pubsub-js";
+
 // 页脚
 import AppFooter from "@/components/app-footer/app-footer.vue"
 // 专业介绍
@@ -49,7 +49,6 @@ import HaoJingTechnology from "../index/child/enterprise/hao-jing-technology.vue
 import TianRongXin from "../index/child/enterprise/tian-rong-xin.vue";
 import ZhongJing from "../index/child/enterprise/zhong-jing.vue";
 const UseMainStore = MainStore()
-
 const ComponentsArray = [
   [Index],
   [SpecialtyInstruction],
@@ -72,7 +71,7 @@ const changeComponents = (index) => {
     j.value = +numArr[1] - 1;
   }
 };
-
+// jian
 PubSub.subscribe('navgation-event', (msg, data) => {
   PubSub.publish('changeActive', { index: data.e });
   console.log(data.e);

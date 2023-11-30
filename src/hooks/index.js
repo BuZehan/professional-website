@@ -1,5 +1,6 @@
 import { debounce } from "@/utils"
 import { MainStore } from "@/store"
+import PubSub from "pubsub-js"
 const UseMian = MainStore()
 export const windowResize = () => {
   window.addEventListener('resize', debounce((e) => {
@@ -11,10 +12,10 @@ export const windowResize = () => {
         console.log('> 992 ');
       } else {
         // console.log(window.location);
-        // let hashValue = UseMian.hashMap.get(hash);
+        let hashValue = UseMian.hashMap.get(hash);
         // console.log(hashValue);
         // console.log(hashValue[0], hashValue[1]);
-        // UseMian.updateRouterIndex( `${hashValue[0]}`)
+        UseMian.updateRouterIndex( `${hashValue[0]}`)
         window.location.href = '/';
         console.log('跳转首页');
       }

@@ -27,20 +27,11 @@
 </template>
   
 <script setup>
-import { ref, onBeforeUnmount, onActivated } from 'vue'
+import { ref } from 'vue'
 import { TeacherInfoStore } from '@/store/modules/teacherInfo.js'
 const UseTeacherInfoStore = TeacherInfoStore()
-// 面包屑
-import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-// 页脚
-import Footer from "@/components/app-footer/app-footer.vue"
-// 背景图
-import backgroundImg from "../background-img/background-img.vue";
-//   教师展示
+// 教师展示
 import teacherInfo from './teacher-info.vue';
-
 // 切换当前状态
 const teacherIndex = ref(0)
 // 返回师资团队
@@ -49,20 +40,15 @@ const changePage = (e) => {
         url: '/pages/index/child/teaching-team/teaching-team'
     })
 }
-
-
-
 </script>
   
 <style scoped lang="scss">
-@import "@/style.scss";
-
 .container {
     position: relative;
 
     .container-content {
         height: fit-content !important;
-        
+
         .instruction {
             transform: translateY(-120rpx);
         }

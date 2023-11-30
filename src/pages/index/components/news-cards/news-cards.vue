@@ -54,7 +54,6 @@ const handleCurrentChange = (val) => {
    
    
 <style scoped lang='scss'>
-@import '../../../../style.scss';
 
 .el-divider {
     margin: 0;

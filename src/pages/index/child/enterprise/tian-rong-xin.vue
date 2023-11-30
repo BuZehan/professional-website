@@ -8,15 +8,16 @@
       <view class="banner">
         <view class="app-banner-page"></view>
         <view class="text-content">
-          <h1 style="color: #fff;font-weight:normal;margin-bottom:30px;">关于天融信</h1>
-          <p class="desc">中国领先的网络安全、大数据与云服务提供商 </p>
+          <h1 class="txt">
+            关于天融信
+          </h1>
+          <p class="desc">中国领先的网络安全、大数据与云服务提供商</p>
         </view>
       </view>
 
       <view class="trans">
         <AppBreadcrumb class="breadcrumb" :currentPageTxtArr="['合作企业', '天融信']" />
         <el-row justify="center">
-
           <el-col :xs="{ span: 20 }" :sm="{ span: 20 }" :md="{ span: 18 }">
             <view class="title">天融信科技集团</view>
             <p class="line"></p>
@@ -28,11 +29,8 @@
                   <p>
                     天融信科技集团（证券代码：002212）创始于1995年，是上市公司中成立最早的网络安全企业，亲历中国网络安全产业的发展历程，如今已从中国第一台自主研发防火墙的缔造者成长为中国领先的网络安全、大数据与云服务提供商。多年来，集团为政府、金融、运营商、能源、卫生、教育、交通、制造等各行业客户提供网络安全产品与服务。未来，天融信将始终以捍卫国家网络空间安全为己任，创新超越，致力于成为民族安全产业的领导者、领先安全技术的创造者和数字时代安全的赋能者。
                   </p>
-                  <p>
-                    浩鲸科技在通信领域已覆盖全球近150家主流电信运营商，服务近18亿终端用户。其中，包括中国三大电信运营商（中国移动、中国电信、中国联通），欧洲的法国电信（Orange）、沃达丰（Vodafone）、荷兰皇家电信（KPN）、西班牙电信（Telefonica）、卢森堡POST，美洲电信（America
-                    Movil），东南亚的泰国TRUE，马来西亚电信（Telekom
-                    Malaysia），印尼Smartfren、Telkomsigma，菲律宾DITO，中东的阿联酋电信（Etisalat）、Zain，非洲的MTN等主流电信运营商。</p>
-                  <el-button @tap="jumpPage" style="float: right;">了解详情</el-button>
+
+                  <el-button @tap="jumpPage" style="float: right">了解详情</el-button>
                 </el-col>
                 <el-col v-showMeta="`animate__fadeInRight`" class="image-wrapper" :xs="24" :sm="12">
                   <el-image :src="txtRight" fit="cover" />
@@ -41,12 +39,14 @@
               <!-- 文字 -->
               <el-row class="row2" justify="space-between" :gutter="20">
                 <el-col class="instruction" :xs="24" :sm="24">
-                  <p>多年来，浩鲸科技先后获得 “国家规划布局内重点软件企业”、“云计算领军企业”、“新经济之王中国最具影响力企业”、“最强人工智能公司Top 30”、“TM Forum（电信管理论坛）Excellence
-                    Award年度卓越大奖”、“Frost & Sullivan全球客户价值领导奖”、“Informa最佳数字转型推荐奖”等荣誉，同时作为TM Forum
-                    ODA-CA开放数字架构的初创成员单位之一，助力电信行业建立开放、敏捷、符合云原生和零运维的全新数字化架构和标准，推动行业变革。此外，公司拥有国家计算机信息系统集成一级资质、全球研发CMMI
-                    5级认证等资质，并获得国家高新技术企业认定。</p>
                   <p>
-                    为了更好的为全球客户提供数字化转型服务，浩鲸科技具备全球化的咨询、产品研发及交付能力。在德国、荷兰、比利时、卢森堡、印度、新加坡、泰国等国家，及国内南京、北京、上海、广州、长沙、杭州、福州、郑州、成都等地，共设立了50多个研发中心和分支机构。
+                    天融信拥有完备的安全服务体系、权威的安全服务资质和专业化安全服务团队，超过1000名网络安全服务人员分布在北京、上海、广州、西安、成都等90多个分支机构，7×24小时竭诚为每一位客户提供高品质的在线及现场服务。
+                  </p>
+                  <p>
+                    自主创新是天融信的内在基因，从1996年推出填补国内空白的首台自主知识产权防火墙到国内首台ASIC千兆小包线速防火墙“猎豹”、下一代防火墙，从全球首发新一代可信并行计算安全平台到云时代超百G安全网关
+                    “擎天”、融入AI的下一代防火墙，天融信始终引领网络安全技术发展，至今已连续23年位居中国网络安全防火墙市场第一，在安全硬件、整体网络安全市场处于领导者地位。多年以来，天融信不断创新超越，在国内率先推出“TOPSEC”联动协议、“可信网络架构”（TNA1.0）、“可信网络世界”（TNW）
+                    及以网络安全为核心、大数据为基础、云服务为交付模式的“下一代可信网络安全架构” （NGTNA）
+                    ，构建了感知态势、联动防护的全局安全防御体系，同时也正式奏响了向云服务进军的号角。同时，作为最早参与信创事业的网络安全企业之一，天融信凭借自身强大的自主研发能力，与国产软硬件进行深度技术融合，打造出网络安全国产化最佳应用实践-天融信昆仑系列产品，全面助力信创产业发展。
                   </p>
                 </el-col>
               </el-row>
@@ -58,38 +58,18 @@
     <Footer class="footer" />
   </view>
 </template>
-  
+
 <script setup>
-// 面包屑
-import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-// 页脚
-import Footer from "@/components/app-footer/app-footer.vue"
-// 背景图
-import backgroundImg from "../background-img/background-img.vue";
 // banner
-import trx_banner1 from './image/trx/trx_banner.jpg';
-import txtRight from './image/hjkj/txtRight.jpg';
-// pc端---跳转
-const pcNavgationTo = (e) => {
-  PubSub.publish('navgation-event', { e })
-};
-// 跳转---移动端
-const navgationTo = (url) => {
-  uni.navigateTo({
-    url: `/pages/${url}/${url}`,
-  });
-};
+import trx_banner1 from "./image/trx/trx_banner.jpg";
+import txtRight from "./image/hjkj/txtRight.jpg";
 // 跳转华为云计算官网
 const jumpPage = () => {
-  window.open("https://www.topsec.com.cn/")
+  window.open("https://www.topsec.com.cn/");
 };
 </script>
-  
-<style scoped lang="scss">
-@import "../../../../style.scss";
 
+<style scoped lang="scss">
 .container {
   position: relative;
 
@@ -103,7 +83,7 @@ const jumpPage = () => {
       position: relative;
 
       .app-banner-page {
-        background-image: url('./image/trx/trx_banner.png');
+        background-image: url("./image/trx/trx_banner.png");
         background-position: 100%;
         background-repeat: no-repeat;
         background-size: cover;
@@ -123,6 +103,12 @@ const jumpPage = () => {
         z-index: 10;
         top: 0;
 
+        .txt {
+          color: #fff;
+          font-weight: normal;
+          margin-bottom: 30rpx;
+        }
+
         .desc {
           color: #fff;
           line-height: 48rpx;
@@ -134,8 +120,6 @@ const jumpPage = () => {
           overflow: hidden;
           text-overflow: ellipsis;
         }
-
-
       }
     }
 
@@ -149,7 +133,7 @@ const jumpPage = () => {
         align-items: center;
 
         .el-image {
-          transform: scale(.7);
+          transform: scale(0.7);
         }
 
         :deep(.el-breadcrumb) {
@@ -210,6 +194,8 @@ const jumpPage = () => {
     .breadcrumb {
       background-color: rgba(48, 49, 51, 0.636);
       padding: 0 !important;
+      position: relative;
+      z-index: 5;
     }
 
     .m-header {
@@ -223,8 +209,31 @@ const jumpPage = () => {
       margin-top: 100rpx;
       height: calc(100vh - 100rpx);
 
+      .banner {
+        height: 340rpx;
+      }
+
       .trans {
         transform: translateY(-60rpx);
+      }
+
+      .text-content {
+        width: 100% !important;
+        padding: 0 !important;
+        height: fit-content !important;
+        margin-top: 165rpx !important;
+        display: flex;
+        align-items: flex-start;
+        justify-content: flex-end;
+        flex-direction: column;
+        background-color: #3333333d;
+
+        .txt {
+          color: #fff;
+          font-weight: normal;
+          margin-bottom: 30rpx;
+          font-size: 30rpx;
+        }
       }
 
       .title {
@@ -235,6 +244,15 @@ const jumpPage = () => {
 
       .content {
         line-height: 50rpx;
+
+        .instruction {
+          h2 {
+            margin-bottom: 40rpx;
+          }
+          p{
+            margin-bottom: 50rpx;
+          }
+        }
 
         .c {
           text-indent: 60rpx;
@@ -272,7 +290,6 @@ const jumpPage = () => {
       color: #333;
     }
 
-
     .content {
       line-height: 40px;
       font-size: 32rpx;
@@ -304,6 +321,7 @@ const jumpPage = () => {
 
       .row2 {
         margin: 0;
+
       }
 
       .image-wrapper {
@@ -337,4 +355,3 @@ const jumpPage = () => {
     }
   }
 }</style>
-  

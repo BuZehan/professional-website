@@ -29,7 +29,6 @@ const total = computed(() => {
 const showData = computed(() => {
     return UseTeacherInfoStore.teacherList.slice((currentPage.value - 1) * pageSize.value, currentPage.value * pageSize.value);
 });
-
 // 查看教师详情
 const clickDetail = (data) => {
     UseTeacherInfoStore.updateTeacherInfo(data)
@@ -38,8 +37,6 @@ const clickDetail = (data) => {
 onBeforeUnmount(() => {
     PubSub.unsubscribe('teacher-event')
 })
-
-
 // 分页
 const currentPage = ref(1)
 const pageSize = ref(6)

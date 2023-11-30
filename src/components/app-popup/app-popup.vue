@@ -102,7 +102,6 @@ const navgationTo = (url) => {
 </script>
 
 <style scoped lang="scss">
-@import "../../style.scss";
 @include respondTo("mobile") {
   .app-popup {
     width: 100vw;

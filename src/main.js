@@ -1,5 +1,5 @@
 import {
-	createSSRApp
+  createSSRApp
 } from "vue";
 import App from "./App.vue";
 import _directive from '@/components/library/index'
@@ -13,6 +13,11 @@ const pinia = Pinia.createPinia()
 pinia.use(piniaPluginPersistedstate)
 
 import 'animate.css';
+import Footer from "@/components/app-footer/app-footer.vue"
+import backgroundImg from "@/pages/index/child/background-img/background-img.vue"
+import AppHeader from "@/components/app-header/app-header.vue";
+import AppPopup from "@/components/app-popup/app-popup.vue";
+import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
 
 // 创建一个应用
 export function createApp() {
@@ -24,6 +29,13 @@ export function createApp() {
   app.use(ElementPlus);
   // 使用_directive自定义指令
   app.use(_directive);
+  // 注册全局组件
+  app.component('Footer', Footer);
+  app.component('backgroundImg', backgroundImg)
+  app.component('AppHeader', AppHeader)
+  app.component('AppPopup', AppPopup)
+  app.component('AppBreadcrumb', AppBreadcrumb)
+
   // 返回包含app和Pinia的对象
   return {
     app,

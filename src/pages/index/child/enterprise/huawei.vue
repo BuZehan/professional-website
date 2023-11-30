@@ -47,14 +47,6 @@
 </template>
   
 <script setup>
-// 面包屑
-import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-// 页脚
-import Footer from "@/components/app-footer/app-footer.vue"
-// 背景图
-import backgroundImg from "../background-img/background-img.vue";
 // banner
 import hw_img1 from './image/huawei/huawei_banner.jpg';
 // import hw_img2 from './image/huawei/huawei_banner2.jpg';
@@ -62,16 +54,7 @@ import hw_img3 from './image/huawei/huawei_banner3.jpg';
 import hw_img4 from './image/huawei/huawei_banner4.jpg';
 import hw_img5 from './image/huawei/huawei_banner5.jpg';
 import textImg from './image/huawei/huawei.jpg';
-// pc端---跳转
-const pcNavgationTo = (e) => {
-  PubSub.publish('navgation-event', { e })
-};
-// 跳转---移动端
-const navgationTo = (url) => {
-  uni.navigateTo({
-    url: `/pages/${url}/${url}`,
-  });
-};
+
 // 跳转华为云计算官网
 const jumpPage = () => {
   window.open("https://developer.huawei.com/")
@@ -79,7 +62,6 @@ const jumpPage = () => {
 </script>
   
 <style scoped lang="scss">
-@import "../../../../style.scss";
 
 .container {
   position: relative;

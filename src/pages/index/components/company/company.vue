@@ -27,7 +27,6 @@ const companyJump = (i) => {
    
    
 <style scoped lang='scss'>
-@import '../../../../style.scss';
 
 @include respondTo('mobile') {
     .wrapper {

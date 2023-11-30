@@ -30,14 +30,6 @@
 <script setup>
 import { onActivated, computed ,ref,watch} from 'vue';
 import PubSub from 'pubsub-js';
-// 面包屑
-import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-// 页脚
-import Footer from "@/components/app-footer/app-footer.vue";
-// 背景图
-import backgroundImg from "../background-img/background-img.vue";
 // 仓库状态数据
 import {StuInfoStore} from '@/store/modules/stu.js';
 const UseStuInfoStore = StuInfoStore();
@@ -59,7 +51,6 @@ const stu_img_list = computed(() => {
 </script>
 
 <style scoped lang="scss">
-@import "../../../../style.scss";
 
 .container {
   position: relative;

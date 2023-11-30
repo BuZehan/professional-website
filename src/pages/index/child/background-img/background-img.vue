@@ -14,7 +14,7 @@
    
    
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { computed } from 'vue'
 const $props = defineProps({
     img: {
         type: [String, Array],
@@ -32,7 +32,6 @@ const click = () => {
    
    
 <style scoped lang='scss'>
-@import '@/style.scss';
 
 .bg-img-wrapper {
     width: 100vw;

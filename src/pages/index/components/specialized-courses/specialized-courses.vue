@@ -21,7 +21,6 @@
    
    
 <style scoped lang='scss'>
-@import "@/style.scss";
 .course-container{
     width: 100%;
     margin: 38rpx auto;

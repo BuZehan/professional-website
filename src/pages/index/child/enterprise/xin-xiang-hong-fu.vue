@@ -51,14 +51,6 @@
 </template>
   
 <script setup>
-// 面包屑
-import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-// 页脚
-import Footer from "@/components/app-footer/app-footer.vue"
-// 背景图
-import backgroundImg from "../background-img/background-img.vue";
 // banner
 import xxhf_img1 from './image/xxhf/xxhf_banner_1.jpg';
 import hw_img3 from './image/huawei/huawei_banner2.jpg';
@@ -70,17 +62,6 @@ import 'swiper/css/pagination';
 // import required modules
 import { Pagination, Autoplay } from 'swiper/modules';
 const modules = [Pagination, Autoplay];
-
-// pc端---跳转
-const pcNavgationTo = (e) => {
-  PubSub.publish('navgation-event', { e })
-};
-// 跳转---移动端
-const navgationTo = (url) => {
-  uni.navigateTo({
-    url: `/pages/${url}/${url}`,
-  });
-};
 const jumpPage = () => {
   window.open("https://www.xinxianghf.cn/schoolIntroduction")
 };
@@ -88,7 +69,6 @@ const jumpPage = () => {
 </script>
   
 <style scoped lang="scss">
-@import "../../../../style.scss";
 .swiper-pagination-bullet-active{
   background-color: rgb(200,20,20) !important;
 }

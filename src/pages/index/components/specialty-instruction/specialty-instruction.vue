@@ -2,7 +2,7 @@
     <view class="instruction">
         <view class="title" style="color: #fff;">专业介绍</view>
         <view class="title-e" style="color: #eee;">Specialty Instruction</view>
-        <el-row :gutter="40">
+        <el-row justify="center">
             <el-col class="image-wrapper" :sm="9">
                 <el-image fit="cover" src="../../../../static/banner-scholl.jpg" />
             </el-col>
@@ -21,7 +21,7 @@
 <script setup>
 import PubSub from 'pubsub-js';
 const pcNavgationTo = (e) => {
-  PubSub.publish('navgation-event', { e, index: true })
+    PubSub.publish('navgation-event', { e, index: true })
 };
 </script>
    
@@ -66,7 +66,7 @@ const pcNavgationTo = (e) => {
         .text-wrapper {
             text-align: justify;
             line-height: 60rpx;
-
+            padding-left: 50px;
             .title {
                 font-size: 38rpx;
                 font-weight: bold;
@@ -84,11 +84,14 @@ const pcNavgationTo = (e) => {
             p {
                 margin-top: 30rpx;
             }
-.btn{
-    float: right;
-    margin-top: 100px;
-}   
+
+            .btn {
+                float: right;
+                margin-top: 100px;
+            }
         }
     }
 
-}</style>
+}
+
+</style>

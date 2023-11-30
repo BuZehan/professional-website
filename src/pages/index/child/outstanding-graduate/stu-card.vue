@@ -18,7 +18,7 @@
    
    
 <script setup>
-//    学生图片 展示
+// 学生图片 展示
 import { DArrowRight } from '@element-plus/icons-vue'
 const $props = defineProps({
     data: {
@@ -30,7 +30,6 @@ const $props = defineProps({
    
    
 <style scoped lang='scss'>
-@import '@/style.scss';
 
 @include respondTo('mobile') {
     .stu-card {

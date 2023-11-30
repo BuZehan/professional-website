@@ -13,7 +13,6 @@
    
    
 <style scoped lang='scss'>
-@import '../../../../style.scss';
 
 @include respondTo('mobile') {
     .news-container{

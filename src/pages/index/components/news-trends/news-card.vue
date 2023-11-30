@@ -62,7 +62,6 @@ const pcNavgationTo = (e) => {
    
    
 <style scoped lang='scss'>
-@import '../../../../style.scss';
 
 @include respondTo('mobile') {
   .news-card-wrapper {

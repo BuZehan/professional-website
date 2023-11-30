@@ -31,7 +31,6 @@
    
    
 <style scoped lang='scss'>
-@import '../../../../style.scss';
 
 .card-left {
     width: 94%;

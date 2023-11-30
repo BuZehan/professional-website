@@ -40,7 +40,7 @@
         <el-button class="m-el-btn-jump wlgc-btn" @tap="navgationTo('specialty-instruction')">了解更多</el-button>
       </view>
       <!-- 左图右文  专业介绍 -->
-      <SpecialtyInstruction v-showMeta="`animate__fadeInRight`" />
+      <SpecialtyInstruction v-showMeta="`animate__fadeInRight`" class="hidden-sm-and-down"/>
       <!-- 师资团队 -->
       <view class="block teaching-team" v-showMeta="`animate__fadeInRight`">
         <view class="title">师资团队</view>
@@ -167,7 +167,6 @@ const companyArr = [
 </script>
 
 <style scoped lang="scss">
-@import "../../style.scss";
 
 button {
   border: none;
@@ -487,8 +486,7 @@ button {
 
       .content {
         width: 100%;
-        height: 1500rpx;
-        margin-bottom: 20rpx;
+        margin-bottom: 80rpx;
       }
     }
 

@@ -26,7 +26,6 @@ const back = () => {
    
    
 <style scoped lang='scss'>
-@import "@/style.scss";
 
 
 

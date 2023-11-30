@@ -25,10 +25,6 @@
 import { Clock } from '@element-plus/icons-vue'
 import {onActivated,ref,onMounted,nextTick} from 'vue'
 import PubSub from 'pubsub-js';
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-import Footer from '@/components/app-footer/app-footer.vue'
-import { onShow } from '@dcloudio/uni-app';
 const newsData = {
     title: '网络专业学生积极参与2023年华为ICT大赛',
     time: '2023-11-21',
@@ -69,9 +65,6 @@ const Mback = () => {
    
    
 <style scoped lang='scss'>
-@import '@/style.scss';
-
-
 .btn{
     float: right;
 }

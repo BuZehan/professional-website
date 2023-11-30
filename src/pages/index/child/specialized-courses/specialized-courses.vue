@@ -37,26 +37,6 @@
   
 <script setup>
 import { onActivated } from 'vue'
-
-// 面包屑
-import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-// 页脚
-import Footer from "@/components/app-footer/app-footer.vue"
-// 背景图
-import backgroundImg from "../background-img/background-img.vue";
-// pc端---跳转
-const pcNavgationTo = (e) => {
-  PubSub.publish('navgation-event', { e })
-};
-// 跳转---移动端
-const navgationTo = (url) => {
-  uni.navigateTo({
-    url: `/pages/${url}/${url}`,
-  });
-};
-
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
 })
@@ -66,7 +46,6 @@ const srcList = [zykc_img]
 </script>
   
 <style scoped lang="scss">
-@import "../../../../style.scss";
 
 .container {
   position: relative;

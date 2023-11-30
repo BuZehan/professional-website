@@ -73,7 +73,6 @@ const ul = ref(null)
 </script>
 
 <style scoped lang="scss">
-@import "../../../style.scss";
 
 @include respondTo("mobile") {
   .swiper-container {

@@ -34,11 +34,6 @@
 </template>
 <script setup>
 import { ref,computed } from 'vue';
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
-import Footer from "@/components/app-footer/app-footer.vue";
-import backgroundImg from "../background-img/background-img.vue";
 
 // 仓库状态数据
 import { StuInfoStore } from '@/store/modules/stu.js';
@@ -59,7 +54,6 @@ const stu_img_list = computed(() => {
    
    
 <style scoped lang='scss'>
-@import "@/style.scss";
 
 @include respondTo("mobile") {
    .stu-detail {

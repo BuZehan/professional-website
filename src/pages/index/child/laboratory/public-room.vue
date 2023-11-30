@@ -16,7 +16,6 @@
  const imgList = [img1,img2]
  </script>
     
-    
  <style scoped lang='scss'>
     .xin426-container{
      width: 100%;

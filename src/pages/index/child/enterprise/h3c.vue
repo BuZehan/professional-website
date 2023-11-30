@@ -48,14 +48,6 @@
 </template>
   
 <script setup>
-// 面包屑
-import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-// 页脚
-import Footer from "@/components/app-footer/app-footer.vue"
-// 背景图
-import backgroundImg from "../background-img/background-img.vue";
 // banner
 import h3c_banner1 from './image/h3c/h3c.jpg';
 import textImg from './image/h3c/txtImg.jpg';
@@ -77,7 +69,6 @@ import txtRight from './image/h3c/txt_right.jpg'
 </script>
   
 <style scoped lang="scss">
-@import "../../../../style.scss";
 
 .container {
   position: relative;

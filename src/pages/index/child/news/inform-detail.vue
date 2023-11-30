@@ -25,9 +25,6 @@
 import { Clock } from '@element-plus/icons-vue'
 import { onActivated, ref, onMounted, nextTick } from 'vue'
 import PubSub from 'pubsub-js';
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-import Footer from '@/components/app-footer/app-footer.vue'
 import zhengshu from "@/static/news/stu1.png"
 const newsData = {
     title: '恭喜 XXX 同学顺利考过华为HCIP-Cloud Computing证书！',
@@ -39,7 +36,6 @@ const newsData = {
         '网络工程专业一直秉承“以赛促教、以赛促学、以赛促发展”的理念，积极组织学生参加各种专业大赛，以促进专业的发展。'
     ]
 }
-
 // 页面滚动
 onActivated(() => {
     PubSub.publish('scroll-top', {
@@ -60,7 +56,6 @@ const Mback = () => {
    
    
 <style scoped lang='scss'>
-@import '@/style.scss';
 .btn{
     float: right;
 }

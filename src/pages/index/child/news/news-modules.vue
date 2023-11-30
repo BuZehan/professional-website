@@ -145,8 +145,6 @@ const goToDetailM = () => {
    
    
 <style scoped lang='scss'>
-@import '@/style.scss';
-
 .inform-modules {
     height: fit-content;
     text-indent: 0 !important;

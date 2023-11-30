@@ -12,11 +12,18 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
     plugins: [
       uni(),
     ],
+    css:{
+      preprocessorOptions:{
+        scss:{
+          additionalData: `@import "@/style.scss";`
+        }
+      }
+    },
     // vite.config.ts
     server: {
       //同plugins同级
       port: 8080, //本地端口号
-      host: "192.168.192.232",
+      host: "192.168.171.232",
       proxy: {
         //配置代理服务器
         "/api": {

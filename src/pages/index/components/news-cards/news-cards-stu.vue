@@ -26,7 +26,6 @@ const stuArray = [{ img: stu1, title: '华为HCIP证书', desc: '22级专接本1
 </script>
 
 <style scoped lang="scss">
-@import '../../../../style.scss';
 
 @include respondTo('mobile') {
 .m-card{

@@ -37,7 +37,6 @@ defineProps({
    
    
 <style scoped lang='scss'>
-@import '../../../../style.scss';
 .swiper {
     width: 480rpx;
     height: fit-content;

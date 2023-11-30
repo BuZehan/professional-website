@@ -89,12 +89,7 @@ const currentStuData = ref([
 
 </script>
    
-   
 <style scoped lang='scss'>
-@import '@/style.scss';
-
-
-
 .stu-show {
     box-sizing: border-box;
     width: 100%;

@@ -77,7 +77,6 @@ const mClickTeacherItem = (i) => {
 </script>
 
 <style scoped lang="scss">
-@import '../../../../style.scss';
 
 .mySwiper {
   margin: 20rpx auto;

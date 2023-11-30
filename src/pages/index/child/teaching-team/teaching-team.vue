@@ -38,18 +38,8 @@ import PubSub from 'pubsub-js'
 import ShowTeacherList from './show-teacher-list.vue';
 import { TeacherInfoStore } from '@/store/modules/teacherInfo.js'
 const UseTeacherInfoStore = TeacherInfoStore()
-
 // 教师详情
 import TeacherInfo from "./teacher-info.vue";
-// 面包屑
-import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-// 页脚
-import Footer from "@/components/app-footer/app-footer.vue"
-// 背景图
-import backgroundImg from "../background-img/background-img.vue";
-
 // 路由数组
 const RouterArr = [ShowTeacherList, TeacherInfo]
 // 切换当前状态
@@ -62,19 +52,11 @@ PubSub.subscribe('teacher-event', (msg, v) => {
 PubSub.subscribe('index-teacher-event', (msg, data) => {
   currentStatus.value = data.num
 })
-
-onBeforeUnmount(() => {
-  PubSub.unsubscribe('teacher-event')
-  PubSub.unsubscribe('index-teacher-event')
-})
-
-
 // 返回师资团队
 const changePage = (e) => {
   scrollPage(e)
   currentStatus.value = e;
 }
-
 // 滚动页面
 const target = ref(null)
 const scrollPage = (v) => {
@@ -86,14 +68,16 @@ const scrollPage = (v) => {
     })
   }
 }
-
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
+})
+onBeforeUnmount(() => {
+  PubSub.unsubscribe('teacher-event')
+  PubSub.unsubscribe('index-teacher-event')
 })
 </script>
 
 <style scoped lang="scss">
-@import "@/style.scss";
 
 .container {
   position: relative;

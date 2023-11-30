@@ -12,10 +12,6 @@
                     </view>
                     <view class="tip"></view>
                 </el-col>
-                <!-- <el-col class="btn-wrapper" :xs="24" :sm="{ span: 24 }">
-                    <el-button type="primary" v-for="item, i in sceneList" @click="changeScene(i, item.type)">{{ item.name
-                    }}</el-button>
-                </el-col> -->
             </el-row>
 
         </view>
@@ -137,8 +133,6 @@ console.log('scene :', scene);
 </script>
    
 <style scoped lang='scss'>
-@import '@/style.scss';
-
 .lab-wrapper {
     width: 100%;
 

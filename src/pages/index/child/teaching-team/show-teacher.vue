@@ -51,7 +51,6 @@ const mClickDetail = () => {
    
    
 <style scoped lang='scss'>
-@import '@/style.scss';
 
 .teacher-wrapper {
     width: 100%;

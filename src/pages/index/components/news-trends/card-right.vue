@@ -19,7 +19,6 @@
    
    
 <style scoped lang='scss'>
-@import '../../../../style.scss';
 
    .card-right{
     width: 100%;

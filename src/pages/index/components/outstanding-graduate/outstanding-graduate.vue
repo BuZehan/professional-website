@@ -84,7 +84,6 @@ const clikCardEvent = (e) => {
    
    
 <style scoped lang='scss'>
-@import '../../../../style.scss';
 
 @include respondTo('mobile') {
     .graduate-container {

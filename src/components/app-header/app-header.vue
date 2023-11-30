@@ -145,7 +145,6 @@ PubSub.subscribe("changeActive", (msg, data) => {
 </script>
 
 <style scoped lang="scss">
-@import "../../style.scss";
 
 @include respondTo("mobile") {
   .app-header {

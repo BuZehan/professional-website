@@ -33,7 +33,6 @@
 <script setup>
 import { ref } from 'vue';
 import PubSub from 'pubsub-js';
-
 // 分页
 const currentPage = ref(1)
 const pageSize = ref(6)
@@ -58,7 +57,6 @@ const goToDetailM = (i) => {
    
    
 <style scoped lang='scss'>
-@import '@/style.scss';
 
 .inform-modules {
     text-indent: 0 !important;

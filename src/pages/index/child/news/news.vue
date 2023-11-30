@@ -50,21 +50,11 @@
 <script setup>
 import { onActivated, ref, onUnmounted, onMounted } from 'vue';
 import PubSub from 'pubsub-js';
-// 面包屑
-import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
-import AppHeader from "@/components/app-header/app-header.vue";
-import AppPopup from "@/components/app-popup/app-popup.vue";
-// 页脚
-import Footer from "@/components/app-footer/app-footer.vue";
-// 背景图
-import backgroundImg from "../background-img/background-img.vue";
 // 石榴背景
 import sl from '@/static/sl.jpg';
-
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
 })
-
 // 动态组件
 import InformModules from './inform-modules.vue';
 import NewsMoudlers from './news-modules.vue';
@@ -89,13 +79,9 @@ PubSub.subscribe('back-event',(msg,data) => {
 })
 // 滚动页面
 const target = ref(null)
-
-
 </script>
 
 <style scoped lang="scss">
-@import "../../../../style.scss";
-
 .container-news {
   position: relative;
 

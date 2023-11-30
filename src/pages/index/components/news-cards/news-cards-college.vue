@@ -32,7 +32,6 @@ const collegeArray = [{ img: auth, title: '华为ICT学院授权证书', desc: '
 </script>
 
 <style scoped lang="scss">
-@import '../../../../style.scss';
 
 @include respondTo('mobile') {
     .pc-card {

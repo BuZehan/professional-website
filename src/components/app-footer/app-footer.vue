@@ -34,14 +34,13 @@ const data = [
    
    
 <style scoped lang='scss'>
-@import '@/style.scss';
 @include respondTo('mobile') {
     .app-footer {
         width: 100vw;
         background:linear-gradient(92deg, var(--Footer) 0%, var(--Footer-DEEP) 100%);
         background: var(--ZAOHONG);
         display: flex;
-        height: 300px;
+        height: 500rpx;
         overflow: hidden;
         justify-content: flex-start;
         box-sizing: border-box;

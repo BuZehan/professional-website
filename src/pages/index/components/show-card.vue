@@ -128,7 +128,6 @@ const clikCardEvent = () => {
       
     
 <style scoped lang="scss">
-@import "@/style.scss";
 .show-card-container {
     margin: 50rpx auto;
     box-sizing: border-box;
