@@ -36,7 +36,5 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
     //打包
     lintOnSave: false,
     publicPath: './', // 基本路径
-    outputDir: 'dist', // 输出文件目录
-    assetsDir: "static", //放置生成的静态文件目录（js css img）
   };
 });
