@@ -23,7 +23,7 @@
                     浩鲸科技在通信领域已覆盖全球近150家主流电信运营商，服务近18亿终端用户。其中，包括中国三大电信运营商（中国移动、中国电信、中国联通），欧洲的法国电信（Orange）、沃达丰（Vodafone）、荷兰皇家电信（KPN）、西班牙电信（Telefonica）、卢森堡POST，美洲电信（America
                     Movil），东南亚的泰国TRUE，马来西亚电信（Telekom
                     Malaysia），印尼Smartfren、Telkomsigma，菲律宾DITO，中东的阿联酋电信（Etisalat）、Zain，非洲的MTN等主流电信运营商。</p>
-                  <el-button @tap="jumpPage" style="float: right;">了解详情</el-button>
+                  <el-button @tap="jumpPage" style="float: right;">官网</el-button>
                 </el-col>
                 <el-col v-showMeta="`animate__fadeInRight`" class="image-wrapper" :xs="24" :sm="12">
                   <el-image :src="txtRight" fit="cover" />

@@ -22,7 +22,7 @@
                   <p>公司作为传统学校教育和就业市场之间的桥梁，致力于帮助社会解决“学校教育与就业市场高度不对称的问题”。公司从毕业 0-5
                     年的群体中挖掘被“错配的人才”，通过搭建精英化、多层次、高区分的培养体系以及充分的就业辅导，并利用公司与优质就业单位的资源和联系，为“人才”找准“位置”，最终实现提升人才附加价值，服务社会人力资源优化配置的目的。
                   </p>
-                  <el-button @tap="jumpPage" style="float: right;">了解详情</el-button>
+                  <el-button @tap="jumpPage" style="float: right;">官网</el-button>
 
                 </el-col>
                 <el-col  v-showMeta="`animate__fadeInRight`"  class="image-wrapper" :xs="24" :sm="12">

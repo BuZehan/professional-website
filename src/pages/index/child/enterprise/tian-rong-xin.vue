@@ -30,7 +30,7 @@
                     天融信科技集团（证券代码：002212）创始于1995年，是上市公司中成立最早的网络安全企业，亲历中国网络安全产业的发展历程，如今已从中国第一台自主研发防火墙的缔造者成长为中国领先的网络安全、大数据与云服务提供商。多年来，集团为政府、金融、运营商、能源、卫生、教育、交通、制造等各行业客户提供网络安全产品与服务。未来，天融信将始终以捍卫国家网络空间安全为己任，创新超越，致力于成为民族安全产业的领导者、领先安全技术的创造者和数字时代安全的赋能者。
                   </p>
 
-                  <el-button @tap="jumpPage" style="float: right">了解详情</el-button>
+                  <el-button @tap="jumpPage" style="float: right">官网</el-button>
                 </el-col>
                 <el-col v-showMeta="`animate__fadeInRight`" class="image-wrapper" :xs="24" :sm="12">
                   <el-image :src="txtRight" fit="cover" />

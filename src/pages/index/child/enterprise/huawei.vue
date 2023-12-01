@@ -22,7 +22,7 @@
                   <p>
                     华为云提供了丰富的云计算产品和服务，包括弹性计算、对象存储、关系型数据库、大数据平台、人工智能服务、区块链服务等。用户可以根据自己的需求选择合适的云计算服务，并通过华为云构建灵活、高效的云端架构，实现数字化转型和业务创新。
                   </p>
-                  <el-button @tap="jumpPage" style="float: right;">了解详情</el-button>
+                  <el-button @tap="jumpPage" style="float: right;">官网</el-button>
                   <!-- <p>华为云致力于构建安全可靠的云计算基础设施，采用多层次的安全防护机制，保障用户的数据安全和隐私保护。同时，华为云还提供了全面的技术支持和咨询服务，帮助客户更好地利用云计算技术推动业务发展。</p>
                   <p>华为云通过其丰富的云计算产品和服务，以及对安全、可靠性的高度重视，为企业客户提供了强大的云端解决方案，助力他们实现业务创新和发展。</p> -->
                 </el-col>
@@ -57,7 +57,7 @@ import textImg from './image/huawei/huawei.jpg';
 
 // 跳转华为云计算官网
 const jumpPage = () => {
-  window.open("https://developer.huawei.com/")
+  window.open("https://www.huawei.com/cn/")
 };
 </script>
   

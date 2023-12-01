@@ -69,6 +69,12 @@ const clickMenuHandler = () => {
 // 菜单数据
 const listData = ref([
   { title: "首页", name: "1", path: "/pages/Layout/Layout" },
+  { title: "专业新闻", name: "8", path: "/pages/index/child/news/news" },
+  {
+    title: "课程介绍",
+    name: "4",
+    path: "/pages/index/child/specialized-courses/specialized-courses",
+  },
   {
     title: "专业介绍",
     name: "2",
@@ -79,11 +85,7 @@ const listData = ref([
     name: "3",
     path: "/pages/index/child/teaching-team/teaching-team",
   },
-  {
-    title: "专业课程",
-    name: "4",
-    path: "/pages/index/child/specialized-courses/specialized-courses",
-  },
+  
   {
     title: "实验室",
     name: "5",
@@ -130,7 +132,6 @@ const listData = ref([
     name: "7",
     path: "/pages/index/child/connect/connect",
   },
-  { title: "专业新闻", name: "8", path: "/pages/index/child/news/news" },
 ]);
 const $emits = defineEmits(["changeComponents"]);
 const activeStr = ref("1")

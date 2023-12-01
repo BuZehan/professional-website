@@ -5,7 +5,7 @@
       <AppHeader />
     </template>
     <view class="container-content">
-      <backgroundImg :img="img"/>
+      <backgroundImg :img="img" />
       <view class="trans">
         <AppBreadcrumb :currentPageTxtArr="['教学实验室']" />
         <el-row justify="center">
@@ -39,8 +39,8 @@
               </el-aside>
               <el-container>
                 <el-aside class="hidden-sm-and-down" width="260px">
-                  <el-menu active-text-color="#333" class="el-menu-vertical-demo"
-                    default-active="2" text-color="#999" @open="handleOpen" @close="handleClose">
+                  <el-menu active-text-color="#333" class="el-menu-vertical-demo" default-active="2" text-color="#999"
+                    @open="handleOpen" @close="handleClose">
                     <template v-for="item, i in RoomData" :key="i">
                       <el-sub-menu v-if="item.room" :index="`${i + 1}`">
                         <template #title>
@@ -56,6 +56,12 @@
                             <location />
                           </el-icon>
                           {{ item.equ.name }}</el-menu-item>
+                          <el-menu-item v-if="item.vrRoom" @tap="toogleIndex(`${i + 1}-3`)" :index="`${i + 1}-3`">
+                            <el-icon>
+                              <location />
+                            </el-icon>
+                            {{ item.vrRoom?.name }}</el-menu-item>
+                          
                       </el-sub-menu>
                       <el-menu-item v-else @tap="toogleIndex(`${i + 1}`)" :index="`${i + 1}`">
                         <template #title>{{ item.name }}</template>
@@ -116,18 +122,21 @@ const handleClose = (key, keyPath) => {
 // 实验室+设备照片数据
 const RoomData = ref([
   {
-    name: "1. 华为网络实验室--兴新426",
+    name: "1. 华为网络实验室（兴新426）",
     room: {
-      name: "426实验室全景照片",
+      name: "实验室全景照片",
       dataList: []
     },
     equ: {
-      name: "426设备照片",
+      name: "设备照片",
       dataList: []
+    },
+    vrRoom: {
+      name: 'VR全景',
     }
   },
   {
-    name: "2. 多媒体云计算实验室--兴B207",
+    name: "2. 多媒体云计算实验室（兴B207）",
     room: {
       name: "实验室全景图",
       dataList: []
@@ -135,14 +144,18 @@ const RoomData = ref([
     equ: {
       name: "服务器照片",
       dataList: []
+    },
+    vrRoom: {
+      name: 'VR全景',
     }
   },
   {
-    name: "3. 兴B312（公共机房11）"
+    name: "3. 公共机房（兴B312）",
+    vrRoom: {
+      name: 'VR全景',
+    }
   },
-  {
-    name: "4. VR虚拟全景"
-  },
+
 ])
 const currentRoomIndex = ref(0)
 const j = ref(0)
@@ -158,10 +171,9 @@ const toogleIndex = (index) => {
   }
 };
 const Rooms = [
-  [Xin426Room, Xin426Equ],
-  [Xin207Room, Xin207Equ],
-  [PublicRoom],
-  [ThreeLab],
+  [Xin426Room, Xin426Equ,ThreeLab],
+  [Xin207Room, Xin207Equ,ThreeLab],
+  [PublicRoom,ThreeLab],
 
 ]
 </script>
@@ -239,10 +251,12 @@ const Rooms = [
         display: flex;
         align-items: flex-start;
         justify-content: center;
-        .el-header-title{
+
+        .el-header-title {
           font-size: 40rpx;
           font-weight: bold;
         }
+
         .tip {
           color: #999;
           font-size: 28rpx;
