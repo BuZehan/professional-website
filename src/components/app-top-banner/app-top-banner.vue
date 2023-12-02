@@ -2,7 +2,7 @@
     <view class="app-top-banner hidden-sm-and-down">
         <!-- <el-image src="../../static/banner-logo.png"  /> -->
         <view class="animated-banner" ref="banner">
-            <!-- 背景 -->
+            <!-- 背景-远景 -->
             <view class="layer">
                 <img class="bg" src="../../static/animate-banner/banner-far.webp" />
             </view>
