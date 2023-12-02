@@ -125,7 +125,7 @@ watch([x, y], (v) => {
     }
 })
 
-// 菜单点击事件
+// 菜单点击事件..
 const handleSelect = (name) => {
     console.log(name);
     PubSub.publish('navgation-event',{e:name})
