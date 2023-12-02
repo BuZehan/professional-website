@@ -1,5 +1,7 @@
 <template>
   <view class="index-container">
+    <AppTopBanner />
+
     <template class="m-header">
       <AppPopup />
       <AppHeader />
@@ -40,7 +42,17 @@
         <el-button class="m-el-btn-jump wlgc-btn" @tap="navgationTo('specialty-instruction')">了解更多</el-button>
       </view>
       <!-- 左图右文  专业介绍 -->
-      <SpecialtyInstruction v-showMeta="`animate__fadeInRight`" class="hidden-sm-and-down"/>
+      <SpecialtyInstruction v-showMeta="`animate__fadeInRight`" class="hidden-sm-and-down" />
+      <!-- 课程介绍 -->
+      <el-row justify="center" class="block zykc" v-showMeta="`animate__fadeInRight`">
+        <view class="title">课程介绍</view>
+        <view class="title-e">Specialized Courses</view>
+        <el-col :xs="24" :sm="24" :md="20">
+          <SpecializedCourses />
+        </el-col>
+        <el-button class="m-el-btn-jump" @tap="navgationTo('specialized-courses')">了解更多</el-button>
+        <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('4')">了解更多</el-button>
+      </el-row>
       <!-- 师资团队 -->
       <view class="block teaching-team" v-showMeta="`animate__fadeInRight`">
         <view class="title">师资团队</view>
@@ -51,16 +63,6 @@
         <el-button class="m-el-btn-jump" @tap="navgationTo('teaching-team')">了解更多</el-button>
         <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('3')">了解更多</el-button>
       </view>
-      <!-- 专业课程 -->
-      <el-row justify="center" class="block zykc" v-showMeta="`animate__fadeInRight`">
-        <view class="title">专业课程</view>
-        <view class="title-e">Specialized Courses</view>
-        <el-col :xs="24" :sm="24" :md="20">
-          <SpecializedCourses />
-        </el-col>
-        <el-button class="m-el-btn-jump" @tap="navgationTo('specialized-courses')">了解更多</el-button>
-        <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('4')">了解更多</el-button>
-      </el-row>
 
       <!-- 实验室 -->
       <view class="block lab" v-showMeta="`animate__fadeInLeft`">
@@ -71,18 +73,17 @@
         </view>
         <el-button class="m-el-btn-jump" @tap="navgationTo('laboratory')">了解更多</el-button>
         <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('5')">了解更多</el-button>
-
       </view>
-      <!-- 考证证书 -->
+      <!-- 考证证书 获奖 证书 证书->教师证书/学生证书 IE证书置顶 -->
       <view class="block news" v-showMeta="`animate__fadeInRight`">
         <view class="title">获奖证书</view>
-        <view class="title-e">Honor Certificate</view>
+        <view class="title-e">Honor Certificates</view>
         <!-- <view class="title-e">News And Trends</view> -->
         <view class="content">
           <News />
         </view>
         <el-button class="m-el-btn-jump" @tap="navgationTo('news')">了解更多</el-button>
-        <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('5')">了解更多</el-button>
+        <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('8')">了解更多</el-button>
 
       </view>
       <!-- 合作企业 -->
@@ -92,8 +93,8 @@
         <view class="content">
           <Company :companyArr="companyArr" />
         </view>
-        <!-- <el-button class="m-el-btn-jump" @tap="navgationTo('teaching-team')">了解更多</el-button>
-        <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('6')">了解更多</el-button> -->
+        <el-button class="m-el-btn-jump" @tap="navgationTo('teaching-team')">了解更多</el-button>
+        <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('6')">了解更多</el-button>
 
       </view>
       <!-- 优秀毕业生 -->
@@ -113,11 +114,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref } from 'vue';
 import PubSub from "pubsub-js";
 import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
-import AppFooter from "@/components/app-footer/app-footer.vue"
+import AppFooter from "@/components/app-footer/app-footer.vue";
+import AppTopBanner from "@/components/app-top-banner/app-top-banner.vue";
 
 // 滑动卡片
 import MovableSwiper from "./components/teaching-team/teaching-team.vue";
@@ -128,14 +130,14 @@ import NewsTrends from "./components/news-trends/news-trends.vue";
 // 专业课程
 import SpecializedCourses from "./components/specialized-courses/specialized-courses.vue";
 // 实验室
-import Lab from "./components/lab/lab.vue"
+import Lab from "./components/lab/lab.vue";
 // 证书
-import News from "./components/news-cards/news-cards.vue"
+import News from "./components/news-cards/news-cards.vue";
 // 合作企业
 import Company from "./components/company/company.vue";
 // 毕业生
 import OutstandingGraduate from "./components/outstanding-graduate/outstanding-graduate.vue";
-import PcOutandingGraduate from "@/pages/index/child/outstanding-graduate/stu-show.vue"
+import PcOutandingGraduate from "@/pages/index/child/outstanding-graduate/stu-show.vue";
 // 专业介绍 左图右文
 import SpecialtyInstruction from "./components/specialty-instruction/specialty-instruction.vue";
 // 跳转专业介绍---移动端
@@ -144,11 +146,27 @@ const navgationTo = (url) => {
     url: `/pages/index/child/${url}/${url}`,
   });
 };
+
+// 仓库状态数据
+import {StuInfoStore} from '@/store/modules/stu.js';
+const UseStuInfoStore = StuInfoStore();
 // pc端跳转
 const pcNavgationTo = (e) => {
+  switch (e) {
+    case '3':
+      PubSub.publish('index-teacher-event', { num: 0 })
+      break;
+    case '7':
+      UseStuInfoStore.updateCurrentRouterIndex(0)
+      break;
+
+    default:
+      break;
+  }
   PubSub.publish('navgation-event', { e, index: true })
 };
 // 合作企业
+
 import huawei from "@/static/company/huawei_logo.png"
 import hjkj from "@/static/company/hjkj.png"
 import H3C from "@/static/company/H3C.png"
@@ -482,8 +500,6 @@ button {
 
     .lab {
       width: 100vw;
-      max-width: 1200px;
-
       .content {
         width: 100%;
         margin-bottom: 80rpx;
@@ -509,4 +525,5 @@ button {
   .el-col {
     width: 100%;
   }
-}</style>
+}
+</style>

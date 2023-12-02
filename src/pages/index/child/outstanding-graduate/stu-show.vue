@@ -60,10 +60,10 @@ const goToDetailForMobile = (data) => {
 const currentPage = ref(1)
 const pageSize = ref(6)
 const handleSizeChange = (val) => {
-    console.log(`${val} items per page`)
+    // console.log(`${val} items per page`)
 }
 const handleCurrentChange = (val) => {
-    console.log(`current page: ${val}`)
+    // console.log(`current page: ${val}`)
 }
 import img1 from '@/pages/index/components/outstanding-graduate/image/21-17-bk-hhy/1.jpg'
 import img2 from '@/pages/index/components/outstanding-graduate/image/21-17-bk-hhy/2.jpg'

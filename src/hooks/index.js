@@ -1,6 +1,8 @@
 import { debounce } from "@/utils"
 import { MainStore } from "@/store"
 import PubSub from "pubsub-js"
+import { ref, onMounted, onUnmounted } from 'vue'
+
 const UseMian = MainStore()
 export const windowResize = () => {
   window.addEventListener('resize', debounce((e) => {
@@ -26,4 +28,16 @@ export const windowResize = () => {
 
     }
   }, 500))
+}
+ 
+export function useMouse(target) {
+  const x = ref(0)
+  const y = ref(0)
+  function update(event) {
+    x.value = event.pageX
+    y.value = event.pageY
+  }
+  onMounted(() => window.addEventListener('mousemove', update))
+  onUnmounted(() => window.removeEventListener('mousemove', update))
+  return { x, y }
 }

@@ -48,6 +48,7 @@
 </template>
   
 <script setup>
+import {onActivated} from 'vue' 
 // banner
 import h3c_banner1 from './image/h3c/h3c.jpg';
 import textImg from './image/h3c/txtImg.jpg';
@@ -65,6 +66,10 @@ const navgationTo = (url) => {
 const jumpPage = () => {
     window.open("https://www.h3c.com/cn/About_H3C/Company_Information/Company_Introduce/")
 };
+
+onActivated(() => {
+  PubSub.publish('scroll-top', { data: true });
+})
 import txtRight from './image/h3c/txt_right.jpg'
 </script>
   

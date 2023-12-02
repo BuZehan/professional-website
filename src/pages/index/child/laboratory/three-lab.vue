@@ -5,9 +5,9 @@
                 <el-col :xs="24" :sm="{ span: 24 }">
                     <view class="three" ref="target">
                         <view class="btn-wrapper">
-                            <el-button type="primary" size="small" v-for="item, i in sceneList"
+                            <!-- <el-button type="primary" size="small" v-for="item, i in sceneList"
                                 @click="changeScene(i, item.type)">{{ item.name
-                                }}</el-button>
+                                }}</el-button> -->
                         </view>
                     </view>
                     <view class="tip"></view>
@@ -23,9 +23,10 @@
 import { nextTick, onMounted, ref } from 'vue';
 import * as THREE from 'three'
 import gsap from 'gsap'
+import PubSub from "pubsub-js";
+
 //导入轨道控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader'
 import img1 from "@/static/HDR/office.jpg"
 import img2 from "@/static/HDR/night.jpg"
 import img3 from "@/static/HDR/sky.jpg"
@@ -34,7 +35,6 @@ const currentTexture = ref(sceneList[0].url)
 
 // 1、 创建场景    
 const scene = new THREE.Scene();
-
 // 2、 创建相机  （透视相机）
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 4000)
 //设置相机位置
@@ -60,15 +60,24 @@ const sphere = new THREE.Mesh(sphereGeometry, material)
 scene.add(sphere)
 
 // 切换贴图
-const changeScene = (i, type) => {
+// const changeScene = (i, type) => {
+//     console.log('贴图切换');
+//     currentTexture.value = sceneList[i].url
+//     material.map = new THREE.TextureLoader().load(currentTexture.value)
+//     if (sceneList[i].type === 'jpg') {
+//         rotate()
+//         sceneList[i].type = 'none'
+//     }
+// }
+PubSub.subscribe('changeScene',(msg,data) => {
     console.log('贴图切换');
-    currentTexture.value = sceneList[i].url
+    currentTexture.value = sceneList[data.i].url
     material.map = new THREE.TextureLoader().load(currentTexture.value)
-    if (sceneList[i].type === 'jpg') {
+    if (sceneList[data.i].type === 'jpg') {
         rotate()
-        sceneList[i].type = 'none'
+        sceneList[data.i].type = 'none'
     }
-}
+})
 const light = new THREE.AmbientLight(0xfffdfdfd, 1.5)
 scene.add(light)
 const renderer = new THREE.WebGLRenderer()
@@ -125,13 +134,8 @@ onMounted(() => {
             }
         })
     })
-
-
 })
 
-
-
-console.log('scene :', scene);
 </script>
    
 <style scoped lang='scss'>

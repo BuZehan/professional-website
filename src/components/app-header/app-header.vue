@@ -18,14 +18,14 @@
       </el-col>
     </el-row>
     <!-- PC端菜单栏 -->
-    <view class="app-pc-navigation hidden-sm-and-down">
+    <view class="app-pc-navigation hidden-sm-and-down" :class="{ hidden: scrollValue <= 50 && UseMainStore.isIndex }">
       <el-row justify="space-around">
         <el-col class="app-logo" :sm="6" :md="8" :lg="8">
           <image mode="widthFix" src="../../static/logo.png" />
         </el-col>
         <el-col class="app-menu" :sm="18" :md="16" :lg="16">
-          <el-menu :default-active="activeStr"  class="el-menu-demo" mode="horizontal" :ellipsis="false"
-            @select="handleSelect">
+          <el-menu :default-active="activeStr" class="el-menu-demo" mode="horizontal" :ellipsis="false"
+            @select="handleSelect" text-color="#333" active-text-color="rgb(200,20,20)" background-color="#fff">
             <template v-for="item in listData" :key="item.title">
               <el-menu-item v-if="!item.children" :index="item.name">{{
                 item.title
@@ -47,13 +47,21 @@
 <script setup>
 import { ref, onBeforeUnmount, watch } from "vue";
 import PubSub from "pubsub-js";
-
+import { MainStore } from "../../store";
+const UseMainStore = MainStore();
+// 仓库状态数据
+import { StuInfoStore } from '@/store/modules/stu.js';
+const UseStuInfoStore = StuInfoStore();
 const $props = defineProps({
   i: {
     type: Number,
     default: 1
   },
   j: {
+    type: Number,
+    default: 0
+  },
+  scrollValue: {
     type: Number,
     default: 0
   }
@@ -67,86 +75,34 @@ const clickMenuHandler = () => {
 };
 
 // 菜单数据
-const listData = ref([
-  { title: "首页", name: "1", path: "/pages/Layout/Layout" },
-  { title: "专业新闻", name: "8", path: "/pages/index/child/news/news" },
-  {
-    title: "课程介绍",
-    name: "4",
-    path: "/pages/index/child/specialized-courses/specialized-courses",
-  },
-  {
-    title: "专业介绍",
-    name: "2",
-    path: "/pages/index/child/specialty-instruction/specialty-instruction",
-  },
-  {
-    title: "师资团队",
-    name: "3",
-    path: "/pages/index/child/teaching-team/teaching-team",
-  },
-  
-  {
-    title: "实验室",
-    name: "5",
-    path: "/pages/index/child/laboratory/laboratory",
-  },
-  {
-    title: "合作企业",
-    name: "6",
-    children: [
-      {
-        title: "华为",
-        name: "6-1",
-        path: "/pages/index/child/huawei/huawei",
-      },
-      {
-        title: "薪享宏福",
-        name: "6-2",
-        path: "/pages/index/child/xin-xiang-hong-fu",
-      },
-      {
-        title: "H3C",
-        name: "6-3",
-        path: "/pages/index/child/h3c/h3c",
-      },
-      {
-        title: "浩鲸科技",
-        name: "6-4",
-        path: "/pages/index/child/hao-jing-technology/hao-jing-technology",
-      },
-      {
-        title: "天融信",
-        name: "6-5",
-        path: "/pages/index/child/tian-rong-xin/tian-rong-xin",
-      },
-      {
-        title: "中憬科技集团有限公司",
-        name: "6-6",
-        path: "/pages/index/child/zhong-jing/zhong-jing",
-      },
-    ],
-  },
-  {
-    title: "优秀校友",
-    name: "7",
-    path: "/pages/index/child/connect/connect",
-  },
-]);
+const listData = UseMainStore.menuData
 const $emits = defineEmits(["changeComponents"]);
 const activeStr = ref("1")
 const handleSelect = (key, keyPath) => {
   activeStr.value = key;
+  console.log('header', key);
+  switch (key) {
+    case '3':
+      PubSub.publish('index-teacher-event', { num: 0 })
+      break;
+    case '7':
+      UseStuInfoStore.updateCurrentRouterIndex(0)
+      break;
+    default:
+      break;
+  }
+
   $emits("changeComponents", key);
 };
 PubSub.subscribe("changeActive", (msg, data) => {
   activeStr.value = data.index;
 });
-
+// watch(() => $props.scrollValue, (v) => {
+//   // console.log(v <= 50, "@@@@@");
+// })
 </script>
 
 <style scoped lang="scss">
-
 @include respondTo("mobile") {
   .app-header {
     position: fixed;
@@ -159,11 +115,12 @@ PubSub.subscribe("changeActive", (msg, data) => {
       height: 100rpx;
       overflow: hidden;
       position: relative;
-      background:linear-gradient(92deg, var(--Footer) 0%, var(--Footer-DEEP) 100%);
+      background: linear-gradient(92deg, var(--Footer) 0%, var(--Footer-DEEP) 100%);
+
       .el-col {
         height: 100%;
         display: flex;
-        
+
         justify-content: center;
         align-items: center;
       }
@@ -172,6 +129,7 @@ PubSub.subscribe("changeActive", (msg, data) => {
         width: 100%;
         height: 100rpx;
         box-sizing: border-box;
+
         image {
           width: 100%;
           padding-left: 8rpx;
@@ -243,9 +201,11 @@ PubSub.subscribe("changeActive", (msg, data) => {
 }
 
 @include respondTo("desktop") {
+
   .app-pc-navigation {
     width: 100vw;
     height: 130rpx;
+    opacity: 1;
     background-color: #fff;
     border-bottom: solid 1px var(--el-menu-border-color);
     overflow: hidden;
@@ -257,8 +217,16 @@ PubSub.subscribe("changeActive", (msg, data) => {
     justify-content: center;
 
     .app-menu {
+
       .el-menu-demo {
         border: none;
+
+        .el-menu-item {
+          background-color: #fff;
+          &:hover {
+            background-color: #e7e7e7c4;
+          }
+        }
       }
     }
 
@@ -279,26 +247,13 @@ PubSub.subscribe("changeActive", (msg, data) => {
     }
   }
 
-  :deep(.el-menu) {
-    .is-active {
-      color: rgb(200, 20, 20) !important;
-      border-bottom: 2px solid rgb(200, 20, 20) !important;
-    }
 
-    .el-sub-menu,
-    .el-menu-item,
-    .el-sub-menu__title {
-      &:hover {
-        background-color: rgb(240, 240, 240) !important;
-        color: rgb(200, 20, 20) !important;
-      }
-    }
 
-  }
+}
 
-  :deep(.el-menu--horizontal>.el-sub-menu.is-active .el-sub-menu__title) {
-    color: rgb(200, 20, 20) !important;
-    border-bottom: rgb(200, 20, 20) !important;
-  }
+.hidden {
+  display: none !important;
+  transition: all .8s;
+  opacity: 0;
 }
 </style>

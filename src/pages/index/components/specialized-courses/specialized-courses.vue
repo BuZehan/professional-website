@@ -24,6 +24,7 @@
 .course-container{
     width: 100%;
     margin: 38rpx auto;
+    max-width: 1440px;
     .el-row{
         width: 100%;
         .image-wrapper{

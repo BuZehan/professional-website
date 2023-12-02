@@ -51,13 +51,13 @@ const MSwiperArr = [{ name: "img", url: mbanner1 }, { name: "img", url: 'https:/
 const currentImg = ref(0)
 let timer = setInterval(() => {
   next()
-},5000);
+},8000);
 
 const next = () => {
   clearInterval(timer)
   timer = setInterval(() => {
   next()
-},5000);
+},8000);
   currentImg.value++
   if (currentImg.value - 1 >= PCSwiperArr.length - 1) currentImg.value = 0;
 }
@@ -65,7 +65,7 @@ const prev = () => {
   clearInterval(timer)
   timer = setInterval(() => {
   next()
-},5000);
+},8000);
   currentImg.value--
   if (currentImg.value < 0) currentImg.value = PCSwiperArr.length - 1;
 }

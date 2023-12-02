@@ -10,27 +10,37 @@
         <AppBreadcrumb :currentPageTxtArr="['专业新闻']" />
         <el-row justify="center">
           <el-col :xs="{ span: 24 }" :sm="{ span: 20 }" :md="{ span: 20 }" :xl="18">
-            <view class="title">{{ currentIndex === 0 || currentIndex === 2 ? '新闻动态' : '通知公告' }}</view>
+            <view class="title">{{ CurrentTitle }}</view>
             <p class="line"></p>
             <view class="content">
               <el-row>
                 <!-- 菜单切换 -->
                 <el-col :xs="24" :md="{ span: 4 }" v-showMeta="`animate__fadeInLeft`">
+                  <!-- 新闻动态 -->
                   <el-row justify="center" class="news-menu">
-                    <el-col :class="{ active: currentIndex === 0 || currentIndex === 2 }" :xs="12" :sm="10" :md="20"
+                    <el-col :class="{ active: currentIndex === 0 || currentIndex === 3 }" :xs="12" :sm="10" :md="20"
                       :lg="24" @tap="toogleComponent(0)">
                       新闻动态
                     </el-col>
                   </el-row>
+                  <!-- 通知公告 -->
                   <el-row justify="center" class="news-menu">
-                    <el-col :class="{ active: currentIndex === 1 || currentIndex === 3 }" :xs="12" :sm="10" :md="20"
+                    <el-col :class="{ active: currentIndex === 1 || currentIndex === 4 }" :xs="12" :sm="10" :md="20"
                       :lg="24" @tap="toogleComponent(1)">
                       通知公告
                     </el-col>
                   </el-row>
+                  <!-- 获奖证书 -->
+                  <el-row justify="center" class="news-menu">
+                    <el-col :class="{ active: currentIndex === 2 || currentIndex === 5 }" :xs="12" :sm="10" :md="20"
+                      :lg="24" @tap="toogleComponent(2)">
+                      获奖证书
+                    </el-col>
+                  </el-row>
                 </el-col>
                 <!-- 组件切换 -->
-                <el-col class="component-wrapper" :xs="{span:22,offset:1}" :sm="{ span: 18, offset:3 }" :md="{ span: 20,offset:0 }">
+                <el-col class="component-wrapper" :xs="{ span: 22, offset: 1 }" :sm="{ span: 18, offset: 3 }"
+                  :md="{ span: 20, offset: 0 }">
                   <Transition name="el-fade-in" mode="out-in">
                     <KeepAlive>
                       <component :is="Components[currentIndex]" />
@@ -48,20 +58,24 @@
 </template>
 
 <script setup>
-import { onActivated, ref, onUnmounted, onMounted } from 'vue';
+import { onActivated, ref, computed, onMounted } from 'vue';
 import PubSub from 'pubsub-js';
 // 石榴背景
 import sl from '@/static/sl.jpg';
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
+  currentIndex.value = 0
 })
 // 动态组件
 import InformModules from './inform-modules.vue';
 import NewsMoudlers from './news-modules.vue';
+import Certificate from './certificate-modules.vue';
+
 // 新闻详情组件
 import NewsDetail from './news-detail.vue';
 import InformDetail from './inform-detail.vue';
-const Components = [NewsMoudlers, InformModules, NewsDetail, InformDetail];
+import CertificateDetail from './certificate-detail.vue';
+const Components = [NewsMoudlers, InformModules,Certificate, NewsDetail, InformDetail,CertificateDetail];
 const currentIndex = ref(0);
 // 切换组件
 const toogleComponent = (index) => {
@@ -69,16 +83,24 @@ const toogleComponent = (index) => {
 };
 PubSub.subscribe('go-to-detail', (msg, data) => {
   if (data.type === 'news') {
-    currentIndex.value = 2;
-  } else {
     currentIndex.value = 3;
+  } else if(data.type === 'inform') {
+    currentIndex.value = 4;
+  }else{
+    currentIndex.value = 5;
   }
 })
-PubSub.subscribe('back-event',(msg,data) => {
+PubSub.subscribe('back-event', (msg, data) => {
   currentIndex.value = data.index
 })
 // 滚动页面
 const target = ref(null)
+
+// 计算标题文字
+const CurrentTitle = computed(() => {
+  let i = currentIndex.value
+ return (i === 0 || i === 3 )? '新闻动态' : (i === 1 || i === 4) ? '通知公告' : '获奖证书'
+})
 </script>
 
 <style scoped lang="scss">
@@ -238,11 +260,13 @@ const target = ref(null)
       font-size: 32rpx;
       font-weight: bold;
       color: #333;
+
       view {
         text-indent: 60rpx;
         margin-bottom: 20rpx;
       }
-      .component-wrapper{
+
+      .component-wrapper {
         padding-left: 80rpx;
       }
     }

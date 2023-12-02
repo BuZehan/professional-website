@@ -51,6 +51,7 @@
 </template>
   
 <script setup>
+import { onActivated } from 'vue';
 // banner
 import xxhf_img1 from './image/xxhf/xxhf_banner_1.jpg';
 import hw_img3 from './image/huawei/huawei_banner2.jpg';
@@ -65,7 +66,9 @@ const modules = [Pagination, Autoplay];
 const jumpPage = () => {
   window.open("https://www.xinxianghf.cn/schoolIntroduction")
 };
-
+onActivated(() => {
+  PubSub.publish('scroll-top', { data: true });
+})
 </script>
   
 <style scoped lang="scss">

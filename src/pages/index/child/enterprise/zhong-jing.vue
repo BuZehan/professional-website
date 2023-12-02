@@ -44,6 +44,7 @@
 </template>
   
 <script setup>
+import {onActivated} from 'vue'
 // banner
 import zjkj_img1 from './image/zjkj/zjkj_banner1.jpg';
 import txtRight from './image/zjkj/txtRight.jpg';
@@ -51,6 +52,9 @@ import txtRight from './image/zjkj/txtRight.jpg';
 const jumpPage = () => {
   window.open("http://www.zjtg.com.cn/")
 };
+onActivated(() => {
+  PubSub.publish('scroll-top', { data: true });
+})
 </script>
   
 <style scoped lang="scss">

@@ -20,16 +20,12 @@
                       <template #title>
                         <span>{{ item.name }}</span>
                       </template>
-                      <el-menu-item @tap="toogleIndex(`${i + 1}-1`)" :index="`${i + 1}-1`">
+                      <el-menu-item v-if="item.room" v-for="child, j in item.room" @tap="toogleIndex(`${i + 1}-${j + 1}`,child.type)"
+                        :index="`${i + 1}-${j + 1}`">
                         <el-icon>
                           <location />
                         </el-icon>
-                        {{ item.room.name }}</el-menu-item>
-                      <el-menu-item @tap="toogleIndex(`${i + 1}-2`)" :index="`${i + 1}-2`">
-                        <el-icon>
-                          <location />
-                        </el-icon>
-                        {{ item.equ.name }}</el-menu-item>
+                        {{ child.name }}</el-menu-item>
                     </el-sub-menu>
                     <el-menu-item v-else @tap="toogleIndex(`${i + 1}`)" :index="`${i + 1}`">
                       <template #title>{{ item.name }}</template>
@@ -46,26 +42,19 @@
                         <template #title>
                           <span>{{ item.name }}</span>
                         </template>
-                        <el-menu-item @tap="toogleIndex(`${i + 1}-1`)" :index="`${i + 1}-1`">
-                          <el-icon>
+                        <el-menu-item v-if="item.room" v-for="child, j in item.room" @tap="toogleIndex(`${i + 1}-${j + 1}`,child.type)"
+                          :index="`${i + 1}-${j + 1}`">
+                          <el-icon v-if="!child.type">
                             <location />
                           </el-icon>
-                          {{ item.room.name }}</el-menu-item>
-                        <el-menu-item @tap="toogleIndex(`${i + 1}-2`)" :index="`${i + 1}-2`">
-                          <el-icon>
-                            <location />
+                          <el-icon v-else>
+                            <el-image style="transform: scale(.72);" :src="VrIcon"/>
                           </el-icon>
-                          {{ item.equ.name }}</el-menu-item>
-                          <el-menu-item v-if="item.vrRoom" @tap="toogleIndex(`${i + 1}-3`)" :index="`${i + 1}-3`">
-                            <el-icon>
-                              <location />
-                            </el-icon>
-                            {{ item.vrRoom?.name }}</el-menu-item>
-                          
+                          {{ child.name }}</el-menu-item>
                       </el-sub-menu>
-                      <el-menu-item v-else @tap="toogleIndex(`${i + 1}`)" :index="`${i + 1}`">
-                        <template #title>{{ item.name }}</template>
-                      </el-menu-item>
+                      <!-- <el-menu-item v-else @tap="toogleIndex(`${i + 1}`)" :index="`${i + 1}`">
+                        <template #title>{{ item.name }}</template> 
+                      </el-menu-item> -->
                     </template>
                   </el-menu>
                 </el-aside>
@@ -95,8 +84,9 @@
 
 <script setup>
 import { ref } from 'vue'
+import PubSub from "pubsub-js";
 import ThreeLab from './three-lab.vue'
-import PublicRoom from './public-room.vue'
+import PublicRoom from './public-room/public-room.vue'
 import Xin426Room from './xin-426/xin-426-room.vue'
 import Xin426Equ from './xin-426/xin-426-equ.vue'
 import Xin207Room from './xin-207/xin-207-room.vue'
@@ -104,7 +94,7 @@ import Xin207Equ from './xin-207/xin-207-equ.vue'
 import { onActivated } from 'vue'
 // 背景图
 import img from './image/bg.jpg'
-
+import VrIcon from './image/vrIcon.png'
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
 })
@@ -123,44 +113,48 @@ const handleClose = (key, keyPath) => {
 const RoomData = ref([
   {
     name: "1. 华为网络实验室（兴新426）",
-    room: {
+    room: [{
       name: "实验室全景照片",
       dataList: []
-    },
-    equ: {
+    }, {
       name: "设备照片",
       dataList: []
-    },
-    vrRoom: {
+    }, {
       name: 'VR全景',
-    }
+      type:'VR',
+      dataList: []
+    }]
   },
   {
     name: "2. 多媒体云计算实验室（兴B207）",
-    room: {
+    room: [{
       name: "实验室全景图",
       dataList: []
-    },
-    equ: {
+    }, {
       name: "服务器照片",
       dataList: []
-    },
-    vrRoom: {
+    }, {
       name: 'VR全景',
-    }
+      type:'VR'
+    }],
   },
   {
     name: "3. 公共机房（兴B312）",
-    vrRoom: {
+    room: [{
+      name: "公共机房全景图",
+      dataList: []
+    }, {
       name: 'VR全景',
-    }
+      type:'VR'
+    }]
   },
 
 ])
 const currentRoomIndex = ref(0)
 const j = ref(0)
-const toogleIndex = (index) => {
-  console.log("index", index);
+const toogleIndex = (index,type) => {
+  console.log("index", index,type);
+
   let numArr = index.split("-");
   if (numArr.length === 1) {
     currentRoomIndex.value = +index - 1;
@@ -169,12 +163,14 @@ const toogleIndex = (index) => {
     currentRoomIndex.value = +numArr[0] - 1;
     j.value = +numArr[1] - 1;
   }
+  if(type === 'VR') {
+    PubSub.publish('changeScene',{i:+numArr[0]-1})
+  }
 };
 const Rooms = [
-  [Xin426Room, Xin426Equ,ThreeLab],
-  [Xin207Room, Xin207Equ,ThreeLab],
-  [PublicRoom,ThreeLab],
-
+  [Xin426Room, Xin426Equ, ThreeLab],
+  [Xin207Room, Xin207Equ, ThreeLab],
+  [PublicRoom, ThreeLab],
 ]
 </script>
 

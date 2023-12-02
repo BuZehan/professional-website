@@ -1,8 +1,8 @@
 <template>
-  <view class="layout-container" ref="layout">
+  <view class="layout-container" :class="{'layout-padding-top':!UseMainStore.isIndex}"  ref="layout">
     <template class="pc-header">
       <AppPopup />
-      <AppHeader @changeComponents="changeComponents" :i="i" :j="j" />
+      <AppHeader  @changeComponents="changeComponents" :i="i" :j="j" :scrollValue="scrollValue" />
     </template>
     <Index class="m" />
     <template class="pc">
@@ -25,7 +25,6 @@ import Index from "../index/index.vue";
 import { windowResize } from '@/hooks'
 import { MainStore } from "@/store"
 import PubSub from "pubsub-js";
-
 // 页脚
 import AppFooter from "@/components/app-footer/app-footer.vue"
 // 专业介绍
@@ -62,6 +61,12 @@ const ComponentsArray = [
 const i = ref(0);
 const j = ref(0);
 const changeComponents = (index) => {
+  console.log(index);
+  if(index != '1') {
+    UseMainStore.updateIsIndex(false)
+  }else{
+    UseMainStore.updateIsIndex(true)
+  }
   let numArr = index.split("-");
   if (numArr.length === 1) {
     i.value = +index - 1;
@@ -74,7 +79,6 @@ const changeComponents = (index) => {
 // jian
 PubSub.subscribe('navgation-event', (msg, data) => {
   PubSub.publish('changeActive', { index: data.e });
-  console.log(data.e);
   changeComponents(data.e);
 })
 
@@ -93,12 +97,21 @@ onUnmounted(() => {
   PubSub.unsubscribe('scroll-top');
 })
 
+// 布局滚动事件
+const scrollValue = ref(0)
+nextTick(() => {
+  layout.value.$el.addEventListener("scroll", (e) => {
+    scrollValue.value = e.target.scrollTop;
+})})
 
 windowResize()
 </script>
 
 <style scoped lang="scss">
-@import "../../style.scss";
+:deep(.el-popper.is-light ){
+  background-color: var(--YINHONG);
+  border: none;
+}
 
 .layout-container {
   position: relative;
@@ -129,10 +142,12 @@ windowResize()
 
 @include respondTo("desktop") {
   .layout-container {
-    padding-top: 120rpx;
+    
     position: relative;
   }
-
+  .layout-padding-top{
+    padding-top: 120rpx;
+  }
   .pc-header {
     display: block;
   }

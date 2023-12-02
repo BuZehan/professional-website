@@ -48,6 +48,10 @@ const changePage = (i) => {
 const stu_img_list = computed(() => {
  return  UseStuInfoStore.currentStuData.imgList.length > 0 ? UseStuInfoStore.currentStuData.imgList : ''
 })
+// pc端监听点击首页教师事件
+PubSub.subscribe('index-student-event', (msg, data) => {
+  UseStuInfoStore.updateCurrentRouterIndex(0)
+})
 </script>
 
 <style scoped lang="scss">

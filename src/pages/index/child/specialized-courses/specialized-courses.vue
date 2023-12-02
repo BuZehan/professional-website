@@ -7,11 +7,11 @@
     <view class="container-content">
       <backgroundImg />
       <view>
-        <AppBreadcrumb class="trans" :currentPageTxtArr="['专业课程']" />
+        <AppBreadcrumb class="trans" :currentPageTxtArr="['课程介绍']" />
         <view class="zz"></view>
         <el-row justify="center" class="instruction">
           <el-col :xs="{ span: 20 }" :sm="{ span: 20 }" :md="{ span: 18 }">
-            <view class="title">专业课程</view>
+            <view class="title">课程介绍</view>
             <p class="line"></p>
             <view class="content">
               <view class="desc">

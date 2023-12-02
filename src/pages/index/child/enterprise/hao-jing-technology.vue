@@ -51,6 +51,7 @@
 </template>
   
 <script setup>
+import {onActivated} from 'vue'
 // banner
 import hjkj_img1 from './image/hjkj/hjkj_banner.jpg';
 import txtRight from './image/hjkj/txtRight.jpg';
@@ -58,6 +59,10 @@ import txtRight from './image/hjkj/txtRight.jpg';
 const jumpPage = () => {
   window.open("https://www.iwhalecloud.com/")
 };
+
+onActivated(() => {
+  PubSub.publish('scroll-top', { data: true });
+})
 </script>
   
 <style scoped lang="scss">

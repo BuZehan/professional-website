@@ -53,7 +53,10 @@ const imgList = [lab1, lab2, lab3, lab_207_1, lab_207_2]
 
 <style scoped lang="scss">
 .lab-row {
-  width: 100%;
+  width: 100vw;
+  max-width: 1440px;
+  margin: 0 auto;
+  margin-top: 10px;
   .lab-desc{
     line-height:28px ;
     p{

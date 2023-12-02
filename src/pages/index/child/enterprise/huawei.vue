@@ -47,6 +47,7 @@
 </template>
   
 <script setup>
+import {onActivated} from 'vue'
 // banner
 import hw_img1 from './image/huawei/huawei_banner.jpg';
 // import hw_img2 from './image/huawei/huawei_banner2.jpg';
@@ -55,6 +56,9 @@ import hw_img4 from './image/huawei/huawei_banner4.jpg';
 import hw_img5 from './image/huawei/huawei_banner5.jpg';
 import textImg from './image/huawei/huawei.jpg';
 
+onActivated(() => {
+  PubSub.publish('scroll-top', { data: true });
+})
 // 跳转华为云计算官网
 const jumpPage = () => {
   window.open("https://www.huawei.com/cn/")

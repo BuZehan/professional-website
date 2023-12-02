@@ -29,6 +29,7 @@ const pcNavgationTo = (e) => {
 <style scoped lang='scss'>
 .instruction {
     width: 90vw;
+    max-width: 1440px;
     overflow: hidden;
     margin: 80rpx auto;
     padding: 20rpx 0;
@@ -88,6 +89,17 @@ const pcNavgationTo = (e) => {
             .btn {
                 float: right;
                 margin-top: 100px;
+                display: flex;
+                color: #d00202;
+                border-color: #d00202;
+                transition: all .35s;
+                margin: 0;
+                margin-top: 20rpx;
+          
+                &:hover {
+                  background-color: #d00202;
+                  color: #f1f1f1;
+                }
             }
         }
     }

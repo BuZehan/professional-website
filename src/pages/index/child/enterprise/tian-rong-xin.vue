@@ -60,6 +60,7 @@
 </template>
 
 <script setup>
+import {onActivated} from 'vue'
 // banner
 import trx_banner1 from "./image/trx/trx_banner.jpg";
 import txtRight from "./image/hjkj/txtRight.jpg";
@@ -67,6 +68,9 @@ import txtRight from "./image/hjkj/txtRight.jpg";
 const jumpPage = () => {
   window.open("https://www.topsec.com.cn/");
 };
+onActivated(() => {
+  PubSub.publish('scroll-top', { data: true });
+})
 </script>
 
 <style scoped lang="scss">

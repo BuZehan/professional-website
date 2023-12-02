@@ -15,17 +15,6 @@
                 </keep-alive>
             </transition>
         </view>
-        <!-- 滑动组件--pc端 -->
-        <view class="Swiper-Container-PC">
-  
-            <!-- <el-row justify="center" class="pagination">
-                <el-col style="display: flex;justify-content: center;align-items: center;margin:30rpx 0">
-                    <el-pagination v-model:current-page="currentPage3" :background="true" layout="prev, pager, next, jumper"
-                        :total="1000" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
-                </el-col>
-            </el-row> -->
-        </view>
-
     </view>
 </template>
    
@@ -34,12 +23,12 @@
 import { ref } from 'vue'
 import NewsCardsCollege from "./news-cards-college.vue"
 import NewsCardStu from "./news-cards-stu.vue"
-
-const components = [NewsCardsCollege, NewsCardStu]
+import NewsCardsTeacher from './news-cards-teacher.vue';
+const components = [NewsCardsCollege,NewsCardsTeacher, NewsCardStu]
 
 // 菜单
 const i = ref(0)
-const menuArr = ['学院证书', '学生证书']
+const menuArr = ['获奖', '教师证书','学生证书']
 const cardNum = ref(8)
 // 分页
 const currentPage3 = ref(8)
