@@ -1,7 +1,7 @@
 <template>
   <view class="index-container">
+    <!-- 首页顶部banner -->
     <AppTopBanner />
-
     <template class="m-header">
       <AppPopup />
       <AppHeader />

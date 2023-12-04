@@ -16,7 +16,7 @@
    
    
 <script setup>
-   import img from '../../../../static/zykc.png';
+   import img from '../../../../static/zykc.jpg';
 </script>
    
    

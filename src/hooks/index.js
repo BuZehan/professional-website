@@ -11,7 +11,7 @@ export const windowResize = () => {
       // PC
       const hash = window.location.hash;
       if (hash === '#/') {
-        console.log('> 992 ');
+        // console.log('> 992 ');
       } else {
         // console.log(window.location);
         let hashValue = UseMian.hashMap.get(hash);
@@ -19,7 +19,7 @@ export const windowResize = () => {
         // console.log(hashValue[0], hashValue[1]);
         UseMian.updateRouterIndex( `${hashValue[0]}`)
         window.location.href = '/';
-        console.log('跳转首页');
+        // console.log('跳转首页');
       }
       // window.location.href = '/'
     }
