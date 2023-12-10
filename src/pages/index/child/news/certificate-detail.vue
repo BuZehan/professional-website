@@ -5,18 +5,18 @@
             <AppHeader />
         </template>
         <el-row justify="center">
-            <el-col class="title" :xs="22" :md="24">{{ Certificate[CertificateIndex].news_title }}</el-col>
+            <el-col class="title" :xs="22" :md="24">{{ Certificate.news_title }}</el-col>
             <el-col class="time" :xs="22" :md="24"><el-icon :size="20" color="rgb(200,20,20)">
                     <Clock />
-                </el-icon>{{ Certificate[CertificateIndex].release_time }}</el-col>
+                </el-icon>{{ Certificate.release_time }}</el-col>
             <!-- <el-col class="content" :xs="22" :md="24" v-for="c in newsData.content"> -->
             <el-col class="content" :xs="22" :md="24">
                 <!-- <el-image v-if="c == 'img'" :src="newsData.imgUrl" fit="cover" /> -->
-                <el-image v-if="Certificate[CertificateIndex].honorImage"
-                    :src="Certificate[CertificateIndex].honorImage[0].image_path" fit="cover" />
+                <el-image v-if="Certificate.honorImage"
+                    :src="Certificate.honorImage[0].image_path" fit="cover" />
             </el-col>
             <el-col class="content" :xs="22" :md="24">
-                <p>{{ Certificate[CertificateIndex].news_content }}</p>
+                <p>{{ Certificate.news_content }}</p>
             </el-col>
         </el-row>
         <el-button color="rgb(200,20,20)" class="hidden-sm-and-down btn" type="primary" @tap="back">返回</el-button>
@@ -62,16 +62,16 @@ const Mback = () => {
 import { WebDataStore } from '@/store/modules/web.js'
 const UseWebDataStore = WebDataStore();
 const Certificate = computed(() => {
-    return UseWebDataStore.Certificate.list
+    let data = UseWebDataStore.Certificate.list.filter(item => item.id === UseWebDataStore.CertificateIndex)
+    return data[0]
 });
-const CertificateIndex = computed(() => {
-    return UseWebDataStore.CertificateIndex
-});
+// console.log(Certificate.value);
 </script>
    
    
-<style scoped lang='scss'>
-.btn {
+<style scoped lang='scss'>.btn {
+    margin-top: 50rpx;
+    margin-bottom: 200rpx;
     float: right;
 }
 
@@ -90,7 +90,7 @@ const CertificateIndex = computed(() => {
             top: 0;
             z-index: 5000;
         }
-
+     
         .title {
             margin-top: 140rpx;
             text-align: center;

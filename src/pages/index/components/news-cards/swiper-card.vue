@@ -8,7 +8,7 @@
                     <view class="bottom">
                         <view class="desc">{{ item.news_content }}</view>
                         <view class="time">日期：{{item.release_time}}</view>
-                        <el-button size="small" class="button" @tap="mobileClickHandler(i)">详情</el-button>
+                        <el-button size="small" class="button" @tap="mobileClickHandler(item.id)">详情</el-button>
                     </view>
                 </view>
             </el-card>
@@ -27,9 +27,15 @@ import 'swiper/css/effect-cards';
 // import required modules
 import { EffectCards } from 'swiper/modules';
 const modules = [EffectCards];
-const dataArray = computed(() => {
-    return UseWebDataStore.Certificate.list;
+const $props = defineProps({
+    dataArray: {
+        type: Array,
+        default: () => {
+            return [];
+        }
+    }
 })
+
 import { WebDataStore } from '@/store/modules/web.js';
 const UseWebDataStore = WebDataStore();
 const mobileClickHandler = (i) => {

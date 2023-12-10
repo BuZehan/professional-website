@@ -1,7 +1,7 @@
 <template>
     <view class="inform-modules">
         <!-- PC -->
-        <el-row class="inform-item hidden-sm-and-down" @tap="goToDetail(i)"
+        <el-row class="inform-item hidden-sm-and-down" @tap="goToDetail(book.id)"
             v-for="book, i in UseWebDataStore.Certificate.list" :key="i" v-showMeta="`animate__fadeInRight`">
             <el-col v-if="book" class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
@@ -13,7 +13,7 @@
             </el-col>
         </el-row>
         <!-- mobile -->
-        <el-row class="inform-item hidden-md-and-up" @tap="goToDetailM(i)"
+        <el-row class="inform-item hidden-md-and-up" @tap="goToDetailM(book.id)"
             v-for="book, i in UseWebDataStore.Certificate.list" :key="i" v-showMeta="`animate__fadeInRight`">
             <el-col class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
@@ -48,15 +48,15 @@ const currentPage = computed({
         // console.log(v);
     }
 })
-const pageSize = ref(5)
+const pageSize = ref(10)
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
 }
 const handleCurrentChange = async (val) => {
     // console.log(`current page: ${val}`)
-    let certificateData = await getCertificate({ page: +val, limit: 5 })
     // console.log(certificateData);
     // console.log(certificateData);  // 获奖证书
+    let certificateData = await getCertificate({ page: +val, limit: 10 })
     UseWebDataStore.SetCertificateData(certificateData)
 }
 

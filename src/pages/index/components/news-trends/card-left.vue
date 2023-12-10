@@ -1,7 +1,7 @@
 <template>
     <view class="card-left" v-showMeta="`animate__fadeInLeft`">
-        <view class="content" @tap="fn">
-            <el-image fit="fill" :src="news_data.images[0].image_path" />
+        <view v-if="news_data.images[0]" class="content" @tap="fn">
+            <el-image  fit="fill" :src="news_data.images[0].image_path" />
             <view class="time">
                 <view class="day">{{ news_data.release_time.split('-')[2] }}</view>
                 <view class="year">{{ news_data.release_time.split('-')[0] }}-{{ news_data.release_time.split('-')[1] }}
@@ -20,7 +20,6 @@
         <view class="border-2"></view>
         <view class="border-3"></view>
         <view class="border-4"></view>
-
     </view>
 </template>
    

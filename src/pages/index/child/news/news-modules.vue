@@ -1,21 +1,22 @@
 <template>
     <view class="inform-modules">
-        <template v-for="news,i in newsData" :key="i">
+        <template v-for="news, i in newsData" :key="i">
             <!-- Mobile -->
             <view v-if="i % 2 === 1" @tap="goToDetailM(i)" class="pc-container-r hidden-md-and-up"
                 v-showMeta="`animate__fadeInRight`">
                 <el-row class="news-item">
                     <el-col :xs="24" :xl="5" class="img-wrapper">
-                        <el-image class="image" fit="fill"
-                        :src="news.images[0].image_path" />
+                        <el-image class="image" fit="fill" :src="news.images[0].image_path" />
                     </el-col>
                     <el-col :xs="24" :xl="2" class="time">
                         <el-row>
                             <el-col :xs="3" :xl="17">
-                                <view class="year">{{news.release_time.split('-')[0]}}</view>
+                                <view class="year">{{ news.release_time.split('-')[0] }}</view>
                             </el-col>
                             <el-col :xs="5">
-                                <view class="day">{{news.release_time.split('-')[1]}}-{{news.release_time.split('-')[2]}}</view>
+                                <view class="day">{{ news.release_time.split('-')[1] }}-{{ news.release_time.split('-')[2]
+                                }}
+                                </view>
                             </el-col>
                         </el-row>
                         <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(i)">
@@ -23,8 +24,8 @@
                             </el-icon></view>
                     </el-col>
                     <el-col :xs="24" class="desc">
-                        <view class="desc-title">{{news.news_title}}</view>
-                        <p>{{news.news_content}}
+                        <view class="desc-title">{{ news.news_title }}</view>
+                        <p>{{ news.news_content }}
                         </p>
                     </el-col>
                 </el-row>
@@ -32,17 +33,18 @@
             <view v-if="i % 2 === 0" @tap="goToDetailM(i)" class="pc-container-l hidden-md-and-up"
                 v-showMeta="`animate__fadeInLeft`">
                 <el-col :xs="24" :md="6" class="img-wrapper">
-                    <el-image class="image" fit="fill"
-                    :src="news.images[0].image_path" />
+                    <el-image class="image" fit="fill" :src="news.images[0].image_path" />
                 </el-col>
                 <el-row class="news-item">
                     <el-col :xs="24" :md="3" :xl="2" class="time">
                         <el-row>
                             <el-col :xs="3" :md="24" :xl="17">
-                                <view class="year">{{news.release_time.split('-')[0]}}</view>
+                                <view class="year">{{ news.release_time.split('-')[0] }}</view>
                             </el-col>
                             <el-col :xs="5" :md="24">
-                                <view class="day">{{news.release_time.split('-')[1]}}-{{news.release_time.split('-')[2]}}</view>
+                                <view class="day">{{ news.release_time.split('-')[1] }}-{{ news.release_time.split('-')[2]
+                                }}
+                                </view>
                             </el-col>
                         </el-row>
                         <view class="more hidden-sm-and-down"><el-icon :size="26">
@@ -53,8 +55,8 @@
                             <Right />
                         </el-icon></view>
                     <el-col :xs="24" :md="15" class="desc">
-                        <view class="desc-title">{{news.news_title}}</view>
-                        <p>{{news.news_content}}
+                        <view class="desc-title">{{ news.news_title }}</view>
+                        <p>{{ news.news_content }}
                         </p>
                     </el-col>
 
@@ -64,25 +66,26 @@
             <view v-if="i % 2 === 1" class="pc-container-r  hidden-sm-and-down" v-showMeta="`animate__fadeInRight`">
                 <el-row class="news-item">
                     <el-col :xs="24" :md="6" :xl="5" class="img-wrapper">
-                        <el-image class="image" fit="fill"
-                            :src="news.images[0].image_path" />
+                        <el-image class="image" fit="fill" :src="news.images[0].image_path" />
                     </el-col>
                     <el-col :xs="24" :md="3" :xl="2" class="time">
                         <el-row>
                             <el-col :xs="3" :md="24" :xl="17">
-                                <view class="year">{{news.release_time.split('-')[0]}}</view>
+                                <view class="year">{{ news.release_time.split('-')[0] }}</view>
                             </el-col>
                             <el-col :xs="5" :md="24">
-                                <view class="day">{{news.release_time.split('-')[1]}}-{{news.release_time.split('-')[2]}}</view>
+                                <view class="day">{{ news.release_time.split('-')[1] }}-{{ news.release_time.split('-')[2]
+                                }}
+                                </view>
                             </el-col>
                         </el-row>
                         <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(i)">
-                                <Right/>
+                                <Right />
                             </el-icon></view>
                     </el-col>
                     <el-col :xs="24" :md="15" class="desc">
-                        <view class="desc-title">{{news.news_title}}</view>
-                        <p>{{news.news_content}}
+                        <view class="desc-title">{{ news.news_title }}</view>
+                        <p>{{ news.news_content }}
                         </p>
                     </el-col>
                 </el-row>
@@ -90,49 +93,61 @@
             <view v-if="i % 2 === 0" class="pc-container-l hidden-sm-and-down" v-showMeta="`animate__fadeInLeft`">
                 <el-row class="news-item">
                     <el-col :xs="24" :md="3" :xl="2" class="time">
-                        <view class="year">{{news.release_time.split('-')[0]}}</view>
-                        <view class="day">{{news.release_time.split('-')[1]}}-{{news.release_time.split('-')[2]}}</view>
+                        <view class="year">{{ news.release_time.split('-')[0] }}</view>
+                        <view class="day">{{ news.release_time.split('-')[1] }}-{{ news.release_time.split('-')[2] }}</view>
                         <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(i)">
                                 <Right />
                             </el-icon></view>
                     </el-col>
                     <el-col :xs="24" :md="15" :xl="17" class="desc">
-                        <view class="desc-title">{{news.news_title}}</view>
-                        <p>{{news.news_content}}
+                        <view class="desc-title">{{ news.news_title }}</view>
+                        <p>{{ news.news_content }}
                         </p>
                     </el-col>
                     <el-col :xs="24" :md="6" :xl="5" class="img-wrapper">
-                        <el-image class="image" fit="fill"
-                        :src="news.images[0].image_path"  />
+                        <el-image class="image" fit="fill" :src="news.images[0].image_path" />
                     </el-col>
                 </el-row>
             </view>
         </template>
         <!-- 分页 -->
         <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :background="true"
-            layout="prev, pager, next" :total="total" @size-change="handleSizeChange"
+            layout="prev, pager, next" :total="UseWebDataStore.newsData.total" @size-change="handleSizeChange"
             @current-change="handleCurrentChange" />
     </view>
 </template>
    
    
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import PubSub from 'pubsub-js'
 import { Right } from '@element-plus/icons-vue'
+import { getNews, getCertificate, getNotice } from "@/api"
+
 // 新闻数据
-import {WebDataStore} from '@/store/modules/web.js'
+import { WebDataStore } from '@/store/modules/web.js'
 const UseWebDataStore = WebDataStore();
-const newsData = UseWebDataStore.newsData.list;
+const newsData = computed(() => {
+    return UseWebDataStore.newsData.list;
+});
 // 分页
-const currentPage = ref(1)
-const pageSize = ref(6)
-const total = ref(24)
+const currentPage = computed({
+    get() {
+        return UseWebDataStore.newsData.nextPage - 1
+    },
+    set(v) {
+        // console.log(v);
+    }
+})
+const pageSize = ref(5)
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
 }
-const handleCurrentChange = (val) => {
+const handleCurrentChange = async (val) => {
     console.log(`current page: ${val}`)
+    let newsData = await getNews({ page: +val, limit: 5 })
+    console.log(newsData);
+    UseWebDataStore.SetNewsData(newsData)
 }
 const goToDetail = (i) => {
     UseWebDataStore.SetNewsDataIndex(i)
@@ -305,6 +320,7 @@ const goToDetailM = () => {
             border: 1rpx solid #cccccc8d;
             box-sizing: border-box;
             width: 100%;
+
             &:hover {
                 .more {
                     background-color: var(--CHAHUAHONG);
@@ -373,6 +389,7 @@ const goToDetailM = () => {
                 box-sizing: border-box;
                 padding-right: 20rpx;
                 position: relative;
+
                 .desc-title {
                     font-size: 32rpx;
                     color: #333;
@@ -409,5 +426,4 @@ const goToDetailM = () => {
             z-index: -1;
         }
     }
-}
-</style>
+}</style>

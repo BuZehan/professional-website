@@ -114,8 +114,10 @@
 </template>
 
 <script setup>
-import { ref ,onMounted} from 'vue';
+import { ref, onMounted } from 'vue';
 import PubSub from "pubsub-js";
+import { WebDataStore } from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
 import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
 import AppFooter from "@/components/app-footer/app-footer.vue";
@@ -146,7 +148,7 @@ const navgationTo = (url) => {
   });
 };
 // 仓库状态数据
-import {StuInfoStore} from '@/store/modules/stu.js';
+import { StuInfoStore } from '@/store/modules/stu.js';
 const UseStuInfoStore = StuInfoStore();
 // pc端跳转
 const pcNavgationTo = (e) => {
@@ -157,7 +159,10 @@ const pcNavgationTo = (e) => {
     case '7':
       UseStuInfoStore.updateCurrentRouterIndex(0)
       break;
-
+    case '8':
+      UseWebDataStore.SetNewsDataIndex(0)
+      UseWebDataStore.SetNewsDetailIndex([1, 0])
+      break;
     default:
       break;
   }
@@ -178,16 +183,17 @@ const companyArr = [
   { name: "trx", path: trx },
   { name: "zjb", path: zjb }]
 // 网站数据请求
-import {getNews,getCertificate,getNotice} from "@/api"
-import {WebDataStore} from '@/store/modules/web.js'
-const UseWebDataStore = WebDataStore();
+import { getNews, getCertificate, getNotice, getBanner } from "@/api"
+
 onMounted(() => {
   // 新闻动态
-  getNewsData({page: 1,limit:5})
+  getNewsData({ page: 1, limit: 5 })
   // 通知公告
-  getNoticeData({page: 1,limit: 10})
+  getNoticeData({ page: 1, limit: 10 })
   // 获奖证书
-  getCertificateData({page: 1,limit:5})
+  getCertificateData({ page: 1, limit: 10 })
+  // 轮播图数据
+  getBannerData({ page: 1, limit: 10 })
 })
 
 const getNewsData = async (data) => {
@@ -195,7 +201,6 @@ const getNewsData = async (data) => {
   // console.log(newsData);
   UseWebDataStore.SetNewsData(newsData)
 }
-
 const getNoticeData = async (data) => {
   let noticeData = await getNotice(data)
   // console.log(noticeData);
@@ -206,10 +211,14 @@ const getCertificateData = async (data) => {
   // console.log(certificateData);
   UseWebDataStore.SetCertificateData(certificateData)
 }
+// 获取轮播图数据
+const getBannerData = async (data) => {
+  let bannerData = await getBanner(data)
+  UseWebDataStore.SetBannerData(bannerData)
+}
 </script>
 
 <style scoped lang="scss">
-
 button {
   border: none;
 }
@@ -524,6 +533,7 @@ button {
 
     .lab {
       width: 100vw;
+
       .content {
         width: 100%;
         margin-bottom: 80rpx;

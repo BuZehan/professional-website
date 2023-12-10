@@ -1,14 +1,14 @@
 <template>
     <view>
-        <SwiperCard :dataArray="stuArray" class="m-card" />
+        <SwiperCard :dataArray="teacherData" class="m-card" />
         <view class="pc-card">
             <el-row justify="start" :gutter="20">
-                <el-col v-for="stu, i in stuArray" :key="i"  :sm="8" :lg="6">
-                    <el-card shadow="hover" :body-style="{ padding: '0px' }">
-                        <el-image :src="stu.img" class="image" />
+                <el-col v-for="teacher, i in teacherData" :key="i"  :sm="8" :lg="6">
+                    <el-card @tap="clickNewsItem(teacher.id)" shadow="hover" :body-style="{ padding: '0px' }">
+                        <el-image :src="teacher.honorImage[0].image_path" class="image" />
                         <div style="padding: 14px">
-                            <view class="title">{{stu.title}}</view>
-                            <view class="desc">{{stu.desc}}</view>
+                            <view class="title">{{teacher.news_content}}</view>
+                            <view class="desc">{{teacher.news_title}}</view>
                         </div>
                     </el-card>  
                 </el-col>
@@ -17,12 +17,18 @@
     </view>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref,computed } from 'vue'
 import SwiperCard from "./swiper-card.vue"
-// 学生
-import stu1 from "@/static/news/stu1.png"
-const stuArray = [{ img: stu1, title: '华为HCIP证书', desc: 'XXX教师', time: '2021.10.23' }, ]
-
+import { WebDataStore } from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
+const teacherData = computed(() => UseWebDataStore.Certificate.list.filter(item => item.type === '教师证书'));
+// 卡片点击事件
+const clickNewsItem = (id) => {
+    // console.log('通知公告下标',id);
+    UseWebDataStore.SetCertificateIndex(id)
+    UseWebDataStore.SetNewsDetailIndex([1, 5])
+    PubSub.publish('navgation-event', { e: '8' })
+}
 </script>
 
 <style scoped lang="scss">
@@ -69,12 +75,19 @@ const stuArray = [{ img: stu1, title: '华为HCIP证书', desc: 'XXX教师', tim
 
                     .title {
                         font-weight: bold;
+                        display: -webkit-box;
+                        -webkit-line-clamp: 1;
+                        /* 设置显示的行数 */
+                        -webkit-box-orient: vertical;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
                     }
 
                     .desc {
                         margin-top: 20rpx;
                         font-size: 28rpx;
                         color: #666;
+                        
                     }
                 }
 

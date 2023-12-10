@@ -24,28 +24,40 @@
         </el-row>
         <!-- 分页 -->
         <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :background="true"
-            layout="prev, pager, next" :total="total" @size-change="handleSizeChange"
-            @current-change="handleCurrentChange" />
+        layout="prev, pager, next" :total="UseWebDataStore.NoticeData.total" @size-change="handleSizeChange"
+        @current-change="handleCurrentChange" />
     </view>
 </template>
    
    
 <script setup>
-import { ref } from 'vue';
+import { ref,computed } from 'vue';
 import PubSub from 'pubsub-js';
+import { getNews, getCertificate, getNotice } from "@/api"
 // 新闻数据
 import {WebDataStore} from '@/store/modules/web.js'
 const UseWebDataStore = WebDataStore();
-const NoticeData = UseWebDataStore.NoticeData.list;
+const NoticeData = computed(() => {
+    return UseWebDataStore.NoticeData.list||[]
+});
 // 分页
-const currentPage = ref(1)
-const pageSize = ref(6)
-const total = ref(24)
+// 分页
+const currentPage = computed({
+    get() {
+        return UseWebDataStore.NoticeData.nextPage - 1
+    },
+    set(v) {
+        // console.log(v);
+    }
+})
+const pageSize = ref(10)
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
 }
-const handleCurrentChange = (val) => {
+const handleCurrentChange =async (val) => {
     console.log(`current page: ${val}`)
+    let certificateData = await getNotice({ page: +val, limit: 10 })
+    UseWebDataStore.SetNoticeData(certificateData)
 }
 // PC端跳转
 const goToDetail = (i) => {

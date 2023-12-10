@@ -33,7 +33,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted,computed } from "vue";
+import {WebDataStore} from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
 import banner1 from '@/static/banner-fm.png'
 const PCSwiperArr = [
   {
@@ -52,7 +54,8 @@ const PCSwiperArr = [
     routeUrl:'8'
   }
 ];
-
+const PCSwiperArr1 = computed( () => UseWebDataStore.BannerData);
+// console.log("PCSwiperArr1",PCSwiperArr1.value);
 // 移动端
 // 实验室
 import mbanner1 from "@/static/mbanner/1.jpg";

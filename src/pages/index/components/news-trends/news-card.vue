@@ -9,8 +9,8 @@
           <view @tap="navgationTo('news')" class="mMore hidden-sm-and-down">更多</view>
           <view @tap="pcNavgationTo('8')" class="pcMore hidden-sm-and-down">更多</view>
         </view>
-        <el-row justify="center" class="pc-child-el-row">
-          <el-col v-if="newsData" :xs="22" :sm="{ span: 10, offset: 1 }" :md="{ span: 12, offset: 0 }" :lg="12"
+        <el-row  v-if="newsData" justify="center" class="pc-child-el-row">
+          <el-col :xs="22" :sm="{ span: 10, offset: 1 }" :md="{ span: 12, offset: 0 }" :lg="12"
             v-for="news_data, i in newsData.slice(0, 4)" :key="news_data.id">
             <CardLeft :news_data="news_data" :index=i />
           </el-col>
@@ -32,7 +32,7 @@
           <view @tap="navgationTo('news')" class="mMore hidden-sm-and-down">更多</view>
           <view @tap="pcNavgationToTzgg('8')" class="pcMore hidden-sm-and-down">更多</view>
         </el-row>
-        <el-row>
+        <el-row v-if="NoticeData">
           <el-col :xs="24" v-for="notice,i in NoticeData.slice(0,7)" :key="notice.id">
             <CardRight  :notice="notice" :index="i" />
           </el-col>
@@ -44,14 +44,18 @@
    
    
 <script setup>
-import { ref } from 'vue'
+import { ref ,computed} from 'vue'
 import CardLeft from './card-left.vue'
 import CardRight from './card-right.vue'
 // 新闻数据
 import { WebDataStore } from '@/store/modules/web.js'
 const UseWebDataStore = WebDataStore();
-const newsData = UseWebDataStore.newsData.list;
-const NoticeData = UseWebDataStore.NoticeData.list;
+const newsData = computed(() => {
+  return UseWebDataStore.newsData.list
+});
+const NoticeData = computed(() => {
+  return UseWebDataStore.NoticeData.list
+});
 // 移动端跳转
 const navgationTo = (url) => {
   uni.navigateTo({

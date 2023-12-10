@@ -1,14 +1,14 @@
 <template>
     <view>
-        <SwiperCard :dataArray="stuArray" class="m-card" />
+        <SwiperCard :dataArray="StuData" class="m-card" />
         <view class="pc-card">
             <el-row justify="start" :gutter="20">
-                <el-col v-for="stu, i in stuArray" :key="i"  :sm="8" :lg="6">
-                    <el-card shadow="hover" :body-style="{ padding: '0px' }">
-                        <el-image :src="stu.img" class="image" />
+                <el-col v-for="stu, i in StuData" :key="i"  :sm="8" :lg="6">
+                    <el-card shadow="hover" :body-style="{ padding: '0px' }" @tap="clickNewsItem(stu.id)">
+                        <el-image :src="stu.honorImage[0].image_path" class="image" />
                         <div style="padding: 14px">
-                            <view class="title">{{stu.title}}</view>
-                            <view class="desc">{{stu.desc}}</view>
+                            <view class="title">{{stu.news_title}}</view>
+                            <view class="desc">{{stu.news_conten}}</view>
                         </div>
                     </el-card>  
                 </el-col>
@@ -17,12 +17,18 @@
     </view>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { WebDataStore } from '@/store/modules/web.js'
 import SwiperCard from "./swiper-card.vue"
-// 学生
-import stu1 from "@/static/news/stu1.png"
-const stuArray = [{ img: stu1, title: '华为HCIP证书', desc: '22级专接本1班-张计龙', time: '2021.10.23' }, { img: stu1, title: '获奖证书--title', desc: '获奖证书', time: '2021.11.10' }]
-
+const UseWebDataStore = WebDataStore();
+const StuData = computed(() => UseWebDataStore.Certificate.list.filter(item => item.type === '学生证书'));
+// 卡片点击事件
+const clickNewsItem = (id) => {
+    // console.log('通知公告下标',i);
+    UseWebDataStore.SetCertificateIndex(id)
+    UseWebDataStore.SetNewsDetailIndex([1, 5])
+    PubSub.publish('navgation-event', { e: '8' })
+}
 </script>
 
 <style scoped lang="scss">

@@ -5,3 +5,5 @@ export const getNews = (data) => request('GET','/news/getNews',data)
 export const getCertificate = (data) => request('GET','/honor/getHonor',data)
 // 通知公告
 export const getNotice = (data) => request('GET','/notification/getNotification',data)
+// 轮播图数据
+export const getBanner = (data) => request('GET','/swiper/getBanner',data)

@@ -44,6 +44,12 @@ export const WebDataStore = defineStore('WebData', () => {
         CertificateIndex.value = index
     }
 
+    // 轮播图数据
+    const BannerData = ref([]);
+    const SetBannerData = (data) => {
+        BannerData.value = data
+    }
+
     return {
         newsData,
         SetNewsData,
@@ -59,7 +65,9 @@ export const WebDataStore = defineStore('WebData', () => {
         SetNewsDataIndex,
         NewsDetailIndexArr,
         SetNewsDetailIndex,
-        AddCertificateData
+        AddCertificateData,
+        BannerData,
+        SetBannerData
     }
 }, {
     persist: true

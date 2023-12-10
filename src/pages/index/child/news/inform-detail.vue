@@ -27,7 +27,7 @@
    
 <script setup>
 import { Clock } from '@element-plus/icons-vue'
-import { onActivated, ref, onMounted, nextTick ,computed} from 'vue'
+import { onActivated, ref, onMounted, nextTick, computed } from 'vue'
 import PubSub from 'pubsub-js';
 // 新闻数据 
 import { WebDataStore } from '@/store/modules/web.js'
@@ -70,6 +70,8 @@ const Mback = () => {
    
 <style scoped lang='scss'>
 .btn {
+    margin-top: 50rpx;
+    margin-bottom: 200rpx;
     float: right;
 }
 
@@ -89,7 +91,7 @@ const Mback = () => {
             top: 0;
             z-index: 5000;
         }
-
+     
         .title {
             margin-top: 140rpx;
             text-align: center;
@@ -162,6 +164,7 @@ const Mback = () => {
             display: flex;
             align-items: center;
             justify-content: center;
+
             .el-image {
                 text-indent: 0 !important;
                 margin: 40rpx auto;
