@@ -1,18 +1,18 @@
 <template>
     <view class="card-left" v-showMeta="`animate__fadeInLeft`">
-        <view class="content">
-                <el-image fit="fill"
-                    src="https://test.hebic.cn/uploadfile/2023/1121/20231121085353148.jpg" />
-                <view class="time">
-                    <view class="day">06</view>
-                    <view class="year">2023-11</view>
+        <view class="content" @tap="fn">
+            <el-image fit="fill" :src="news_data.images[0].image_path" />
+            <view class="time">
+                <view class="day">{{ news_data.release_time.split('-')[2] }}</view>
+                <view class="year">{{ news_data.release_time.split('-')[0] }}-{{ news_data.release_time.split('-')[1] }}
                 </view>
+            </view>
 
             <view class="title">
-                校企合作谱新篇：2023年华为ICT人才联盟双选会在我校成功举办
+                {{ news_data.news_title }}
             </view>
             <view class="desc">
-                2023年11月4日，在秋高气爽的丰收季节，华为公司疫情之后省内的首次ICT人才联盟双选会在我校兴安校区体育场成功举办！(2023年华为ICT人才联盟双选会)
+                {{ news_data.news_content }}
             </view>
         </view>
         <view class="border"></view>
@@ -26,12 +26,45 @@
    
    
 <script setup>
+import { WebDataStore } from '@/store/modules/web.js';
+import {MainStore} from '@/store'
+import {computed} from 'vue'
+const UseMainStore = MainStore()
+const UseWebDataStore = WebDataStore()
+const $props = defineProps({
+    news_data: {
+        type: Object,
+        default: () => { }
+    },
+    index: {
+        type: Number,
+        default: 0
+    }
+});
+const fn = computed(() => {
+    // console.log('@IsPC@',UseMainStore.IsPC);
+  return UseMainStore.IsPC ? clickNewsItem : clickNewsItemM
+})
+let i = $props.index;
+const clickNewsItem = () => {
+    // console.log($props.index);
+    UseWebDataStore.SetNewsDataIndex(i)
+    UseWebDataStore.SetNewsDetailIndex([0,3])   
+    PubSub.publish('navgation-event', { e: '8' })
+}
 
+const clickNewsItemM = () => {
+    // console.log('跳转新闻动态页');
+    UseWebDataStore.SetNewsDataIndex($props.index)
+    UseWebDataStore.SetNewsDetailIndex([0,3]) 
+    uni.navigateTo({
+         url: `/pages/index/child/news/news-detail?id=${$props.index}`
+    });
+}
 </script>
    
    
 <style scoped lang='scss'>
-
 .card-left {
     width: 94%;
     height: 750rpx;
@@ -42,11 +75,13 @@
     transform-origin: bottom;
     box-sizing: border-box;
     max-width: 400px;
+
     .content {
         height: 740rpx;
         transform: translateY(40rpx);
         transition: all .7s;
         overflow: hidden;
+
         .el-image {
             transition: all .9s;
             overflow: hidden;
@@ -172,31 +207,32 @@
         font-size: 26rpx;
     }
 
-        .time {
-            position: absolute;
-            top: 0;
-            left: 0;
-            font-size: 26rpx;
-            color: #eee;
-            padding:10rpx;
-            width:100rpx;
-            height: 80rpx;
-            background-color: rgb(200,20,20);
-            .day{
-                font-weight: 900;
-                font-size: 34rpx;
-            }
+    .time {
+        position: absolute;
+        top: 0;
+        left: 0;
+        font-size: 26rpx;
+        color: #eee;
+        padding: 10rpx;
+        width: 100rpx;
+        height: 80rpx;
+        background-color: rgb(200, 20, 20);
+
+        .day {
+            font-weight: 900;
+            font-size: 34rpx;
         }
+    }
 }
 
 @include respondTo('pad') {
-    .card-left{
+    .card-left {
         width: 60vw;
     }
 }
 
 @include respondTo('mobile') {
-    .card-left{
+    .card-left {
         margin: 0 auto;
     }
 }

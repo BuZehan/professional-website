@@ -1,21 +1,21 @@
 <template>
     <view class="inform-modules">
-        <template v-for="i in 5" :key="i">
+        <template v-for="news,i in newsData" :key="i">
             <!-- Mobile -->
             <view v-if="i % 2 === 1" @tap="goToDetailM(i)" class="pc-container-r hidden-md-and-up"
                 v-showMeta="`animate__fadeInRight`">
                 <el-row class="news-item">
                     <el-col :xs="24" :xl="5" class="img-wrapper">
                         <el-image class="image" fit="fill"
-                            src="https://test.hebic.cn/uploadfile/2023/1121/20231121085353148.jpg" />
+                        :src="news.images[0].image_path" />
                     </el-col>
                     <el-col :xs="24" :xl="2" class="time">
                         <el-row>
                             <el-col :xs="3" :xl="17">
-                                <view class="year">2023</view>
+                                <view class="year">{{news.release_time.split('-')[0]}}</view>
                             </el-col>
                             <el-col :xs="5">
-                                <view class="day">11-21</view>
+                                <view class="day">{{news.release_time.split('-')[1]}}-{{news.release_time.split('-')[2]}}</view>
                             </el-col>
                         </el-row>
                         <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(i)">
@@ -23,9 +23,8 @@
                             </el-icon></view>
                     </el-col>
                     <el-col :xs="24" class="desc">
-                        <view class="desc-title">网络专业学生积极参与2023年华为ICT大赛</view>
-                        <p>2023年11月18日，我校兴安校区举办了“华为中国大学生ICT大赛2023-2024”河北省初赛，共有229名网络工程专业学生参与了比赛。
-                            当天上午10点，由王雷老师组织，229名网络工程专业学生参加了华为公司主办的2023年中国大学生ICT大赛河北省初赛。
+                        <view class="desc-title">{{news.news_title}}</view>
+                        <p>{{news.news_content}}
                         </p>
                     </el-col>
                 </el-row>
@@ -34,16 +33,16 @@
                 v-showMeta="`animate__fadeInLeft`">
                 <el-col :xs="24" :md="6" class="img-wrapper">
                     <el-image class="image" fit="fill"
-                        src="https://7069324.s61i.faiusr.com/2/AD0IjL2vAxACGAAg7t-dvwUo4JTmrAMw3gI44AE.jpg" />
+                    :src="news.images[0].image_path" />
                 </el-col>
                 <el-row class="news-item">
                     <el-col :xs="24" :md="3" :xl="2" class="time">
                         <el-row>
                             <el-col :xs="3" :md="24" :xl="17">
-                                <view class="year">2023</view>
+                                <view class="year">{{news.release_time.split('-')[0]}}</view>
                             </el-col>
                             <el-col :xs="5" :md="24">
-                                <view class="day">11-21</view>
+                                <view class="day">{{news.release_time.split('-')[1]}}-{{news.release_time.split('-')[2]}}</view>
                             </el-col>
                         </el-row>
                         <view class="more hidden-sm-and-down"><el-icon :size="26">
@@ -54,8 +53,8 @@
                             <Right />
                         </el-icon></view>
                     <el-col :xs="24" :md="15" class="desc">
-                        <view class="desc-title">国家精品课程</view>
-                        <p>是一所有理想的大学，也是清华人实现自己梦想的来到这里，你将获得学术大师对你人生梦想的指点，你将触碰到科技和学术梦想的前沿，你将沐浴在共同追寻梦想的良好氛围中
+                        <view class="desc-title">{{news.news_title}}</view>
+                        <p>{{news.news_content}}
                         </p>
                     </el-col>
 
@@ -66,25 +65,24 @@
                 <el-row class="news-item">
                     <el-col :xs="24" :md="6" :xl="5" class="img-wrapper">
                         <el-image class="image" fit="fill"
-                            src="https://test.hebic.cn/uploadfile/2023/1121/20231121085353148.jpg" />
+                            :src="news.images[0].image_path" />
                     </el-col>
                     <el-col :xs="24" :md="3" :xl="2" class="time">
                         <el-row>
                             <el-col :xs="3" :md="24" :xl="17">
-                                <view class="year">2023</view>
+                                <view class="year">{{news.release_time.split('-')[0]}}</view>
                             </el-col>
                             <el-col :xs="5" :md="24">
-                                <view class="day">11-21</view>
+                                <view class="day">{{news.release_time.split('-')[1]}}-{{news.release_time.split('-')[2]}}</view>
                             </el-col>
                         </el-row>
                         <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(i)">
-                                <Right />
+                                <Right/>
                             </el-icon></view>
                     </el-col>
                     <el-col :xs="24" :md="15" class="desc">
-                        <view class="desc-title">网络专业学生积极参与2023年华为ICT大赛</view>
-                        <p>2023年11月18日，我校兴安校区举办了“华为中国大学生ICT大赛2023-2024”河北省初赛，共有229名网络工程专业学生参与了比赛。
-                            当天上午10点，由王雷老师组织，229名网络工程专业学生参加了华为公司主办的2023年中国大学生ICT大赛河北省初赛。
+                        <view class="desc-title">{{news.news_title}}</view>
+                        <p>{{news.news_content}}
                         </p>
                     </el-col>
                 </el-row>
@@ -92,20 +90,20 @@
             <view v-if="i % 2 === 0" class="pc-container-l hidden-sm-and-down" v-showMeta="`animate__fadeInLeft`">
                 <el-row class="news-item">
                     <el-col :xs="24" :md="3" :xl="2" class="time">
-                        <view class="year">2022</view>
-                        <view class="day">8-05</view>
+                        <view class="year">{{news.release_time.split('-')[0]}}</view>
+                        <view class="day">{{news.release_time.split('-')[1]}}-{{news.release_time.split('-')[2]}}</view>
                         <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(i)">
                                 <Right />
                             </el-icon></view>
                     </el-col>
                     <el-col :xs="24" :md="15" :xl="17" class="desc">
-                        <view class="desc-title">国家精品课程</view>
-                        <p>是一所有理想的大学，也是清华人实现自己梦想的来到这里，你将获得学术大师对你人生梦想的指点，你将触碰到科技和学术梦想的前沿，你将沐浴在共同追寻梦想的良好氛围中
+                        <view class="desc-title">{{news.news_title}}</view>
+                        <p>{{news.news_content}}
                         </p>
                     </el-col>
                     <el-col :xs="24" :md="6" :xl="5" class="img-wrapper">
                         <el-image class="image" fit="fill"
-                            src="https://7069324.s61i.faiusr.com/2/AD0IjL2vAxACGAAg7t-dvwUo4JTmrAMw3gI44AE.jpg" />
+                        :src="news.images[0].image_path"  />
                     </el-col>
                 </el-row>
             </view>
@@ -122,6 +120,10 @@
 import { ref } from 'vue'
 import PubSub from 'pubsub-js'
 import { Right } from '@element-plus/icons-vue'
+// 新闻数据
+import {WebDataStore} from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
+const newsData = UseWebDataStore.newsData.list;
 // 分页
 const currentPage = ref(1)
 const pageSize = ref(6)
@@ -133,6 +135,7 @@ const handleCurrentChange = (val) => {
     console.log(`current page: ${val}`)
 }
 const goToDetail = (i) => {
+    UseWebDataStore.SetNewsDataIndex(i)
     PubSub.publish('go-to-detail', { i, type: 'news' })
 }
 // 移动端跳转
@@ -141,6 +144,8 @@ const goToDetailM = () => {
         url: '/pages/index/child/news/news-detail?id=1',
     })
 }
+
+
 </script>
    
    
@@ -299,7 +304,7 @@ const goToDetailM = () => {
             height: 380rpx;
             border: 1rpx solid #cccccc8d;
             box-sizing: border-box;
-
+            width: 100%;
             &:hover {
                 .more {
                     background-color: var(--CHAHUAHONG);
@@ -368,7 +373,6 @@ const goToDetailM = () => {
                 box-sizing: border-box;
                 padding-right: 20rpx;
                 position: relative;
-
                 .desc-title {
                     font-size: 32rpx;
                     color: #333;

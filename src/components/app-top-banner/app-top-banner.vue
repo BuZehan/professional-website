@@ -3,24 +3,37 @@
         <!-- <el-image src="../../static/banner-logo.png"  /> -->
         <view class="animated-banner" ref="banner">
             <!-- WIFI -->
-            <view class="layer">
-                <img class="logo-wifi" ref="logoWifi" src="../../static/animate-banner/cloud1.png" />
-            </view>
+            <!-- <view class="layer">
+                <img class="logo-start" ref="logoStart" src="../../static/animate-banner/yuan.png" />
+            </view> -->
+            <!-- <view class="layer">
+                <img class="logo-fk" ref="logoFk" src="../../static/animate-banner/fk.png" />
+            </view> -->
             <!-- IP is Everything -->
             <!-- <view class="layer">
                 <img class="logo-IP" ref="logoIP" src="../../static/animate-banner/logo-IP.png" />
             </view> -->
+            <!-- <view class="layer">
+                <img class="logo-lx" ref="logoLx2" src="../../static/animate-banner/lx.png" />
+            </view>
+              <view class="layer">
+                <img class="logo-lx" ref="logoLx" src="../../static/animate-banner/lx.png" />
+            </view>
+            <view class="layer">
+                <img class="logo-lx" ref="logoLx1" src="../../static/animate-banner/lx.png" />
+            </view> -->
+
         </view>
         <!-- navgation -->
         <el-row class="navgation" justify="center">
             <el-col class="logo" :md="24" :lg="8">
                 <el-row>
                     <el-col>
-                        <el-image src="../../static/animate-banner/logo.png" />
+                        <el-image src="../../static/animate-banner/banner-fm1-logo.png" />
                     </el-col>
-                    <el-col>
+                    <!-- <el-col>
                         <el-image src="../../static/animate-banner/logo-IP.png" />
-                    </el-col>
+                    </el-col> -->
                 </el-row>
             </el-col>
             <el-col class="menu" :md="24" :lg="16">
@@ -45,19 +58,27 @@
    
    
 <script setup>
+import { ref, onBeforeUnmount, watch } from "vue";
 import PubSub from "pubsub-js";
 import { MainStore } from "../../store";
+import { WebDataStore } from '@/store/modules/web.js';
+const UseWebDataStore = WebDataStore()
 const UseMainStore = MainStore();
+// 仓库状态数据
+import { StuInfoStore } from '@/store/modules/stu.js';
+const UseStuInfoStore = StuInfoStore();
 import { useMouse } from '@/hooks'
-import { watch, ref } from 'vue'
 const { x, y } = useMouse()
 const banner = ref(null)
 
 let i = 0
 let disX = 0
 let layers = null
-const logoWifi = ref('logoWifi')
-const logoIP = ref('logoIP')
+const logoStart = ref(null)
+const logoLx = ref(null)
+const logoLx1 = ref(null)
+const logoLx2 = ref(null)
+// const logoIP = ref('logoIP')
 const area = '120px'
 watch([x, y], (v) => {
     layers = banner.value.$el.children
@@ -71,8 +92,12 @@ watch([x, y], (v) => {
             });
         }
         i = 0;
-        logoWifi.value.style.transform = `translate(-350px,-75px) rotate(0deg) scale(.7)`
-        // logoIP.value.style.transform = `translate(0, 45px) rotate(0deg) scale(1)`
+        // logoStart.value.style.transform = `translate(500px,150px) rotate(0deg) scale(0.7) rotate(0deg)`
+        // logoStart.value.style.opacity = 0.5
+        // logoLx.value.style.transform = `translate(0px, 100px) rotate(0deg) scale(.3)`
+        // logoLx.value.style.opacity = 0.5
+        // logoLx1.value.style.transform = `translate(-100px, 80px) rotate(0deg) scale(.2)`
+        // logoLx2.value.style.transform = `translate(50px, 80px) rotate(0deg) scale(.12)`
         return
     } else {
         if (i === 0) {
@@ -82,14 +107,32 @@ watch([x, y], (v) => {
         }
         i === 0 ? (i = x) : i;
         disX = x - i;
-        logoWifi.value.style.transform = `translate(${-350 + disX / 12}px, -75px) rotate(0deg) scale(.7)`
-        // logoIP.value.style.transform = `translate(-${20 + disX / 20}%, 45px) rotate(0deg) scale(1)`
+        // logoStart.value.style.transform = `translate(${500 - disX / 10}px, 150px) rotate(0deg) scale(0.7) rotate(0deg)`
+        // logoLx.value.style.transform = `translate(${0 + disX / 15}px,${100 + disX / 20}px) rotate(0deg) scale(0.3)`
+        // logoLx.value.style.opacity = 0.5 +  disX / 1200
+
+        // logoLx1.value.style.transform = `translate(${-100 + disX / 18}px,${80 + disX / 25}px) rotate(0deg) scale(0.2)`
+        // logoLx2.value.style.transform = `translate(${50 + disX / 18}px,${80 + disX / 35}px) rotate(0deg) scale(0.12)`
     }
 })
 
 // 菜单点击事件
-const handleSelect = (name) => {
-    PubSub.publish('navgation-event', { e: name })
+const handleSelect = (key, keyPath) => {
+    switch (key) {
+        case '3':
+            PubSub.publish('index-teacher-event', { num: 0 })
+            break;
+        case '7':
+            UseStuInfoStore.updateCurrentRouterIndex(0)
+            break;
+        case '8':
+            UseWebDataStore.SetNewsDataIndex(0)
+            UseWebDataStore.SetNewsDetailIndex([1, 0])
+            break;
+        default:
+            break;
+    }
+    PubSub.publish('navgation-event', { e: key })
 }
 
 // &::before{
@@ -109,11 +152,10 @@ const handleSelect = (name) => {
 @include respondTo('desktop') {
     .app-top-banner {
         height: v-bind(area);
-        background-color: #8f000b;
+        background-color: var(--MAIN);
         width: 100vw;
         position: relative;
         overflow: hidden;
-        max-width: 1920px;
         margin: 0 auto;
 
         .animated-banner {
@@ -136,15 +178,22 @@ const handleSelect = (name) => {
                 align-items: flex-end;
                 justify-content: center;
 
-                .logo-wifi {
-                    width: 50px;
-                    height: 50px;
+                .logo-start {
+                    opacity: 0.5;
+                    transition: all .5s;
+                    transform: translate(500px, 150px) rotate(0deg) scale(0.7) rotate(0deg);
                 }
 
-                .logo-IP {
-                    width: 400px;
-                    height: 50px;
-                    //transform: translate(800px, -50px) rotate(0deg) scale(.8);
+                .logo-lx {
+                    opacity: 0.7;
+                }
+
+                .logo-lx {
+                    opacity: 0.7;
+                }
+
+                .logo-lx {
+                    opacity: 0.7;
                 }
             }
 
@@ -155,27 +204,30 @@ const handleSelect = (name) => {
     .navgation {
         position: absolute;
         top: 0;
-        left: 0;
         height: v-bind(area);
         width: 100%;
         //background: linear-gradient(to bottom, #00000086 0%, #00000000 50%);
         box-sizing: border-box;
         padding: 0 200px;
         z-index: 50;
+        max-width: 1920px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
 
         .logo {
             display: flex;
-            justify-content: center;
+            justify-content: flex-start;
             align-items: center;
-            transform: scale(0.8) translateY(0);
+            transform: scale(1) translateY(0);
             transform-origin: left center;
+
             .el-row {
                 .el-col {
                     display: flex;
-                    justify-content: flex-start;
+                    justify-content: center;
                     align-items: center;
                     height: fit-content;
-                    margin-top: 8px;
                 }
             }
 
@@ -228,6 +280,12 @@ const handleSelect = (name) => {
         @media screen and (max-width:1199px) {
             .el-menu {
                 transform: translateY(-15px);
+            }
+
+            .logo {
+                transform-origin: center center;
+                height: 85px;
+                justify-content: center;
             }
         }
     }

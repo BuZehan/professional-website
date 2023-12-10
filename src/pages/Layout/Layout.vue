@@ -1,8 +1,8 @@
 <template>
-  <view class="layout-container" :class="{'layout-padding-top':!UseMainStore.isIndex}"  ref="layout">
+  <view class="layout-container" :class="{ 'layout-padding-top': !UseMainStore.isIndex }" ref="layout">
     <template class="pc-header">
       <AppPopup />
-      <AppHeader  @changeComponents="changeComponents" :i="i" :j="j" :scrollValue="scrollValue" />
+      <AppHeader @changeComponents="changeComponents" :i="i" :j="j" :scrollValue="scrollValue" />
     </template>
     <Index class="m" />
     <template class="pc">
@@ -61,10 +61,10 @@ const ComponentsArray = [
 const i = ref(0);
 const j = ref(0);
 const changeComponents = (index) => {
-  console.log(index);
-  if(index != '1') {
+  // console.log(index);
+  if (index != '1') {
     UseMainStore.updateIsIndex(false)
-  }else{
+  } else {
     UseMainStore.updateIsIndex(true)
   }
   let numArr = index.split("-");
@@ -102,14 +102,15 @@ const scrollValue = ref(0)
 nextTick(() => {
   layout.value.$el.addEventListener("scroll", (e) => {
     scrollValue.value = e.target.scrollTop;
-})})
+  })
+})
 
 windowResize()
 </script>
 
 <style scoped lang="scss">
-:deep(.el-popper.is-light ){
-  background-color: var(--YINHONG);
+:deep(.el-popper.is-light) {
+  background-color: var(--MAIN);
   border: none;
 }
 
@@ -142,12 +143,14 @@ windowResize()
 
 @include respondTo("desktop") {
   .layout-container {
-    
+
     position: relative;
   }
-  .layout-padding-top{
+
+  .layout-padding-top {
     padding-top: 120rpx;
   }
+
   .pc-header {
     display: block;
   }
@@ -159,5 +162,4 @@ windowResize()
   .pc {
     display: block;
   }
-}
-</style>
+}</style>

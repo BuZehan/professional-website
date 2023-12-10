@@ -6,6 +6,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 const UseMian = MainStore()
 export const windowResize = () => {
   window.addEventListener('resize', debounce((e) => {
+    UseMian.SetIsPC()
     let w = window.innerWidth;
     if (w >= 992) {
       // PC

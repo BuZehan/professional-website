@@ -5,14 +5,18 @@
             <AppHeader />
         </template>
         <el-row justify="center">
-            <el-col class="title" :xs="22" :md="24">{{ newsData.title }}</el-col>
+            <el-col class="title" :xs="22" :md="24">{{ NoticeData[NoticeDataIndex].news_title }}</el-col>
             <el-col class="time" :xs="22" :md="24"><el-icon :size="20" color="rgb(200,20,20)">
                     <Clock />
-                </el-icon>{{ newsData.time }}</el-col>
-            <el-col class="content" :xs="22" :md="24" v-for="c in newsData.content">
-                <el-image v-if="c == 'img'" :src="newsData.imgUrl" fit="cover" />
-                <p v-else>{{ c }}</p>
+                </el-icon>{{ NoticeData[NoticeDataIndex].release_time }}</el-col>
+            <el-col class="content" :xs="22" :md="24">
+                <el-image :src="NoticeData[NoticeDataIndex].notificationImage[0].image_path" fit="cover" />
+                <!-- <p v-else>{{ c }}</p> -->
             </el-col>
+            <el-col>
+                <p>{{ NoticeData[NoticeDataIndex].news_content }}</p>
+            </el-col>
+            <!-- <el-image v-if="c == 'img'" :src="newsData.imgUrl" fit="cover" /> -->
         </el-row>
         <el-button color="rgb(200,20,20)" class="hidden-sm-and-down btn" type="primary" @tap="back">返回</el-button>
         <el-button color="rgb(200,20,20)" class="hidden-md-and-up btn" type="primary" @tap="Mback">返回</el-button>
@@ -23,8 +27,17 @@
    
 <script setup>
 import { Clock } from '@element-plus/icons-vue'
-import { onActivated, ref, onMounted, nextTick } from 'vue'
+import { onActivated, ref, onMounted, nextTick ,computed} from 'vue'
 import PubSub from 'pubsub-js';
+// 新闻数据 
+import { WebDataStore } from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
+const NoticeData = computed(() => {
+    return UseWebDataStore.NoticeData.list
+});
+const NoticeDataIndex = computed(() => {
+    return UseWebDataStore.NoticeDataIndex;
+})
 import zhengshu from "@/static/news/stu1.png"
 const newsData = {
     title: '恭喜 XXX 同学顺利考过华为HCIP-Cloud Computing证书！',
@@ -37,14 +50,14 @@ const newsData = {
     ]
 }
 // 页面滚动
-onActivated(() => {
+onMounted(() => {
     PubSub.publish('scroll-top', {
         data: true
     })
 })
 const back = () => {
     console.log(123);
-    PubSub.publish('back-event',{index:1})
+    PubSub.publish('back-event', { index: 1 })
 }
 // 移动端返回
 const Mback = () => {
@@ -56,9 +69,10 @@ const Mback = () => {
    
    
 <style scoped lang='scss'>
-.btn{
+.btn {
     float: right;
 }
+
 
 @include respondTo('mobile') {
     .news-detail {
@@ -109,6 +123,7 @@ const Mback = () => {
 
             .el-image {
                 height: 400rpx;
+                max-height: 400rpx;
                 box-shadow: 8rpx 8rpx 20rpx 4rpx #33333349;
                 margin: 50rpx auto;
             }
@@ -146,12 +161,16 @@ const Mback = () => {
             text-indent: 70rpx;
             display: flex;
             align-items: center;
+            justify-content: center;
             .el-image {
                 text-indent: 0 !important;
                 margin: 40rpx auto;
                 border-left: 1rpx solid #ddd;
                 border-bottom: 1rpx solid #ddd;
+                max-width: 400px;
+
             }
         }
     }
-}</style>
+}
+</style>

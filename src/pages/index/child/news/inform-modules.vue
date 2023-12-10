@@ -1,25 +1,25 @@
 <template>
     <view class="inform-modules">
         <!-- PC -->
-        <el-row class="inform-item hidden-sm-and-down" @tap="goToDetail(i)" v-for="i in 5" :key="i" v-showMeta="`animate__fadeInRight`">
-            <el-col class="time" :xs="4" :sm="4">
+        <el-row class="inform-item hidden-sm-and-down" @tap="goToDetail(i)" v-for=" notice,i in NoticeData" :key="i" v-showMeta="`animate__fadeInRight`">
+            <el-col  v-if="notice" class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
-                        <view class="year">2023/1{{ i }}</view>
+                        <view class="year">{{notice.release_time}}</view>
             </el-col>
-            <el-col class="content" :xs="20" :sm="20">
-                <view class="title">恭喜 {{ i }}XXX 同学顺利考过华为HCIP-Cloud Computing证书！</view>
-                <view class="desc"></view>
+            <el-col  v-if="notice" class="content" :xs="20" :sm="20">
+                <view class="title">{{notice.news_title}}</view>
+                <view class="desc">{{notice.news_content}}</view>
             </el-col>
         </el-row>
         <!-- mobile -->
-        <el-row class="inform-item hidden-md-and-up" @tap="goToDetailM(i)" v-for="i in 5" :key="i" v-showMeta="`animate__fadeInRight`">
-            <el-col class="time" :xs="4" :sm="4">
+        <el-row class="inform-item hidden-md-and-up" @tap="goToDetailM(i)" v-for=" notice,i in NoticeData" :key="i" v-showMeta="`animate__fadeInRight`">
+            <el-col  v-if="notice" class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
-                        <view class="year">2023/1{{ i }}</view>
+                <view class="year">{{notice.release_time}}</view>
             </el-col>
-            <el-col class="content" :xs="20" :sm="20">
-                <view class="title">恭喜 {{ i }}XXX 同学顺利考过华为HCIP-Cloud Computing证书！</view>
-                <view class="desc"></view>
+            <el-col  v-if="notice" class="content" :xs="20" :sm="20">
+                <view class="title">{{notice.news_title}}</view>
+                <view class="desc">{{notice.news_content}}</view>
             </el-col>
         </el-row>
         <!-- 分页 -->
@@ -33,6 +33,10 @@
 <script setup>
 import { ref } from 'vue';
 import PubSub from 'pubsub-js';
+// 新闻数据
+import {WebDataStore} from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
+const NoticeData = UseWebDataStore.NoticeData.list;
 // 分页
 const currentPage = ref(1)
 const pageSize = ref(6)
@@ -45,14 +49,17 @@ const handleCurrentChange = (val) => {
 }
 // PC端跳转
 const goToDetail = (i) => {
+    UseWebDataStore.SetNoticeDataIndex(i)
     PubSub.publish('go-to-detail', { i, type: 'inform' })
 }
 // 移动端跳转
+// console.log(NoticeData);
 const goToDetailM = (i) => {
     uni.navigateTo({
         url:"/pages/index/child/news/inform-detail?id=1"
     })
 }
+
 </script>
    
    

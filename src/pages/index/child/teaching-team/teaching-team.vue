@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeUnmount, onActivated } from 'vue'
+import { ref, onBeforeUnmount, onActivated,onMounted } from 'vue'
 import PubSub from 'pubsub-js'
 import ShowTeacherList from './show-teacher-list.vue';
 import { TeacherInfoStore } from '@/store/modules/teacherInfo.js'
@@ -75,6 +75,7 @@ onBeforeUnmount(() => {
   PubSub.unsubscribe('teacher-event')
   PubSub.unsubscribe('index-teacher-event')
 })
+
 </script>
 
 <style scoped lang="scss">

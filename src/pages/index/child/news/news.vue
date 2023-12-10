@@ -7,7 +7,7 @@
     <view class="container-content">
       <backgroundImg :img="sl" />
       <view class="trans">
-        <AppBreadcrumb :currentPageTxtArr="['专业新闻']" />
+        <AppBreadcrumb :currentPageTxtArr="['新闻动态']" />
         <el-row justify="center">
           <el-col :xs="{ span: 24 }" :sm="{ span: 20 }" :md="{ span: 20 }" :xl="18">
             <view class="title">{{ CurrentTitle }}</view>
@@ -42,9 +42,9 @@
                 <el-col class="component-wrapper" :xs="{ span: 22, offset: 1 }" :sm="{ span: 18, offset: 3 }"
                   :md="{ span: 20, offset: 0 }">
                   <Transition name="el-fade-in" mode="out-in">
-                    <KeepAlive>
-                      <component :is="Components[currentIndex]" />
-                    </KeepAlive>
+                    <!-- <KeepAlive> -->
+                    <component :is="Components[currentIndex]" />
+                    <!-- </KeepAlive> -->
                   </Transition>
                 </el-col>
               </el-row>
@@ -60,11 +60,17 @@
 <script setup>
 import { onActivated, ref, computed, onMounted } from 'vue';
 import PubSub from 'pubsub-js';
+import { WebDataStore } from '@/store/modules/web.js';
+import { MainStore } from '../../../../store';
+const UseMainStore = MainStore()
+const UseWebDataStore = WebDataStore()
+let currentIndex = ref(0);
 // 石榴背景
 import sl from '@/static/sl.jpg';
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
-  currentIndex.value = 0
+  currentIndex.value = !UseMainStore.IsPC ? 0 : UseWebDataStore.NewsDetailIndexArr[1];
+  // console.log(currentIndex.value);
 })
 // 动态组件
 import InformModules from './inform-modules.vue';
@@ -75,18 +81,18 @@ import Certificate from './certificate-modules.vue';
 import NewsDetail from './news-detail.vue';
 import InformDetail from './inform-detail.vue';
 import CertificateDetail from './certificate-detail.vue';
-const Components = [NewsMoudlers, InformModules,Certificate, NewsDetail, InformDetail,CertificateDetail];
-const currentIndex = ref(0);
+const Components = [NewsMoudlers, InformModules, Certificate, NewsDetail, InformDetail, CertificateDetail];
 // 切换组件
 const toogleComponent = (index) => {
+  UseWebDataStore.SetNewsDataIndex(index)
   currentIndex.value = index;
 };
 PubSub.subscribe('go-to-detail', (msg, data) => {
   if (data.type === 'news') {
     currentIndex.value = 3;
-  } else if(data.type === 'inform') {
+  } else if (data.type === 'inform') {
     currentIndex.value = 4;
-  }else{
+  } else {
     currentIndex.value = 5;
   }
 })
@@ -95,11 +101,14 @@ PubSub.subscribe('back-event', (msg, data) => {
 })
 // 滚动页面
 const target = ref(null)
-
+// pc端监听点击首页新闻事件
+// PubSub.subscribe('index-news-xwdt-event', (msg, data) => {
+//   currentIndex.value = data.num
+// })
 // 计算标题文字
 const CurrentTitle = computed(() => {
   let i = currentIndex.value
- return (i === 0 || i === 3 )? '新闻动态' : (i === 1 || i === 4) ? '通知公告' : '获奖证书'
+  return (i === 0 || i === 3) ? '新闻动态' : (i === 1 || i === 4) ? '通知公告' : '获奖证书'
 })
 </script>
 
@@ -271,4 +280,5 @@ const CurrentTitle = computed(() => {
       }
     }
   }
-}</style>
+}
+</style>

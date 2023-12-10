@@ -1,14 +1,14 @@
 <template>
     <Swiper :effect="'cards'" :grabCursor="true" :modules="modules" class="mySwiper swiper">
-        <SwiperSlide class="swiper-slide" v-for="item in dataArray" :key="item.img">
-            <el-card :body-style="{ padding: '0px' }">
-                <el-image fit="fill" :src="item.img" />
+        <SwiperSlide class="swiper-slide" v-for="item,i in dataArray" :key="item.img">
+            <el-card :body-style="{ padding: '0px' }" >
+                <el-image fit="fill" :src="item.honorImage[0].image_path" />
                 <view v-if="!item.label" style="padding: 6px">
-                    <view class="card-title">{{ item.title }}</view>
+                    <view class="card-title">{{ item.news_title }}</view>
                     <view class="bottom">
-                        <view class="desc">{{ item.desc }}</view>
-                        <view class="time">日期：{{ item.time }}</view>
-                        <el-button size="small" class="button">详情</el-button>
+                        <view class="desc">{{ item.news_content }}</view>
+                        <view class="time">日期：{{item.release_time}}</view>
+                        <el-button size="small" class="button" @tap="mobileClickHandler(i)">详情</el-button>
                     </view>
                 </view>
             </el-card>
@@ -18,6 +18,7 @@
    
    
 <script setup>
+import {computed} from 'vue'
    // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
 // Import Swiper styles
@@ -26,13 +27,19 @@ import 'swiper/css/effect-cards';
 // import required modules
 import { EffectCards } from 'swiper/modules';
 const modules = [EffectCards];
-
-defineProps({
-    dataArray: {
-        type: Array,
-        default: () => []
-    }
+const dataArray = computed(() => {
+    return UseWebDataStore.Certificate.list;
 })
+import { WebDataStore } from '@/store/modules/web.js';
+const UseWebDataStore = WebDataStore();
+const mobileClickHandler = (i) => {
+    console.log('Mobile click card',i);
+    UseWebDataStore.SetCertificateIndex(i)
+    UseWebDataStore.SetNewsDetailIndex([1,5]) 
+    uni.navigateTo({
+        url: `/pages/index/child/news/certificate-detail?id=${i}`
+    })
+}
 </script>
    
    

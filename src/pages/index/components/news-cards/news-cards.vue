@@ -1,5 +1,6 @@
 <template>
     <view class="new-cards-container">
+        <!-- 获奖证书组件 -->
         <view class="menu">
             <view class="menu-item" v-for="(item, index) in menuArr" :key="index" @click="i = index">
                 <view class="text">{{ item }}</view>
@@ -39,6 +40,8 @@ const handleSizeChange = (val) => {
 const handleCurrentChange = (val) => {
     console.log(`current page: ${val}`)
 }
+
+
 </script>
    
    

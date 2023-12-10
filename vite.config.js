@@ -14,10 +14,15 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
       uni(),
     ],
     // publicDir:'public',
+    resolve:{
+      alias:{
+        '@':'./src'
+      }
+    },
     css: {
       preprocessorOptions: {
         scss: {
-          additionalData: `@import "@/style.scss";`
+          additionalData: `@import "@/style.scss";`,
         }
       }
     },
@@ -25,11 +30,11 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
     server: {
       //同plugins同级
       port: 80, //本地端口号
-      host: "192.168.101.232",
+      host: "192.168.55.232",
       proxy: {
         //配置代理服务器
         "/api": {
-          target: "http://192.168.101.232:3000/", //目标url
+          target: "http://192.168.55.232:3000/", //目标url
           changeOrigin: true, //允许跨域
           rewrite: (path) => path.replace(/^\/api/, "/api/v1"), //重写路径,替换/api
         },

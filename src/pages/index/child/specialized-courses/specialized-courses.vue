@@ -30,7 +30,7 @@
                   :min-scale="1" :initial-index="4" fit="cover" :preview-src-list="srcList" />
               </div>
               <view class="tip">点击图片查看大图</view>
-              <a class="download hidden-sm-and-down" href="../../../../static/k.pdf" target="_blank">详细课程.pdf</a>
+              <a class="download hidden-sm-and-down" href="../../../../static/k.pdf" target="_blank">查看课程详细</a>
               <view class="download" @tap="download">下载课程附件</view>
             </view>
           </el-col>
@@ -148,6 +148,7 @@ const download = () => {
     padding: 0 10px;
     margin: 10px auto;
     text-indent: 0px !important;
+    border: 1px solid rgb(200,20,20);
   }
 }
 

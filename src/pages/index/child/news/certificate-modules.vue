@@ -1,63 +1,83 @@
 <template>
     <view class="inform-modules">
         <!-- PC -->
-        <el-row class="inform-item hidden-sm-and-down" @tap="goToDetail(i)" v-for="i in 5" :key="i" v-showMeta="`animate__fadeInRight`">
-            <el-col class="time" :xs="4" :sm="4">
+        <el-row class="inform-item hidden-sm-and-down" @tap="goToDetail(i)"
+            v-for="book, i in UseWebDataStore.Certificate.list" :key="i" v-showMeta="`animate__fadeInRight`">
+            <el-col v-if="book" class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
-                        <view class="year">2023/1{{ i }}</view>
+                        <view class="year">{{ book.release_time }}</view>
             </el-col>
             <el-col class="content" :xs="20" :sm="20">
-                <view class="title">华为HCIP-Cloud Computing证书！</view>
+                <view class="title">{{ book.news_title }}</view>
                 <view class="desc"></view>
             </el-col>
         </el-row>
         <!-- mobile -->
-        <el-row class="inform-item hidden-md-and-up" @tap="goToDetailM(i)" v-for="i in 5" :key="i" v-showMeta="`animate__fadeInRight`">
+        <el-row class="inform-item hidden-md-and-up" @tap="goToDetailM(i)"
+            v-for="book, i in UseWebDataStore.Certificate.list" :key="i" v-showMeta="`animate__fadeInRight`">
             <el-col class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
-                        <view class="year">2023/1{{ i }}</view>
+                        <view class="year">{{ book.release_time }}</view>
             </el-col>
             <el-col class="content" :xs="20" :sm="20">
-                <view class="title">华为HCIP-Cloud Computing证书！</view>
+                <view class="title">{{ book.news_title }}</view>
                 <view class="desc"></view>
             </el-col>
         </el-row>
         <!-- 分页 -->
         <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :background="true"
-            layout="prev, pager, next" :total="total" @size-change="handleSizeChange"
+            layout="prev, pager, next" :total="UseWebDataStore.Certificate.total" @size-change="handleSizeChange"
             @current-change="handleCurrentChange" />
     </view>
 </template>
    
    
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import PubSub from 'pubsub-js';
+import { getNews, getCertificate, getNotice } from "@/api"
+// 新闻数据
+import { WebDataStore } from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
 // 分页
-const currentPage = ref(1)
-const pageSize = ref(6)
-const total = ref(24)
+const currentPage = computed({
+    get() {
+        return UseWebDataStore.Certificate.nextPage - 1
+    },
+    set(v) {
+        // console.log(v);
+    }
+})
+const pageSize = ref(5)
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
 }
-const handleCurrentChange = (val) => {
-    console.log(`current page: ${val}`)
+const handleCurrentChange = async (val) => {
+    // console.log(`current page: ${val}`)
+    let certificateData = await getCertificate({ page: +val, limit: 5 })
+    // console.log(certificateData);
+    // console.log(certificateData);  // 获奖证书
+    UseWebDataStore.SetCertificateData(certificateData)
 }
+
 // PC端跳转
 const goToDetail = (i) => {
+    // console.log(i);
+    UseWebDataStore.SetCertificateIndex(i)
     PubSub.publish('go-to-detail', { i, type: 'certificate' })
 }
 // 移动端跳转
 const goToDetailM = (i) => {
     uni.navigateTo({
-        url:"/pages/index/child/news/inform-detail?id=1"
+        url: `/pages/index/child/news/certificate-detail?id=${i}`
     })
 }
+
+
 </script>
    
    
 <style scoped lang='scss'>
-
 .inform-modules {
     text-indent: 0 !important;
 
@@ -170,4 +190,5 @@ const goToDetailM = (i) => {
             font-size: 40rpx;
         }
     }
-}</style>
+}
+</style>

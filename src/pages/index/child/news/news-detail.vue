@@ -5,13 +5,16 @@
             <AppHeader />
         </template>
         <el-row justify="center">
-            <el-col class="title" :xs="22" :md="24">{{ newsData.title }}</el-col>
+            <el-col class="title" :xs="22" :md="24">{{NewsData[NewsDataIndex].news_title}}</el-col>
             <el-col class="time" :xs="22" :md="24"><el-icon :size="20" color="rgb(200,20,20)">
                     <Clock />
-                </el-icon>{{ newsData.time }}</el-col>
-            <el-col class="content" :xs="22" :md="24" v-for="c in newsData.content">
-                <el-image v-if="c == 'img'" :src="newsData.imgUrl" fit="cover" />
-                <p v-else>{{ c }}</p>
+                </el-icon>{{ NewsData[NewsDataIndex].release_time }}</el-col>
+            <el-col class="content" :xs="22" :md="24" >
+                <el-image  :src="NewsData[NewsDataIndex].images[0].image_path" fit="cover" />
+            </el-col>
+           
+            <el-col class="content" :xs="22" :md="24" >
+                <p>{{ NewsData[NewsDataIndex].news_content }}</p>
             </el-col>
         </el-row>
         <el-button color="rgb(200,20,20)" class="hidden-sm-and-down btn" type="primary" @tap="back">返回</el-button>
@@ -23,25 +26,29 @@
    
 <script setup>
 import { Clock } from '@element-plus/icons-vue'
-import {onActivated,ref,onMounted,nextTick} from 'vue'
+import {onActivated,ref,onMounted,nextTick,computed} from 'vue'
 import PubSub from 'pubsub-js';
-const newsData = {
-    title: '网络专业学生积极参与2023年华为ICT大赛',
-    time: '2023-11-21',
-    imgUrl: 'https://test.hebic.cn/uploadfile/2023/1121/20231121085353148.jpg',
-    content: [
-        '2023年11月18日，我校兴安校区举办了“华为中国大学生ICT大赛2023-2024”河北省初赛，共有229名网络工程专',
-        '当天上午10点，由王雷老师组织，229名网络工程专业学生参加了华为公司主办的2023年中国大学生ICT大赛河北省初赛。华为ICT大赛旨在为全球大学生打造ICT人才竞技交流赛事，提供国际化的学习平台，提升学生的ICT知识水平，并加强他们的实践动手能力以及运用新技术、新平台的创新创造能力。目前，华为ICT大赛已经成为中国高等教育学会认可的含金量高、参赛价值大的竞赛项目之一，纳入了全国普通高校大学生竞赛排行榜内竞赛项目名单。',
-        'img',
-        '网络工程专业一直秉承“以赛促教、以赛促学、以赛促发展”的理念，积极组织学生参加各种专业大赛，以促进专业的发展。'
-    ]
-}
+// const newsData = {
+//     title: '网络专业学生积极参与2023年华为ICT大赛',
+//     time: '2023-11-21',
+//     imgUrl: 'https://test.hebic.cn/uploadfile/2023/1121/20231121085353148.jpg',
+//     content: [
+//         '2023年11月18日，我校兴安校区举办了“华为中国大学生ICT大赛2023-2024”河北省初赛，共有229名网络工程专',
+//         '当天上午10点，由王雷老师组织，229名网络工程专业学生参加了华为公司主办的2023年中国大学生ICT大赛河北省初赛。华为ICT大赛旨在为全球大学生打造ICT人才竞技交流赛事，提供国际化的学习平台，提升学生的ICT知识水平，并加强他们的实践动手能力以及运用新技术、新平台的创新创造能力。目前，华为ICT大赛已经成为中国高等教育学会认可的含金量高、参赛价值大的竞赛项目之一，纳入了全国普通高校大学生竞赛排行榜内竞赛项目名单。',
+//         'img',
+//         '网络工程专业一直秉承“以赛促教、以赛促学、以赛促发展”的理念，积极组织学生参加各种专业大赛，以促进专业的发展。'
+//     ]
+// }
+import { WebDataStore } from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
+const NewsData = UseWebDataStore.newsData.list;
+const NewsDataIndex = computed(() => {
+    return UseWebDataStore.NewsDataIndex
+});
 
 // 页面滚动
-onActivated(() => {
-    PubSub.publish('scroll-top',{
-    data:true
-})  
+onMounted(() => {
+  PubSub.publish('scroll-top', { data: true });
 })
 const target = ref(null)
 onMounted(() => {
@@ -52,7 +59,6 @@ onMounted(() => {
 })
 
 const back = () => {
-    console.log(123);
     PubSub.publish('back-event',{index:0})
 }
 // 移动端返回
@@ -61,6 +67,8 @@ const Mback = () => {
         delta: 1
     })
 }
+
+
 </script>
    
    
@@ -109,6 +117,7 @@ const Mback = () => {
             justify-content: center;
             p {
                 text-indent: 70rpx;
+                box-sizing: border-box;
             }
 
             .el-image {

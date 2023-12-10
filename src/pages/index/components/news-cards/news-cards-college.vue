@@ -1,14 +1,14 @@
 <template>
-    <div>
+    <div v-if="Certificate">
         <SwiperCard :dataArray="collegeArray" class="m-card" />
-        <view class="pc-card">
+        <view class="pc-card" >
             <el-row justify="start" :gutter="20">
-                <el-col v-for="card, i in collegeArray" :key="i" :sm="8" :lg="6">
-                    <el-card shadow="hover" :body-style="{ padding: '0px' }">
-                        <el-image src="../../../../static/news/1.jpg" class="image" />
+                <el-col v-for="book, i in Certificate" :key="i" :sm="8" :lg="6">
+                    <el-card shadow="hover" :body-style="{ padding: '0px' }" @tap="clickNewsItem(i)">
+                        <el-image :src="book.honorImage[0].image_path" class="image" />
                         <div style="padding: 14px">
-                            <view class="title">{{card.title}}</view>
-                            <view class="desc">{{card.desc}}</view>
+                            <view class="title">{{book.news_title}}</view>
+                            <view class="desc">{{book.news_content}}</view>
                         </div>
                     </el-card>
                 </el-col>
@@ -17,7 +17,7 @@
     </div>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref ,computed} from 'vue'
 import SwiperCard from './swiper-card.vue'
 // 学院
 import img1 from '@/static/news/1.jpg'
@@ -29,6 +29,20 @@ const collegeArray = [{ img: auth, title: '华为ICT学院授权证书', desc: '
 { img: img2, title: '华为中国大学生ICT大赛2021', desc: '实践赛-河北赛区本科组网络赛道中荣获三等奖', time: '2021.11.10' },
 { img: img3, title: '华为中国大学生ICT大赛2021------压缩图', desc: '实践赛-河北赛区本科组网络赛道中荣获三等奖', time: '2021.11.10' },
 ]
+// 新闻数据
+import {WebDataStore} from '@/store/modules/web.js'
+import {MainStore} from '@/store'
+const UseMainStore = MainStore()
+const UseWebDataStore = WebDataStore();
+const Certificate = UseWebDataStore.Certificate.list;
+// 卡片点击事件
+const clickNewsItem = (i) => {
+    // console.log('通知公告下标',i);
+    UseWebDataStore.SetCertificateIndex(i)
+    UseWebDataStore.SetNewsDetailIndex([1,5])   
+    PubSub.publish('navgation-event', { e: '8' })
+}
+
 </script>
 
 <style scoped lang="scss">
@@ -64,14 +78,18 @@ const collegeArray = [{ img: auth, title: '华为ICT学院授权证书', desc: '
                 margin-bottom: 40rpx;
                 box-sizing: border-box;
                 display: flex;
-                align-items: center;
+                align-items: flex-start;
                 justify-content: center;
 
                 .el-card {
                     cursor: pointer;
-                    max-width: 460rpx;
-                    height: 500rpx;
-
+                    max-width: 400rpx;
+                    height: fit-content;
+                    max-height: 400px;
+                    .image{
+                        max-height: 300px;
+                        min-height: 250;
+                    }
                     .title {
                         font-weight: bold;
                     }

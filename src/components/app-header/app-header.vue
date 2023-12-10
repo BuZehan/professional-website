@@ -49,6 +49,8 @@ import { ref, onBeforeUnmount, watch } from "vue";
 import PubSub from "pubsub-js";
 import { MainStore } from "../../store";
 const UseMainStore = MainStore();
+import { WebDataStore } from '@/store/modules/web.js';
+const UseWebDataStore = WebDataStore()
 // 仓库状态数据
 import { StuInfoStore } from '@/store/modules/stu.js';
 const UseStuInfoStore = StuInfoStore();
@@ -80,13 +82,17 @@ const $emits = defineEmits(["changeComponents"]);
 const activeStr = ref("1")
 const handleSelect = (key, keyPath) => {
   activeStr.value = key;
-  console.log('header', key);
+  // console.log('header', key);
   switch (key) {
     case '3':
       PubSub.publish('index-teacher-event', { num: 0 })
       break;
     case '7':
       UseStuInfoStore.updateCurrentRouterIndex(0)
+      break;
+    case '8':
+      UseWebDataStore.SetNewsDataIndex(0)
+      UseWebDataStore.SetNewsDetailIndex([1, 0])
       break;
     default:
       break;
@@ -100,6 +106,9 @@ PubSub.subscribe("changeActive", (msg, data) => {
 // watch(() => $props.scrollValue, (v) => {
 //   // console.log(v <= 50, "@@@@@");
 // })
+
+
+
 </script>
 
 <style scoped lang="scss">
@@ -115,7 +124,7 @@ PubSub.subscribe("changeActive", (msg, data) => {
       height: 100rpx;
       overflow: hidden;
       position: relative;
-      background: linear-gradient(92deg, var(--Footer) 0%, var(--Footer-DEEP) 100%);
+      background: var(--YINHONG);
 
       .el-col {
         height: 100%;
@@ -223,6 +232,7 @@ PubSub.subscribe("changeActive", (msg, data) => {
 
         .el-menu-item {
           background-color: #fff;
+
           &:hover {
             background-color: #e7e7e7c4;
           }

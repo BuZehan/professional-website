@@ -114,13 +114,12 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref ,onMounted} from 'vue';
 import PubSub from "pubsub-js";
 import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
 import AppFooter from "@/components/app-footer/app-footer.vue";
 import AppTopBanner from "@/components/app-top-banner/app-top-banner.vue";
-
 // 滑动卡片
 import MovableSwiper from "./components/teaching-team/teaching-team.vue";
 // 轮播图
@@ -146,7 +145,6 @@ const navgationTo = (url) => {
     url: `/pages/index/child/${url}/${url}`,
   });
 };
-
 // 仓库状态数据
 import {StuInfoStore} from '@/store/modules/stu.js';
 const UseStuInfoStore = StuInfoStore();
@@ -166,7 +164,6 @@ const pcNavgationTo = (e) => {
   PubSub.publish('navgation-event', { e, index: true })
 };
 // 合作企业
-
 import huawei from "@/static/company/huawei_logo.png"
 import hjkj from "@/static/company/hjkj.png"
 import H3C from "@/static/company/H3C.png"
@@ -180,8 +177,35 @@ const companyArr = [
   { name: "hjkj", path: hjkj },
   { name: "trx", path: trx },
   { name: "zjb", path: zjb }]
+// 网站数据请求
+import {getNews,getCertificate,getNotice} from "@/api"
+import {WebDataStore} from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
+onMounted(() => {
+  // 新闻动态
+  getNewsData({page: 1,limit:5})
+  // 通知公告
+  getNoticeData({page: 1,limit: 10})
+  // 获奖证书
+  getCertificateData({page: 1,limit:5})
+})
 
+const getNewsData = async (data) => {
+  let newsData = await getNews(data)
+  // console.log(newsData);
+  UseWebDataStore.SetNewsData(newsData)
+}
 
+const getNoticeData = async (data) => {
+  let noticeData = await getNotice(data)
+  // console.log(noticeData);
+  UseWebDataStore.SetNoticeData(noticeData)
+}
+const getCertificateData = async (data) => {
+  let certificateData = await getCertificate(data)
+  // console.log(certificateData);
+  UseWebDataStore.SetCertificateData(certificateData)
+}
 </script>
 
 <style scoped lang="scss">

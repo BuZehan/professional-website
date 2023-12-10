@@ -5,13 +5,18 @@
             <AppHeader />
         </template>
         <el-row justify="center">
-            <el-col class="title" :xs="22" :md="24">{{ newsData.title }}</el-col>
+            <el-col class="title" :xs="22" :md="24">{{ Certificate[CertificateIndex].news_title }}</el-col>
             <el-col class="time" :xs="22" :md="24"><el-icon :size="20" color="rgb(200,20,20)">
                     <Clock />
-                </el-icon>{{ newsData.time }}</el-col>
-            <el-col class="content" :xs="22" :md="24" v-for="c in newsData.content">
-                <el-image v-if="c == 'img'" :src="newsData.imgUrl" fit="cover" />
-                <p v-else>{{ c }}</p>
+                </el-icon>{{ Certificate[CertificateIndex].release_time }}</el-col>
+            <!-- <el-col class="content" :xs="22" :md="24" v-for="c in newsData.content"> -->
+            <el-col class="content" :xs="22" :md="24">
+                <!-- <el-image v-if="c == 'img'" :src="newsData.imgUrl" fit="cover" /> -->
+                <el-image v-if="Certificate[CertificateIndex].honorImage"
+                    :src="Certificate[CertificateIndex].honorImage[0].image_path" fit="cover" />
+            </el-col>
+            <el-col class="content" :xs="22" :md="24">
+                <p>{{ Certificate[CertificateIndex].news_content }}</p>
             </el-col>
         </el-row>
         <el-button color="rgb(200,20,20)" class="hidden-sm-and-down btn" type="primary" @tap="back">返回</el-button>
@@ -23,19 +28,19 @@
    
 <script setup>
 import { Clock } from '@element-plus/icons-vue'
-import { onActivated, ref, onMounted, nextTick } from 'vue'
+import { onActivated, ref, onMounted, computed } from 'vue'
 import PubSub from 'pubsub-js';
-import zhengshu from "@/static/news/stu1.png"
-const newsData = {
-    title: '恭喜 XXX 同学顺利考过华为HCIP-Cloud Computing证书！',
-    time: '2023-11-25',
-    imgUrl: zhengshu,
-    content: [
-        '2023年11月18日，我校兴安校区举办了“华为中国大学生ICT大赛2023-2024”河北省初赛，共有229名网络工程专',
-        'img',
-        '网络工程专业一直秉承“以赛促教、以赛促学、以赛促发展”的理念，积极组织学生参加各种专业大赛，以促进专业的发展。'
-    ]
-}
+// import zhengshu from "@/static/news/stu1.png"
+// const newsData = {
+//     title: '恭喜 XXX 同学顺利考过华为HCIP-Cloud Computing证书！',
+//     time: '2023-11-25',
+//     imgUrl: zhengshu,
+//     content: [
+//         '2023年11月18日，我校兴安校区举办了“华为中国大学生ICT大赛2023-2024”河北省初赛，共有229名网络工程专',
+//         'img',
+//         '网络工程专业一直秉承“以赛促教、以赛促学、以赛促发展”的理念，积极组织学生参加各种专业大赛，以促进专业的发展。'
+//     ]
+// }
 // 页面滚动
 onActivated(() => {
     PubSub.publish('scroll-top', {
@@ -44,7 +49,7 @@ onActivated(() => {
 })
 const back = () => {
     console.log(123);
-    PubSub.publish('back-event',{index:1})
+    PubSub.publish('back-event', { index: 2 })
 }
 // 移动端返回
 const Mback = () => {
@@ -52,11 +57,21 @@ const Mback = () => {
         delta: 1
     })
 }
+
+// 新闻数据
+import { WebDataStore } from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
+const Certificate = computed(() => {
+    return UseWebDataStore.Certificate.list
+});
+const CertificateIndex = computed(() => {
+    return UseWebDataStore.CertificateIndex
+});
 </script>
    
    
 <style scoped lang='scss'>
-.btn{
+.btn {
     float: right;
 }
 
@@ -146,11 +161,13 @@ const Mback = () => {
             text-indent: 70rpx;
             display: flex;
             align-items: center;
+
             .el-image {
                 text-indent: 0 !important;
                 margin: 40rpx auto;
                 border-left: 1rpx solid #ddd;
                 border-bottom: 1rpx solid #ddd;
+                height: 800rpx;
             }
         }
     }

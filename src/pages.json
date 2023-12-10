@@ -16,6 +16,9 @@
 			"path":"pages/index/child/news/news-detail"
 		},
 		{
+			"path":"pages/index/child/news/certificate-detail"
+		},
+		{
 			"path":"pages/index/child/news/inform-detail"
 		},
 		{

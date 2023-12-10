@@ -10,7 +10,11 @@
           <view @tap="pcNavgationTo('8')" class="pcMore hidden-sm-and-down">更多</view>
         </view>
         <el-row justify="center" class="pc-child-el-row">
-          <el-col :xs="22" :sm="{ span: 10, offset: 1 }" :md="{span:12,offset:0}" :lg="12">
+          <el-col v-if="newsData" :xs="22" :sm="{ span: 10, offset: 1 }" :md="{ span: 12, offset: 0 }" :lg="12"
+            v-for="news_data, i in newsData.slice(0, 4)" :key="news_data.id">
+            <CardLeft :news_data="news_data" :index=i />
+          </el-col>
+          <!-- <el-col :xs="22" :sm="{ span: 10, offset: 1 }" :md="{span:12,offset:0}" :lg="12">
             <CardLeft />
           </el-col>
           <el-col :xs="22" :sm="{ span: 10, offset: 1 }" :md="{span:12,offset:0}" :lg="12">
@@ -18,10 +22,7 @@
           </el-col>
           <el-col :xs="22" :sm="{ span: 10, offset: 1 }" :md="{span:12,offset:0}" :lg="12">
             <CardLeft />
-          </el-col>
-          <el-col :xs="22" :sm="{ span: 10, offset: 1 }" :md="{span:12,offset:0}" :lg="12">
-            <CardLeft />
-          </el-col>
+          </el-col> -->
         </el-row>
       </el-col>
       <el-col :xs="24" :sm="24" :lg="8">
@@ -29,11 +30,11 @@
           <view class="h1 hidden-sm-and-down">通知公告</view>
           <p></p>
           <view @tap="navgationTo('news')" class="mMore hidden-sm-and-down">更多</view>
-          <view @tap="pcNavgationTo('8')" class="pcMore hidden-sm-and-down">更多</view>
+          <view @tap="pcNavgationToTzgg('8')" class="pcMore hidden-sm-and-down">更多</view>
         </el-row>
         <el-row>
-          <el-col :xs="24" v-for="i in 7" :key="i">
-            <CardRight />
+          <el-col :xs="24" v-for="notice,i in NoticeData.slice(0,7)" :key="notice.id">
+            <CardRight  :notice="notice" :index="i" />
           </el-col>
         </el-row>
       </el-col>
@@ -46,23 +47,34 @@
 import { ref } from 'vue'
 import CardLeft from './card-left.vue'
 import CardRight from './card-right.vue'
-const cardNum = ref(4);
-
+// 新闻数据
+import { WebDataStore } from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
+const newsData = UseWebDataStore.newsData.list;
+const NoticeData = UseWebDataStore.NoticeData.list;
 // 移动端跳转
 const navgationTo = (url) => {
   uni.navigateTo({
     url: `/pages/index/child/${url}/${url}`,
   });
 };
-// pc端跳转
+// pc端跳转 -- 新闻动态
 const pcNavgationTo = (e) => {
+  UseWebDataStore.SetNewsDataIndex(0)
+  UseWebDataStore.SetNewsDetailIndex([0, 0])
   PubSub.publish('navgation-event', { e })
 };
+// pc端跳转 -- 通知公告
+const pcNavgationToTzgg = (e) => {
+  UseWebDataStore.SetNoticeDataIndex(0)
+  UseWebDataStore.SetNewsDetailIndex([0, 1])
+  PubSub.publish('navgation-event', { e })
+};
+
 </script>
    
    
 <style scoped lang='scss'>
-
 @include respondTo('mobile') {
   .news-card-wrapper {
     width: 100%;
@@ -239,4 +251,5 @@ const pcNavgationTo = (e) => {
 
 }
 
-@include respondTo('pad') {}</style>
+@include respondTo('pad') {}
+</style>

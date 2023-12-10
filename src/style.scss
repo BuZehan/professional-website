@@ -28,6 +28,7 @@ $breakpoints: (
 }
 
 body{
+  --MAIN:#0B88FC;
   // 花青色
   --HUAQING:#2376b7;
   // 茶花红
@@ -51,7 +52,7 @@ body{
   /* 滑块部分 */
   ::-webkit-scrollbar-thumb { 
     border-radius: 5px;
-    background-color:#ffcfcf;
+    background-color:#0B88FC;
   }
   /* 轨道部分 */
   ::-webkit-scrollbar-track {   
