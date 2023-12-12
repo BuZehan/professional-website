@@ -1,7 +1,7 @@
 <template>
     <view class="inform-modules">
         <!-- PC -->
-        <el-row class="inform-item hidden-sm-and-down" @tap="goToDetail(book.id)"
+        <el-row v-if="IsPC" class="inform-item " @tap="goToDetail(book.id)"
             v-for="book, i in UseWebDataStore.Certificate.list" :key="i" v-showMeta="`animate__fadeInRight`">
             <el-col v-if="book" class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
@@ -13,7 +13,7 @@
             </el-col>
         </el-row>
         <!-- mobile -->
-        <el-row class="inform-item hidden-md-and-up" @tap="goToDetailM(book.id)"
+        <el-row v-if="!IsPC" class="inform-item" @tap="goToDetailM(book.id)"
             v-for="book, i in UseWebDataStore.Certificate.list" :key="i" v-showMeta="`animate__fadeInRight`">
             <el-col class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
@@ -33,6 +33,7 @@
    
    
 <script setup>
+import {IsPC} from '@/hooks'
 import { ref, computed } from 'vue';
 import PubSub from 'pubsub-js';
 import { getNews, getCertificate, getNotice } from "@/api"

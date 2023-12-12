@@ -12,20 +12,29 @@
     </view>
     <view class="pc-swiper">
       <ul ref="ul">
-        <li v-for="item, i in PCSwiperArr" :key="i" :class="{ active: currentImg === i }">
+        <li v-for="item, i in DATA" :key="i" :class="{ active: currentImg === i }">
           <view class="bg1"></view>
           <view class="bg"></view>
-          <view class="text-content">
-            <h3>2023/11/31</h3>
-            <p class="desc">{{ item.text }}</p>
-            <view class="btn" @tap="handleSelect(item.routeUrl)">查看详情</view>
+          <view v-if="item" class="text-content">
+            <h3>{{item.title}}</h3>
+            <p class="desc">{{ item.title || item.news_title }}</p>
+            <h4 style="color: #eee;margin-top:20px;">{{item.release_time}}</h4>
+
+            <view class="btn" @tap="handleSelect(item.id)">查看详情</view>
             <view class="arrow">
               <p @tap="prev"></p>
-              <span>{{i + 1}}/{{PCSwiperArr.length}}</span>
+              <span>{{ i + 1 }}/{{ DATA.length }}</span>
               <p @tap="next"></p>
-            </view> 
+            </view>
           </view>
-          <el-image fit="cover" :src="item.imgUrl" />
+          <!-- 联合新闻 -->
+          <el-image v-if="item.image_list" fit="cover"
+            :src="item.image_list[0]" />
+            <el-image v-else fit="cover"
+            :src="defaultImg" />
+            <!-- <el-image v-if="item" fit="cover"
+            :src="item.swiperImage[0].image_path" /> -->
+            
         </li>
       </ul>
     </view>
@@ -33,29 +42,14 @@
 </template>
 
 <script setup>
-import { ref, onMounted,computed } from "vue";
-import {WebDataStore} from '@/store/modules/web.js'
+import { ref, onMounted, computed, toRaw } from "vue";
+import { WebDataStore } from '@/store/modules/web.js'
+import defaultImg from '@/static/banner-fm.png'
 const UseWebDataStore = WebDataStore();
-import banner1 from '@/static/banner-fm.png'
-const PCSwiperArr = [
-  {
-    text: "校企合作谱新篇：2023年华为ICT人才联盟双选会在我校成功举办,2023年11月4日，在秋高气爽的丰收季节，华为公司疫情之后省内的首次ICT人才联盟双选会在我校兴安校区体育场成功举办！",
-    imgUrl: banner1,
-    routeUrl:'8'
-  },
-    {
-    text: '校企合作谱新篇：2023年华为ICT人才联盟双选会在我校成功举办,2023年11月4日，在秋高气爽的丰收季节，华为公司疫情之后省内的首次ICT人才联盟双选会在我校兴安校区体育场成功举办！',
-    imgUrl: 'https://test.hebic.cn/uploadfile/2023/1106/20231106083424630.jpg',
-    routeUrl:'8'
-  },
-  {
-    text: " 为了给企业和学生搭建高质量供需对接平台，全力促进2024届毕业生早就业、高质量就业，我校的重点合作企业华为公司携多家金牌代理伙伴，如神州数码、科林电气、启辰科技、天成辰泰、敏行电子、顶思电子、迈思网络、科翔电子、领帆商贸、佳络科技、北京电旗通讯、南京华苏、晟商信息、卓驰科技、杰讯科技等，在三年疫情结束后，组织首次ICT人才联盟双选会，与我校2024届毕业生秋季校园双选会于11月4日上午9：00在兴安校区体育场同期举办。",
-    imgUrl: 'https://test.hebic.cn/uploadfile/2023/1106/20231106083223981.jpg',
-    routeUrl:'8'
-  }
-];
-const PCSwiperArr1 = computed( () => UseWebDataStore.BannerData);
-// console.log("PCSwiperArr1",PCSwiperArr1.value);
+let DATA = computed(() => {
+  return UseWebDataStore?.newsData ?  toRaw(UseWebDataStore.newsData.list).slice(0,4) : []
+  // return UseWebDataStore?.BannerData ?  toRaw(UseWebDataStore.BannerData.list).slice(0,4) : []
+})
 // 移动端
 // 实验室
 import mbanner1 from "@/static/mbanner/1.jpg";
@@ -65,28 +59,30 @@ const MSwiperArr = [{ name: "img", url: mbanner1 }, { name: "img", url: 'https:/
 const currentImg = ref(0)
 let timer = setInterval(() => {
   next()
-}, 8000);
+}, 8000); 
 
 const next = () => {
   clearInterval(timer)
   timer = setInterval(() => {
     next()
   }, 8000);
-  currentImg.value++
-  if (currentImg.value - 1 >= PCSwiperArr.length - 1) currentImg.value = 0;
+  if (currentImg.value >= DATA.value.length - 1) currentImg.value = 0;
+  else currentImg.value++
 }
 const prev = () => {
   clearInterval(timer)
   timer = setInterval(() => {
     next()
   }, 8000);
-  currentImg.value--
-  if (currentImg.value < 0) currentImg.value = PCSwiperArr.length - 1;
+  if (currentImg.value <= 0) currentImg.value = DATA.value.length - 1;
+  else currentImg.value--
 }
 const ul = ref(null)
 // 路由跳转
-const handleSelect = (name) => {
-    PubSub.publish('navgation-event', { e: name })
+const handleSelect = (id) => {
+  UseWebDataStore.SetNewsDataIndex(id)
+  UseWebDataStore.SetNewsDetailIndex([0, 3])
+  PubSub.publish('navgation-event', { e: '8' })
 }
 
 </script>
@@ -136,6 +132,7 @@ const handleSelect = (name) => {
         position: relative;
         overflow: hidden;
         height: 100%;
+
         li {
           height: 100%;
           width: 100%;
@@ -143,7 +140,9 @@ const handleSelect = (name) => {
           transition: all 1s;
           overflow: hidden;
           position: absolute;
-          .bg,.bg1 {
+
+          .bg,
+          .bg1 {
             transform-origin: left center;
             transform: rotate(-24deg) translateX(-14%);
             height: 150%;
@@ -159,15 +158,17 @@ const handleSelect = (name) => {
             background: rgba(11, 136, 252, 0.6);
             //border: 20px solid rgba(255, 255, 255, 0.46);
             backdrop-filter: blur(20px);
-           // filter: drop-shadow(20px 0 #2595ffa6);
-            
+            // filter: drop-shadow(20px 0 #2595ffa6);
+
           }
-          .bg1{
+
+          .bg1 {
             transform: rotate(-24deg) translateX(-10%);
             background-color: #ffffff31;
             backdrop-filter: blur(10px);
 
           }
+
           .text-content {
             height: 100%;
             width: 24%;

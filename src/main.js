@@ -19,14 +19,17 @@ import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
 import AppBreadcrumb from "@/components/app-breadcrumb/app-breadcrumb.vue";
 
+
+// import router from './router'
 // 创建一个应用
 export function createApp() {
   // 使用createSSRApp创建一个SSR应用，并传入App组件作为参数
   const app = createSSRApp(App);
+  // app.use(router);
   // 使用pinia库
   app.use(pinia);
   // 使用ElementPlus库
-  app.use(ElementPlus);
+  app.use(ElementPlus); 
   // 使用_directive自定义指令
   app.use(_directive);
   // 注册全局组件

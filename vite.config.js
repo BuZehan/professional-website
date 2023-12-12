@@ -1,6 +1,8 @@
 import { defineConfig, loadEnv } from "vite";
 import uni from "@dcloudio/vite-plugin-uni";
 import { publish } from "pubsub-js";
+// vue.config.js
+import TransformPages from 'uni-read-pages-vite'
 // https://vitejs.dev/config/
 /**
  * mode 当前环境模式 command 在 Vite 的 API 中，在开发环境下
@@ -13,10 +15,13 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
     plugins: [
       uni(),
     ],
+    define: {
+      ROUTES: new TransformPages().routes, // 注入路由表
+    },
     // publicDir:'public',
-    resolve:{
-      alias:{
-        '@':'./src'
+    resolve: {
+      alias: {
+        '@': './src'
       }
     },
     css: {

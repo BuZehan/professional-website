@@ -4,16 +4,16 @@
             <AppPopup />
             <AppHeader />
         </template>
-        <el-row justify="center">
-            <el-col class="title" :xs="22" :md="24">{{ NewsData[NewsDataIndex].news_title }}</el-col>
+        <el-row justify="center" v-if="NewsData">
+            <el-col class="title" :xs="22" :md="24">{{ NewsData.title }}</el-col>
             <el-col class="time" :xs="22" :md="24"><el-icon :size="20" color="rgb(200,20,20)">
                     <Clock />
-                </el-icon>{{ NewsData[NewsDataIndex].release_time }}</el-col>
-            <el-col class="content" :xs="22" :md="24">
-                <el-image :src="NewsData[NewsDataIndex].images[0].image_path" fit="cover" />
-            </el-col>
-            <el-col class="content" :xs="22" :md="24">
-                <p>{{ NewsData[NewsDataIndex].news_content }}</p>
+                </el-icon>{{ NewsData.release_time }}</el-col>
+            <!-- <el-col class="content" :xs="22" :md="24">
+                <el-image :src="newsImage" fit="cover" />
+            </el-col> -->
+            <el-col v-if="NewsData.content" class="content" :xs="22" :md="24">
+                <div class="contentDIV" v-html="NewsData.content.replace(/<img/g, str)"></div>
             </el-col>
         </el-row>
         <el-button color="rgb(200,20,20)" class="hidden-sm-and-down btn" type="primary" @tap="back">返回</el-button>
@@ -27,23 +27,16 @@
 import { Clock } from '@element-plus/icons-vue'
 import { onActivated, ref, onMounted, nextTick, computed } from 'vue'
 import PubSub from 'pubsub-js';
-// const newsData = {
-//     title: '网络专业学生积极参与2023年华为ICT大赛',
-//     time: '2023-11-21',
-//     imgUrl: 'https://test.hebic.cn/uploadfile/2023/1121/20231121085353148.jpg',
-//     content: [
-//         '2023年11月18日，我校兴安校区举办了“华为中国大学生ICT大赛2023-2024”河北省初赛，共有229名网络工程专',
-//         '当天上午10点，由王雷老师组织，229名网络工程专业学生参加了华为公司主办的2023年中国大学生ICT大赛河北省初赛。华为ICT大赛旨在为全球大学生打造ICT人才竞技交流赛事，提供国际化的学习平台，提升学生的ICT知识水平，并加强他们的实践动手能力以及运用新技术、新平台的创新创造能力。目前，华为ICT大赛已经成为中国高等教育学会认可的含金量高、参赛价值大的竞赛项目之一，纳入了全国普通高校大学生竞赛排行榜内竞赛项目名单。',
-//         'img',
-//         '网络工程专业一直秉承“以赛促教、以赛促学、以赛促发展”的理念，积极组织学生参加各种专业大赛，以促进专业的发展。'
-//     ]
-// }
 import { WebDataStore } from '@/store/modules/web.js'
 const UseWebDataStore = WebDataStore();
-const NewsData = UseWebDataStore.newsData.list;
-const NewsDataIndex = computed(() => {
-    return UseWebDataStore.NewsDataIndex
+const NewsData = computed(() => {
+    return UseWebDataStore.newsData.list.filter(item => item.id === UseWebDataStore.NewsDataIndex)[0]
 });
+const newsImage = computed(() => {
+    console.log(NewsData.image_list);
+    return 1
+})
+const str = '<img class="image" style="width: 100% !important; margin:10px auto !important;"'
 // 页面滚动
 onMounted(() => {
     PubSub.publish('scroll-top', { data: true });
@@ -69,6 +62,7 @@ const Mback = () => {
     margin-bottom: 300rpx;
     float: right;
 }
+
 
 @include respondTo('mobile') {
     .news-detail {
@@ -129,6 +123,7 @@ const Mback = () => {
 
 
 @include respondTo('desktop') {
+
     .news-detail {
         font-weight: normal;
         text-indent: 0 !important;
@@ -150,17 +145,15 @@ const Mback = () => {
                 margin-right: 10rpx;
             }
         }
-
-        .content {
-            text-indent: 70rpx;
-            display: flex;
-            align-items: center;
-
-            .el-image {
-                height: 500px;
-                margin: 40rpx auto;
+        .el-ro{
+            .content {
+                text-indent: 70rpx;
+                display: flex;
+                align-items: center;
             }
+          
         }
+      
     }
 }
 </style>

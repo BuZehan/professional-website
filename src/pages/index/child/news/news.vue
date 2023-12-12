@@ -1,6 +1,6 @@
 <template>
   <view class="container-news" ref="target">
-    <template class="m-header">
+    <template v-if="!IsPC">
       <AppPopup />
       <AppHeader />
     </template>
@@ -58,6 +58,7 @@
 </template>
 
 <script setup>
+import {IsPC} from '@/hooks'
 import { onActivated, ref, computed, onMounted } from 'vue';
 import PubSub from 'pubsub-js';
 import { WebDataStore } from '@/store/modules/web.js';
@@ -110,6 +111,8 @@ const CurrentTitle = computed(() => {
   let i = currentIndex.value
   return (i === 0 || i === 3) ? '新闻动态' : (i === 1 || i === 4) ? '通知公告' : '获奖证书'
 })
+
+
 </script>
 
 <style scoped lang="scss">

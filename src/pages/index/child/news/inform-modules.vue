@@ -1,44 +1,47 @@
 <template>
     <view class="inform-modules">
         <!-- PC -->
-        <el-row class="inform-item hidden-sm-and-down" @tap="goToDetail(i)" v-for=" notice,i in NoticeData" :key="i" v-showMeta="`animate__fadeInRight`">
-            <el-col  v-if="notice" class="time" :xs="4" :sm="4">
+        <el-row v-if="IsPC" class="inform-item hidden-sm-and-down" @tap="goToDetail(i)" v-for=" notice, i in NoticeData"
+            :key="i" v-showMeta="`animate__fadeInRight`">
+            <el-col v-if="notice" class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
-                        <view class="year">{{notice.release_time}}</view>
+                        <view class="year">{{ notice.release_time }}</view>
             </el-col>
-            <el-col  v-if="notice" class="content" :xs="20" :sm="20">
-                <view class="title">{{notice.news_title}}</view>
-                <view class="desc">{{notice.news_content}}</view>
+            <el-col v-if="notice" class="content" :xs="20" :sm="20">
+                <view class="title">{{ notice.news_title }}</view>
+                <view class="desc">{{ notice.news_content }}</view>
             </el-col>
         </el-row>
         <!-- mobile -->
-        <el-row class="inform-item hidden-md-and-up" @tap="goToDetailM(i)" v-for=" notice,i in NoticeData" :key="i" v-showMeta="`animate__fadeInRight`">
-            <el-col  v-if="notice" class="time" :xs="4" :sm="4">
+        <el-row v-if="!IsPC" class="inform-item hidden-md-and-up" @tap="goToDetailM(i)" v-for=" notice, i in NoticeData"
+            :key="i" v-showMeta="`animate__fadeInRight`">
+            <el-col v-if="notice" class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
-                <view class="year">{{notice.release_time}}</view>
+                        <view class="year">{{ notice.release_time }}</view>
             </el-col>
-            <el-col  v-if="notice" class="content" :xs="20" :sm="20">
-                <view class="title">{{notice.news_title}}</view>
-                <view class="desc">{{notice.news_content}}</view>
+            <el-col v-if="notice" class="content" :xs="20" :sm="20">
+                <view class="title">{{ notice.news_title }}</view>
+                <view class="desc">{{ notice.news_content }}</view>
             </el-col>
         </el-row>
         <!-- 分页 -->
         <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :background="true"
-        layout="prev, pager, next" :total="UseWebDataStore.NoticeData.total" @size-change="handleSizeChange"
-        @current-change="handleCurrentChange" />
+            layout="prev, pager, next" :total="UseWebDataStore.NoticeData.total" @size-change="handleSizeChange"
+            @current-change="handleCurrentChange" />
     </view>
 </template>
    
    
 <script setup>
-import { ref,computed } from 'vue';
+import { IsPC } from '@/hooks'
+import { ref, computed } from 'vue';
 import PubSub from 'pubsub-js';
 import { getNews, getCertificate, getNotice } from "@/api"
 // 新闻数据
-import {WebDataStore} from '@/store/modules/web.js'
+import { WebDataStore } from '@/store/modules/web.js'
 const UseWebDataStore = WebDataStore();
 const NoticeData = computed(() => {
-    return UseWebDataStore.NoticeData.list||[]
+    return UseWebDataStore.NoticeData.list || []
 });
 // 分页
 // 分页
@@ -54,7 +57,7 @@ const pageSize = ref(10)
 const handleSizeChange = (val) => {
     console.log(`${val} items per page`)
 }
-const handleCurrentChange =async (val) => {
+const handleCurrentChange = async (val) => {
     console.log(`current page: ${val}`)
     let certificateData = await getNotice({ page: +val, limit: 10 })
     UseWebDataStore.SetNoticeData(certificateData)
@@ -68,7 +71,7 @@ const goToDetail = (i) => {
 // console.log(NoticeData);
 const goToDetailM = (i) => {
     uni.navigateTo({
-        url:"/pages/index/child/news/inform-detail?id=1"
+        url: "/pages/index/child/news/inform-detail?id=1"
     })
 }
 
@@ -76,7 +79,6 @@ const goToDetailM = (i) => {
    
    
 <style scoped lang='scss'>
-
 .inform-modules {
     text-indent: 0 !important;
 
@@ -189,4 +191,5 @@ const goToDetailM = (i) => {
             font-size: 40rpx;
         }
     }
-}</style>
+}
+</style>

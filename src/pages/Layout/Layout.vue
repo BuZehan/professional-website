@@ -4,8 +4,8 @@
       <AppPopup />
       <AppHeader @changeComponents="changeComponents" :i="i" :j="j" :scrollValue="scrollValue" />
     </template>
-    <Index class="m" />
-    <template class="pc">
+    <Index v-if="!IsPC" />
+    <template  v-if="IsPC">
       <transition name="el-fade-in-linear" mode="out-in">
         <KeepAlive>
           <component :is="ComponentsArray[i][j]" />
@@ -18,7 +18,7 @@
 </template>
 
 <script setup>
-import { ref, onUnmounted, onMounted, nextTick, watch } from "vue";
+import { ref, onUnmounted, onMounted, nextTick, watch ,computed} from "vue";
 import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
 import Index from "../index/index.vue";
@@ -104,6 +104,7 @@ nextTick(() => {
     scrollValue.value = e.target.scrollTop;
   })
 })
+import {IsPC} from '@/hooks'
 
 windowResize()
 </script>

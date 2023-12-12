@@ -2,113 +2,123 @@
     <view class="inform-modules">
         <template v-for="news, i in newsData" :key="i">
             <!-- Mobile -->
-            <view v-if="i % 2 === 1" @tap="goToDetailM(i)" class="pc-container-r hidden-md-and-up"
-                v-showMeta="`animate__fadeInRight`">
-                <el-row class="news-item">
-                    <el-col :xs="24" :xl="5" class="img-wrapper">
-                        <el-image class="image" fit="fill" :src="news.images[0].image_path" />
+            <template v-if="!IsPC">
+                <view v-if="i % 2 === 1" @tap="goToDetailM(news.id)" class="pc-container-r hidden-md-and-up"
+                    v-showMeta="`animate__fadeInRight`">
+                    <el-row class="news-item">
+                        <el-col v-if="news" :xs="24" :xl="5" class="img-wrapper">
+                            <el-image class="image" fit="fill" :src="news.image_list[0]" />
+                        </el-col>
+                        <el-col :xs="24" :xl="2" class="time">
+                            <el-row>
+                                <el-col :xs="3" :xl="17">
+                                    <view class="year">{{ news.release_time.split('-')[0] }}</view>
+                                </el-col>
+                                <el-col :xs="5">
+                                    <view class="day">{{ news.release_time.split('-')[1] }}-{{
+                                        news.release_time.split('-')[2]
+                                    }}
+                                    </view>
+                                </el-col>
+                            </el-row>
+                            <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(news.id)">
+                                    <Right />
+                                </el-icon></view>
+                        </el-col>
+                        <el-col :xs="24" class="desc">
+                            <view class="desc-title">{{ news.title }}</view>
+                            <p>{{ news?.news_content }}
+                            </p>
+                        </el-col>
+                    </el-row>
+                </view>
+                <view v-if="i % 2 === 0" @tap="goToDetailM(news.id)" class="pc-container-l hidden-md-and-up"
+                    v-showMeta="`animate__fadeInLeft`">
+                    <el-col v-if="news" :xs="24" :md="6" class="img-wrapper">
+                        <el-image class="image" fit="fill" :src="news.image_list[0]" />
                     </el-col>
-                    <el-col :xs="24" :xl="2" class="time">
-                        <el-row>
-                            <el-col :xs="3" :xl="17">
-                                <view class="year">{{ news.release_time.split('-')[0] }}</view>
-                            </el-col>
-                            <el-col :xs="5">
-                                <view class="day">{{ news.release_time.split('-')[1] }}-{{ news.release_time.split('-')[2]
-                                }}
-                                </view>
-                            </el-col>
-                        </el-row>
-                        <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(i)">
+                    <el-row class="news-item">
+                        <el-col :xs="24" :md="3" :xl="2" class="time">
+                            <el-row>
+                                <el-col :xs="3" :md="24" :xl="17">
+                                    <view class="year">{{ news.release_time.split('-')[0] }}</view>
+                                </el-col>
+                                <el-col :xs="5" :md="24">
+                                    <view class="day">{{ news.release_time.split('-')[1] }}-{{
+                                        news.release_time.split('-')[2]
+                                    }}
+                                    </view>
+                                </el-col>
+                            </el-row>
+                            <view class="more hidden-sm-and-down"><el-icon :size="26">
+                                    <Right />
+                                </el-icon></view>
+                        </el-col>
+                        <view class="more hidden-sm-and-down" @tap="goToDetail(news.id)"><el-icon :size="26">
                                 <Right />
                             </el-icon></view>
-                    </el-col>
-                    <el-col :xs="24" class="desc">
-                        <view class="desc-title">{{ news.news_title }}</view>
-                        <p>{{ news.news_content }}
-                        </p>
-                    </el-col>
-                </el-row>
-            </view>
-            <view v-if="i % 2 === 0" @tap="goToDetailM(i)" class="pc-container-l hidden-md-and-up"
-                v-showMeta="`animate__fadeInLeft`">
-                <el-col :xs="24" :md="6" class="img-wrapper">
-                    <el-image class="image" fit="fill" :src="news.images[0].image_path" />
-                </el-col>
-                <el-row class="news-item">
-                    <el-col :xs="24" :md="3" :xl="2" class="time">
-                        <el-row>
-                            <el-col :xs="3" :md="24" :xl="17">
-                                <view class="year">{{ news.release_time.split('-')[0] }}</view>
-                            </el-col>
-                            <el-col :xs="5" :md="24">
-                                <view class="day">{{ news.release_time.split('-')[1] }}-{{ news.release_time.split('-')[2]
-                                }}
-                                </view>
-                            </el-col>
-                        </el-row>
-                        <view class="more hidden-sm-and-down"><el-icon :size="26">
-                                <Right />
-                            </el-icon></view>
-                    </el-col>
-                    <view class="more hidden-sm-and-down" @tap="goToDetail(i)"><el-icon :size="26">
-                            <Right />
-                        </el-icon></view>
-                    <el-col :xs="24" :md="15" class="desc">
-                        <view class="desc-title">{{ news.news_title }}</view>
-                        <p>{{ news.news_content }}
-                        </p>
-                    </el-col>
+                        <el-col :xs="24" :md="15" class="desc">
+                            <view class="desc-title">{{ news.news_title }}</view>
+                            <p>{{ news.news_content }}
+                            </p>
+                        </el-col>
 
-                </el-row>
-            </view>
+                    </el-row>
+                </view>
+            </template>
             <!-- PC -->
-            <view v-if="i % 2 === 1" class="pc-container-r  hidden-sm-and-down" v-showMeta="`animate__fadeInRight`">
-                <el-row class="news-item">
-                    <el-col :xs="24" :md="6" :xl="5" class="img-wrapper">
-                        <el-image class="image" fit="fill" :src="news.images[0].image_path" />
-                    </el-col>
-                    <el-col :xs="24" :md="3" :xl="2" class="time">
-                        <el-row>
-                            <el-col :xs="3" :md="24" :xl="17">
-                                <view class="year">{{ news.release_time.split('-')[0] }}</view>
-                            </el-col>
-                            <el-col :xs="5" :md="24">
-                                <view class="day">{{ news.release_time.split('-')[1] }}-{{ news.release_time.split('-')[2]
-                                }}
-                                </view>
-                            </el-col>
-                        </el-row>
-                        <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(i)">
-                                <Right />
-                            </el-icon></view>
-                    </el-col>
-                    <el-col :xs="24" :md="15" class="desc">
-                        <view class="desc-title">{{ news.news_title }}</view>
-                        <p>{{ news.news_content }}
-                        </p>
-                    </el-col>
-                </el-row>
-            </view>
-            <view v-if="i % 2 === 0" class="pc-container-l hidden-sm-and-down" v-showMeta="`animate__fadeInLeft`">
-                <el-row class="news-item">
-                    <el-col :xs="24" :md="3" :xl="2" class="time">
-                        <view class="year">{{ news.release_time.split('-')[0] }}</view>
-                        <view class="day">{{ news.release_time.split('-')[1] }}-{{ news.release_time.split('-')[2] }}</view>
-                        <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(i)">
-                                <Right />
-                            </el-icon></view>
-                    </el-col>
-                    <el-col :xs="24" :md="15" :xl="17" class="desc">
-                        <view class="desc-title">{{ news.news_title }}</view>
-                        <p>{{ news.news_content }}
-                        </p>
-                    </el-col>
-                    <el-col :xs="24" :md="6" :xl="5" class="img-wrapper">
-                        <el-image class="image" fit="fill" :src="news.images[0].image_path" />
-                    </el-col>
-                </el-row>
-            </view>
+            <template v-if="IsPC">
+                <view v-if="i % 2 === 1" class="pc-container-r  hidden-sm-and-down" v-showMeta="`animate__fadeInRight`">
+                    <el-row class="news-item">
+                        <el-col v-if="news.image_list" :xs="24" :md="6" :xl="5" class="img-wrapper">
+                            <el-image v-if="news.image_list" class="image" fit="fill" :src="news.image_list[0]" />
+                            <el-image v-else fit="cover" :src="defaultImg" />
+                        </el-col>
+                        <el-col :xs="24" :md="3" :xl="2" class="time">
+                            <el-row>
+                                <el-col :xs="3" :md="24" :xl="17">
+                                    <view class="year">{{ news.release_time.split('-')[0] }}</view>
+                                </el-col>
+                                <el-col :xs="5" :md="24">
+                                    <view class="day">{{ news.release_time.split('-')[1] }}-{{
+                                        news.release_time.split('-')[2]
+                                    }}
+                                    </view>
+                                </el-col>
+                            </el-row>
+                            <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(news.id)">
+                                    <Right />
+                                </el-icon></view>
+                        </el-col>
+                        <el-col :xs="24" :md="15" class="desc">
+                            <view class="desc-title">{{ news.title }}</view>
+                            <p>
+                            </p>
+                        </el-col>
+                    </el-row>
+                </view>
+                <view v-if="i % 2 === 0" class="pc-container-l hidden-sm-and-down" v-showMeta="`animate__fadeInLeft`">
+                    <el-row class="news-item">
+                        <el-col :xs="24" :md="3" :xl="2" class="time">
+                            <view class="year">{{ news.release_time.split('-')[0] }}</view>
+                            <view class="day">{{ news.release_time.split('-')[1] }}-{{ news.release_time.split('-')[2] }}
+                            </view>
+                            <view class="more hidden-sm-and-down"><el-icon :size="26" @tap="goToDetail(news.id)">
+                                    <Right />
+                                </el-icon></view>
+                        </el-col>
+                        <el-col :xs="24" :md="15" :xl="17" class="desc">
+                            <view class="desc-title">{{ news.title }}</view>
+                            <p>{{ news.news_content }}
+                            </p>
+                        </el-col>
+                        <el-col v-if="news" :xs="24" :md="6" :xl="5" class="img-wrapper">
+                            <el-image v-if="news.image_list" class="image" fit="fill" :src="news.image_list[0]" />
+                            <el-image v-else fit="cover" :src="defaultImg" />
+                        </el-col>
+                    </el-row>
+                </view>
+            </template>
         </template>
         <!-- 分页 -->
         <el-pagination v-model:current-page="currentPage" v-model:page-size="pageSize" :background="true"
@@ -123,6 +133,8 @@ import { ref, computed } from 'vue'
 import PubSub from 'pubsub-js'
 import { Right } from '@element-plus/icons-vue'
 import { getNews, getCertificate, getNotice } from "@/api"
+import { IsPC } from '@/hooks'
+import defaultImg from '@/static/banner-fm.png'
 
 // 新闻数据
 import { WebDataStore } from '@/store/modules/web.js'
@@ -147,14 +159,32 @@ const handleCurrentChange = async (val) => {
     console.log(`current page: ${val}`)
     let newsData = await getNews({ page: +val, limit: 5 })
     console.log(newsData);
-    UseWebDataStore.SetNewsData(newsData)
+    let list = newsData.list.map(news => {
+        // 匹配<img />标签的个数
+        const imgCount = (news.content.match(/<img\s.*?>/g) || []).length;
+        // 匹配<img />标签的href链接
+        const hrefList = news.content.match(/<img\s.*?src="(.*?)".*?>/g)?.map(imgTag => {
+            const hrefMatch = imgTag.match(/src="(.*?)"/);
+            return hrefMatch ? hrefMatch[1] : '';
+        });
+        // console.log('图片个数:', imgCount);
+        // console.log('href链接:', hrefList);
+        news.image_list = hrefList?.filter(url => JSON.parse(news.image_list).includes(url))
+        return {
+            ...news,
+        }
+    })
+    UseWebDataStore.SetNewsData({ list, ...newsData })
+//     UseWebDataStore.SetNewsData(newsData)
 }
 const goToDetail = (i) => {
     UseWebDataStore.SetNewsDataIndex(i)
     PubSub.publish('go-to-detail', { i, type: 'news' })
 }
 // 移动端跳转
-const goToDetailM = () => {
+const goToDetailM = (i) => {
+    // console.log(i);
+    // UseWebDataStore.SetNewsDataIndex(i)
     uni.navigateTo({
         url: '/pages/index/child/news/news-detail?id=1',
     })
@@ -426,4 +456,5 @@ const goToDetailM = () => {
             z-index: -1;
         }
     }
-}</style>
+}
+</style>

@@ -69,6 +69,11 @@ const $props = defineProps({
   }
 })
 
+// import { useRouter } from 'uni-mini-router'
+// import { getCurrentInstance } from 'vue'
+
+// 使用hooks（推荐）
+// let router = useRouter()
 // 移动端事件
 const menuActive = ref(true);
 const clickMenuHandler = () => {
@@ -91,13 +96,11 @@ const handleSelect = (key, keyPath) => {
       UseStuInfoStore.updateCurrentRouterIndex(0)
       break;
     case '8':
-      UseWebDataStore.SetNewsDataIndex(0)
-      UseWebDataStore.SetNewsDetailIndex([1, 0])
+      // router.push({ name: 'news' })
       break;
     default:
       break;
   }
-
   $emits("changeComponents", key);
 };
 PubSub.subscribe("changeActive", (msg, data) => {
@@ -106,7 +109,6 @@ PubSub.subscribe("changeActive", (msg, data) => {
 // watch(() => $props.scrollValue, (v) => {
 //   // console.log(v <= 50, "@@@@@");
 // })
-
 
 
 </script>

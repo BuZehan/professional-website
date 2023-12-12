@@ -198,8 +198,26 @@ onMounted(() => {
 
 const getNewsData = async (data) => {
   let newsData = await getNews(data)
-  // console.log(newsData);
-  UseWebDataStore.SetNewsData(newsData)
+
+  let list = newsData.list.map(news => {
+
+    // 匹配<img />标签的个数
+    const imgCount = (news.content.match(/<img\s.*?>/g) || []).length;
+
+    // 匹配<img />标签的href链接
+    const hrefList = news.content.match(/<img\s.*?src="(.*?)".*?>/g)?.map(imgTag => {
+      const hrefMatch = imgTag.match(/src="(.*?)"/);
+      return hrefMatch ? hrefMatch[1] : '';
+    });
+    // console.log('图片个数:', imgCount);
+    // console.log('href链接:', hrefList);
+    news.image_list = hrefList?.filter(url => JSON.parse(news.image_list).includes(url))
+
+    return {
+      ...news,
+    }
+  })
+  UseWebDataStore.SetNewsData({ list, ...newsData })
 }
 const getNoticeData = async (data) => {
   let noticeData = await getNotice(data)
@@ -216,6 +234,8 @@ const getBannerData = async (data) => {
   let bannerData = await getBanner(data)
   UseWebDataStore.SetBannerData(bannerData)
 }
+
+
 </script>
 
 <style scoped lang="scss">

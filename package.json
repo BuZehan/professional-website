@@ -54,6 +54,7 @@
     "@dcloudio/uni-mp-weixin": "3.0.0-3090620231104002",
     "@dcloudio/uni-mp-xhs": "3.0.0-3090620231104002",
     "@dcloudio/uni-quickapp-webview": "3.0.0-3090620231104002",
+    "add": "^2.0.6",
     "animate.css": "^4.1.1",
     "element-plus": "^2.4.2",
     "gsap": "^3.12.2",
@@ -65,6 +66,9 @@
     "sass": "^1.69.5",
     "swiper": "^10.0.0",
     "three": "^0.158.0",
+    "uni-mini-router": "^0.1.5",
+    "uni-read-pages-vite": "^0.0.6",
+    "uni-simple-router": "^2.0.8-beta.4",
     "vue": "^3.2.45",
     "vue-i18n": "^9.1.9"
   },

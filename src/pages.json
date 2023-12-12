@@ -1,61 +1,80 @@
 {
 	"pages": [
 		{
-			"path": "pages/Layout/Layout"
+			"path": "pages/Layout/Layout",
+			"name":"Layout"
 		},
 		{
-			"path": "pages/index/index"
+			"path": "pages/index/index",
+			"name":"index"
 		},
 		{
-			"path": "pages/index/child/specialty-instruction/specialty-instruction"
+			"path": "pages/index/child/specialty-instruction/specialty-instruction",
+			"name":"specialty-instruction"
 		},
 		{
-			"path":"pages/index/child/news/news"
+			"path":"pages/index/child/news/news",
+			"name":"news"
 		},
 		{
-			"path":"pages/index/child/news/news-detail"
+			"path":"pages/index/child/news/news-detail",
+			"name":"news-detail"
 		},
 		{
-			"path":"pages/index/child/news/certificate-detail"
+			"path":"pages/index/child/news/certificate-detail",
+			"name":"certificate-detail"
 		},
 		{
-			"path":"pages/index/child/news/inform-detail"
+			"path":"pages/index/child/news/inform-detail",
+			"name":"inform-detail"
 		},
 		{
-			"path": "pages/index/child/teaching-team/teaching-team"
+			"path": "pages/index/child/teaching-team/teaching-team",
+			"name":"teaching-team"
 		},
 		{
-			"path": "pages/index/child/teaching-team/teacher-info-m"
+			"path": "pages/index/child/teaching-team/teacher-info-m",
+			"name":"teacher-info-m"
 		},
 		{
-			"path": "pages/index/child/specialized-courses/specialized-courses"
+			"path": "pages/index/child/specialized-courses/specialized-courses",
+			"name":"specialized-courses"
 		},
 		{
-			"path": "pages/index/child/laboratory/laboratory"
+			"path": "pages/index/child/laboratory/laboratory",
+			"name":"laboratory"
 		},
 		{
-			"path": "pages/index/child/enterprise/huawei"
+			"path": "pages/index/child/enterprise/huawei",
+			"name":"huawei"
 		},
 		{
-			"path": "pages/index/child/enterprise/xin-xiang-hong-fu"
+			"path": "pages/index/child/enterprise/xin-xiang-hong-fu",
+			"name":"xin-xiang-hong-fu"
 		},
 		{
-			"path": "pages/index/child/enterprise/h3c"
+			"path": "pages/index/child/enterprise/h3c",
+			"name":"h3c"
 		},
 		{
-			"path": "pages/index/child/enterprise/hao-jing-technology"
+			"path": "pages/index/child/enterprise/hao-jing-technology",
+			"name":"hao-jing-technology"
 		},
 		{
-			"path": "pages/index/child/enterprise/tian-rong-xin"
+			"path": "pages/index/child/enterprise/tian-rong-xin",
+			"name":"tian-rong-xin"
 		},
 		{
-			"path": "pages/index/child/enterprise/zhong-jing"
+			"path": "pages/index/child/enterprise/zhong-jing",
+			"name":"zhong-jing"
 		},
 		{
-			"path":"pages/index/child/outstanding-graduate/outstanding-graduate"
+			"path":"pages/index/child/outstanding-graduate/outstanding-graduate",
+			"name":"outstanding-graduate"
 		},
 		{
-			"path":"pages/index/child/outstanding-graduate/stu-detail-m"
+			"path":"pages/index/child/outstanding-graduate/stu-detail-m",
+			"name":"stu-detail-m"
 		}
 	],
 	"globalStyle": {

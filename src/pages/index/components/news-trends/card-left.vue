@@ -1,7 +1,9 @@
 <template>
     <view class="card-left" v-showMeta="`animate__fadeInLeft`">
-        <view v-if="news_data.images[0]" class="content" @tap="fn">
-            <el-image  fit="fill" :src="news_data.images[0].image_path" />
+        <view v-if="news_data" class="content" @tap="fn(news_data.id)">
+            <el-image v-if="news_data.image_list" fit="fill" :src="news_data.image_list[0]" />
+            <el-image v-else fit="cover"
+            :src="defaultImg" />
             <view class="time">
                 <view class="day">{{ news_data.release_time.split('-')[2] }}</view>
                 <view class="year">{{ news_data.release_time.split('-')[0] }}-{{ news_data.release_time.split('-')[1] }}
@@ -9,10 +11,10 @@
             </view>
 
             <view class="title">
-                {{ news_data.news_title }}
+                {{ news_data.title }}
             </view>
             <view class="desc">
-                {{ news_data.news_content }}
+                <!-- {{ news_data.news_content }} -->
             </view>
         </view>
         <view class="border"></view>
@@ -26,8 +28,9 @@
    
 <script setup>
 import { WebDataStore } from '@/store/modules/web.js';
-import {MainStore} from '@/store'
-import {computed} from 'vue'
+import { MainStore } from '@/store'
+import { computed } from 'vue'
+import defaultImg from '@/static/banner-fm.png'
 const UseMainStore = MainStore()
 const UseWebDataStore = WebDataStore()
 const $props = defineProps({
@@ -40,24 +43,18 @@ const $props = defineProps({
         default: 0
     }
 });
-const fn = computed(() => {
-    // console.log('@IsPC@',UseMainStore.IsPC);
-  return UseMainStore.IsPC ? clickNewsItem : clickNewsItemM
-})
-let i = $props.index;
-const clickNewsItem = () => {
-    // console.log($props.index);
-    UseWebDataStore.SetNewsDataIndex(i)
-    UseWebDataStore.SetNewsDetailIndex([0,3])   
+const fn = computed(() => id => UseMainStore.IsPC ? clickNewsItem(id) : clickNewsItemM(id))
+const clickNewsItem = (id) => {
+    UseWebDataStore.SetNewsDataIndex(id)
+    UseWebDataStore.SetNewsDetailIndex([0, 3])
     PubSub.publish('navgation-event', { e: '8' })
 }
-
-const clickNewsItemM = () => {
+const clickNewsItemM = (id) => {
     // console.log('跳转新闻动态页');
-    UseWebDataStore.SetNewsDataIndex($props.index)
-    UseWebDataStore.SetNewsDetailIndex([0,3]) 
+    UseWebDataStore.SetNewsDataIndex(id)
+    UseWebDataStore.SetNewsDetailIndex([0, 3])
     uni.navigateTo({
-         url: `/pages/index/child/news/news-detail?id=${$props.index}`
+        url: `/pages/index/child/news/news-detail?id=${id}`
     });
 }
 </script>

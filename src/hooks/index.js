@@ -1,7 +1,7 @@
 import { debounce } from "@/utils"
 import { MainStore } from "@/store"
 import PubSub from "pubsub-js"
-import { ref, onMounted, onUnmounted } from 'vue'
+import { ref, onMounted, onUnmounted,computed } from 'vue'
 
 const UseMian = MainStore()
 export const windowResize = () => {
@@ -42,3 +42,7 @@ export function useMouse(target) {
   onUnmounted(() => window.removeEventListener('mousemove', update))
   return { x, y }
 }
+
+export const IsPC = computed(() => {
+  return UseMian.IsPC
+})
