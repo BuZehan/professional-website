@@ -7,7 +7,7 @@
             <view class="title">{{ data.title }}</view>
             <view class="line"></view>
             <view class="desc">
-                <p v-for="desc, i in data.desc" :key="i">{{ desc }}"></p>
+                <p ></p>
             </view>
             <view class="detail">查看详情<el-icon class="icon" style="vertical-align: middle">
                     <DArrowRight />
@@ -159,6 +159,9 @@ const $props = defineProps({
                 font-weight: normal;
                 line-height: 46rpx;
                 font-size: 28rpx;
+                p{
+                    min-height: 100px;
+                }
             }
 
             .detail {

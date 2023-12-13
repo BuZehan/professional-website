@@ -159,6 +159,7 @@ PubSub.subscribe('index-student-event', (msg, data) => {
 
 @include respondTo("desktop") {
   .container {
+    height: fit-content;
     .footer {
       display: none;
     }
@@ -181,15 +182,6 @@ PubSub.subscribe('index-student-event', (msg, data) => {
 
 
     .content {
-      line-height: 40px;
-      font-size: 32rpx;
-      font-weight: bold;
-      color: #333;
-
-      view {
-        text-indent: 60rpx;
-        margin-bottom: 20rpx;
-      }
     }
   }
 }

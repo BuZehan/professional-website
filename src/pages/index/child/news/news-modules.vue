@@ -109,8 +109,8 @@
                         </el-col>
                         <el-col :xs="24" :md="15" :xl="17" class="desc">
                             <view class="desc-title">{{ news.title }}</view>
-                            <p>{{ news.news_content }}
-                            </p>
+                            <!-- <p>{{ news.news_content }}
+                            </p> -->
                         </el-col>
                         <el-col v-if="news" :xs="24" :md="6" :xl="5" class="img-wrapper">
                             <el-image v-if="news.image_list" class="image" fit="fill" :src="news.image_list[0]" />
@@ -424,7 +424,7 @@ const goToDetailM = (i) => {
                     font-size: 32rpx;
                     color: #333;
                     font-weight: bold;
-                    margin-top: 56rpx;
+                    margin-top: 150rpx;
                 }
 
                 p {

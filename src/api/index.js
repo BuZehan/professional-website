@@ -7,3 +7,5 @@ export const getCertificate = (data) => request('GET','/honor/getHonor',data)
 export const getNotice = (data) => request('GET','/notification/getNotification',data)
 // 轮播图数据
 export const getBanner = (data) => request('GET','/swiper/getBanner',data)
+// 校友数据
+export const getAlumni = (data) => request('GET','/stu/getStu',data)

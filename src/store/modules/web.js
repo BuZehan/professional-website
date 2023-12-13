@@ -50,6 +50,12 @@ export const WebDataStore = defineStore('WebData', () => {
         BannerData.value = data
     }
 
+    // 校友数据
+    const AlumniData = ref([]);
+    const SetAlumniData = (data) => {
+        AlumniData.value = data
+    }
+
     return {
         newsData,
         SetNewsData,
@@ -67,7 +73,9 @@ export const WebDataStore = defineStore('WebData', () => {
         SetNewsDetailIndex,
         AddCertificateData,
         BannerData,
-        SetBannerData
+        SetBannerData,
+        AlumniData,
+        SetAlumniData
     }
 }, {
     persist: true

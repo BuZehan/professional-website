@@ -7,7 +7,7 @@
     <view class="container-content">
       <backgroundImg :img="sl" />
       <view class="trans">
-        <AppBreadcrumb :currentPageTxtArr="['新闻动态']" />
+        <AppBreadcrumb :currentPageTxtArr="['专业新闻']" />
         <el-row justify="center">
           <el-col :xs="{ span: 24 }" :sm="{ span: 20 }" :md="{ span: 20 }" :xl="18">
             <view class="title">{{ CurrentTitle }}</view>

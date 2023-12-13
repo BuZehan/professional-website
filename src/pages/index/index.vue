@@ -183,7 +183,7 @@ const companyArr = [
   { name: "trx", path: trx },
   { name: "zjb", path: zjb }]
 // 网站数据请求
-import { getNews, getCertificate, getNotice, getBanner } from "@/api"
+import { getNews, getCertificate, getNotice, getBanner,getAlumni } from "@/api"
 
 onMounted(() => {
   // 新闻动态
@@ -194,8 +194,11 @@ onMounted(() => {
   getCertificateData({ page: 1, limit: 10 })
   // 轮播图数据
   getBannerData({ page: 1, limit: 10 })
+  // 获取校友数据
+  getAlumniData({page:1,limit:10})
 })
 
+// 获取新闻动态
 const getNewsData = async (data) => {
   let newsData = await getNews(data)
 
@@ -219,11 +222,13 @@ const getNewsData = async (data) => {
   })
   UseWebDataStore.SetNewsData({ list, ...newsData })
 }
+// 获取通知公告
 const getNoticeData = async (data) => {
   let noticeData = await getNotice(data)
   // console.log(noticeData);
   UseWebDataStore.SetNoticeData(noticeData)
 }
+// 获取获奖证书数据
 const getCertificateData = async (data) => {
   let certificateData = await getCertificate(data)
   // console.log(certificateData);
@@ -233,6 +238,11 @@ const getCertificateData = async (data) => {
 const getBannerData = async (data) => {
   let bannerData = await getBanner(data)
   UseWebDataStore.SetBannerData(bannerData)
+}
+// 校友数据
+const getAlumniData = async (data) => {
+  let AlumniData = await getAlumni(data)
+  UseWebDataStore.SetAlumniData(AlumniData)
 }
 
 

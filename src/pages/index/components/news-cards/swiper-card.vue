@@ -1,25 +1,29 @@
 <template>
     <Swiper :effect="'cards'" :grabCursor="true" :modules="modules" class="mySwiper swiper">
-        <SwiperSlide class="swiper-slide" v-for="item,i in dataArray" :key="item.img">
-            <el-card :body-style="{ padding: '0px' }" >
-                <el-image fit="fill" :src="item.honorImage[0].image_path" />
+        <SwiperSlide class="swiper-slide" v-for="item, i in dataArray" :key="item.img">
+            <el-card :body-style="{ padding: '0px' }">
+                <div class="pdfWrapper" v-if="fileType.includes(item.honorImage[0].image_path.match(/\.([^.]+)$/)[1])"
+                    v-pdf="item.honorImage[0].image_path">
+                </div>
+                <el-image v-else :src="item.honorImage[0].image_path" class="image" />
+                <!-- <el-image fit="fill" :src="item.honorImage[0].image_path" /> -->
                 <view v-if="!item.label" style="padding: 6px">
                     <view class="card-title">{{ item.news_title }}</view>
                     <view class="bottom">
                         <view class="desc">{{ item.news_content }}</view>
-                        <view class="time">日期：{{item.release_time}}</view>
+                        <view class="time">日期：{{ item.release_time }}</view>
                         <el-button size="small" class="button" @tap="mobileClickHandler(item.id)">详情</el-button>
                     </view>
                 </view>
             </el-card>
-            </SwiperSlide>
+        </SwiperSlide>
     </Swiper>
 </template>
    
    
 <script setup>
-import {computed} from 'vue'
-   // Import Swiper Vue.js components
+import { computed } from 'vue'
+// Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
 // Import Swiper styles
 import 'swiper/css';
@@ -35,13 +39,13 @@ const $props = defineProps({
         }
     }
 })
-
+const fileType = ['pdf', 'doc', 'docx']
 import { WebDataStore } from '@/store/modules/web.js';
 const UseWebDataStore = WebDataStore();
 const mobileClickHandler = (i) => {
-    console.log('Mobile click card',i);
+    console.log('Mobile click card', i);
     UseWebDataStore.SetCertificateIndex(i)
-    UseWebDataStore.SetNewsDetailIndex([1,5]) 
+    UseWebDataStore.SetNewsDetailIndex([1, 5])
     uni.navigateTo({
         url: `/pages/index/child/news/certificate-detail?id=${i}`
     })
@@ -55,6 +59,7 @@ const mobileClickHandler = (i) => {
     height: fit-content;
     margin-bottom: 30rpx;
 }
+
 .swiper-slide {
     display: flex;
     align-items: flex-start;
@@ -65,10 +70,12 @@ const mobileClickHandler = (i) => {
     border-radius: 14rpx !important;
     box-sizing: border-box;
     margin-top: 40rpx;
+
     .el-card {
         height: 640rpx;
         position: relative;
         width: 480rpx;
+
         .card-title {
             font-size: 32rpx;
             font-weight: bold;
@@ -112,5 +119,4 @@ const mobileClickHandler = (i) => {
         }
     }
 }
-
 </style>

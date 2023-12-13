@@ -18,9 +18,8 @@
                            {{ UseStuInfoStore.currentStuData.title }}
                         </el-col>
                         <el-col class="desc" :xs="24" :sm="24" :md="20">
-                           <p v-for="desc, i in UseStuInfoStore.currentStuData.desc" :key="i">
-                              {{ desc }}
-                           </p>
+                           <div class="con" v-html="UseStuInfoStore.currentStuData.desc.replace(/<img/g, str)">
+                           </div>
                         </el-col>
                      </el-row>
                      <el-button @tap="back"  color="rgb(200,20,20)">返回</el-button>
@@ -50,6 +49,9 @@ const changePage = (i) => {
 const stu_img_list = computed(() => {
  return  UseStuInfoStore.currentStuData.imgList.length > 0 ? UseStuInfoStore.currentStuData.imgList : ''
 })
+
+const str = '<img class="image" style="max-height:500rpx;max-width:80vw; margin:10px auto !important;display:block; "'
+
 </script>
    
    
@@ -97,8 +99,6 @@ const stu_img_list = computed(() => {
          }
 
          .content {
-            line-height: 50rpx;
-
             .c {
                text-indent: 60rpx;
                margin-bottom: 20px;
@@ -127,10 +127,6 @@ const stu_img_list = computed(() => {
       }
 
       .desc {
-         font-weight: normal;
-         text-indent: 70rpx;
-         line-height: 60rpx;
-
          p {
             margin-bottom: 20rpx;
          }

@@ -12,9 +12,15 @@
             <!-- <el-col class="content" :xs="22" :md="24">
                 <el-image :src="newsImage" fit="cover" />
             </el-col> -->
-            <el-col v-if="NewsData.content" class="content" :xs="22" :md="24">
+            <el-col v-if="IsPC && NewsData.content" class="content" :xs="22" :md="24">
                 <div class="contentDIV" v-html="NewsData.content.replace(/<img/g, str)"></div>
             </el-col>
+            <el-col v-if="!IsPC && NewsData.content" class="content" :xs="22" :md="24">
+                <div class="contentDIV" v-html="NewsData.content.replace(/<img/g, strForMobile)"></div>
+            </el-col>
+            <!-- <el-col class="time" :xs="22" :md="24"><el-icon :size="20" color="rgb(200,20,20)">
+                    <Clock />
+                </el-icon>{{ NewsData.release_time }}</el-col> -->
         </el-row>
         <el-button color="rgb(200,20,20)" class="hidden-sm-and-down btn" type="primary" @tap="back">返回</el-button>
         <el-button color="rgb(200,20,20)" class="hidden-md-and-up btn" type="primary" @tap="Mback">返回</el-button>
@@ -28,15 +34,15 @@ import { Clock } from '@element-plus/icons-vue'
 import { onActivated, ref, onMounted, nextTick, computed } from 'vue'
 import PubSub from 'pubsub-js';
 import { WebDataStore } from '@/store/modules/web.js'
+import {IsPC} from '@/hooks'    
 const UseWebDataStore = WebDataStore();
 const NewsData = computed(() => {
     return UseWebDataStore.newsData.list.filter(item => item.id === UseWebDataStore.NewsDataIndex)[0]
 });
-const newsImage = computed(() => {
-    console.log(NewsData.image_list);
-    return 1
-})
-const str = '<img class="image" style="width: 100% !important; margin:10px auto !important;"'
+console.log(IsPC);
+const str = '<img class="image" style="max-height:500px;max-width:1000px; margin:10px auto !important;display:block; "'
+const strForMobile = '<img class="image" style="max-height:500px;max-width:80vw; margin:10px auto !important;display:block; "'
+// margin:10px auto !important;display:block; style="height:400px; "
 // 页面滚动
 onMounted(() => {
     PubSub.publish('scroll-top', { data: true });
@@ -145,15 +151,22 @@ const Mback = () => {
                 margin-right: 10rpx;
             }
         }
-        .el-ro{
+
+        .el-row {
+            width: 100%;
+
             .content {
-                text-indent: 70rpx;
+                width: 100%;
                 display: flex;
                 align-items: center;
+
+                .contentDIV {
+                    width: 100%;
+                }
+
             }
-          
+
         }
-      
+
     }
-}
-</style>
+}</style>

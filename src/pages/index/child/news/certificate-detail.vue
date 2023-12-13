@@ -6,19 +6,30 @@
         </template>
         <el-row justify="center">
             <el-col class="title" :xs="22" :md="24">{{ Certificate.news_title }}</el-col>
+
             <el-col class="time" :xs="22" :md="24"><el-icon :size="20" color="rgb(200,20,20)">
                     <Clock />
                 </el-icon>{{ Certificate.release_time }}</el-col>
             <!-- <el-col class="content" :xs="22" :md="24" v-for="c in newsData.content"> -->
             <el-col class="content" :xs="22" :md="24">
                 <!-- <el-image v-if="c == 'img'" :src="newsData.imgUrl" fit="cover" /> -->
-                <el-image v-if="Certificate.honorImage"
-                    :src="Certificate.honorImage[0].image_path" fit="cover" />
+                <div class="pdfWrapper" v-if="fileType.includes(Certificate.honorImage[0].image_path.match(/\.([^.]+)$/)[1])">
+                    <div  v-pdf="Certificate.honorImage[0].image_path">
+                    </div>
+                    <div class="down">
+                        <a v-if="isPDF(Certificate.honorImage[0].image_path)" class="download hidden-sm-and-down"
+                            :href="Certificate.honorImage[0].image_path" target="_blank">查看证书PDF</a>
+                        <a v-if="isPDF(Certificate.honorImage[0].image_path)" class="download" @tap="download">下载证书附件</a>
+                    </div>
+                </div>
+                <el-image v-else :src="Certificate.honorImage[0].image_path" class="image" />
+                <!-- <el-image v-if="Certificate.honorImage" :src="Certificate.honorImage[0].image_path" fit="cover" /> -->
             </el-col>
             <el-col class="content" :xs="22" :md="24">
                 <p>{{ Certificate.news_content }}</p>
             </el-col>
         </el-row>
+
         <el-button color="rgb(200,20,20)" class="hidden-sm-and-down btn" type="primary" @tap="back">返回</el-button>
         <el-button color="rgb(200,20,20)" class="hidden-md-and-up btn" type="primary" @tap="Mback">返回</el-button>
         <Footer class="hidden-md-and-up" />
@@ -57,7 +68,6 @@ const Mback = () => {
         delta: 1
     })
 }
-
 // 新闻数据
 import { WebDataStore } from '@/store/modules/web.js'
 const UseWebDataStore = WebDataStore();
@@ -66,14 +76,34 @@ const Certificate = computed(() => {
     return data[0]
 });
 // console.log(Certificate.value);
+
+const download = (url) => {
+    uni.downloadFile({
+        url: '../../../../static/k.pdf',
+        success: (res) => {
+            // 将 URL 赋给一个链接的 href 属性，用户点击链接时可以下载或查看文件
+            var link = document.createElement('a');
+            link.href = res.tempFilePath;
+            link.download = '22版人培--网络工程--最终版2023.4.20.pdf'; // 可选，指定下载时的文件名
+            document.body.appendChild(link);
+            link.click();
+        }
+    })
+}
+// 是否为PDF
+const fileType = ['pdf', 'doc', 'docx']
+const isPDF = computed(() => url => fileType.includes(url.match(/\.([^.]+)$/)[1]))
 </script>
    
    
-<style scoped lang='scss'>.btn {
+<style scoped lang='scss'>
+.btn {
     margin-top: 50rpx;
     margin-bottom: 200rpx;
     float: right;
 }
+
+
 
 @include respondTo('mobile') {
     .news-detail {
@@ -90,7 +120,7 @@ const Certificate = computed(() => {
             top: 0;
             z-index: 5000;
         }
-     
+
         .title {
             margin-top: 140rpx;
             text-align: center;
@@ -115,7 +145,27 @@ const Certificate = computed(() => {
             display: flex;
             align-items: center;
             justify-content: center;
-
+            .pdfWrapper {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                .down {
+                    display: flex;
+                    margin-bottom: 40rpx;
+                   a{
+                    color: #999;
+                    font-size: 14px;
+                   }
+                }
+            }
+            
+            .download {
+                cursor: pointer;
+                margin: 0 10px;
+                text-decoration: underline;
+            }
             p {
                 text-indent: 70rpx;
                 line-height: 44rpx;
@@ -161,7 +211,27 @@ const Certificate = computed(() => {
             text-indent: 70rpx;
             display: flex;
             align-items: center;
-
+            .pdfWrapper {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                .down {
+                    transform: translateY(-30px);
+                    display: flex;
+                   a{
+                    color: #999;
+                    font-size: 14px;
+                   }
+                }
+            }
+            
+            .download {
+                cursor: pointer;
+                margin: 0 10px;
+                text-decoration: underline;
+            }
             .el-image {
                 text-indent: 0 !important;
                 margin: 40rpx auto;
@@ -171,4 +241,5 @@ const Certificate = computed(() => {
             }
         }
     }
-}</style>
+}
+</style>

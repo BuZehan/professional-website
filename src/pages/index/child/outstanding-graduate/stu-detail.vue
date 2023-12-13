@@ -5,9 +5,10 @@
                {{ UseStuInfoStore.currentStuData.title }}
          </el-col>
          <el-col class="desc" :xs="24" :sm="24" :md="20">
-            <p v-for="desc , i in UseStuInfoStore.currentStuData.desc" :key="i">
+            <div v-html="UseStuInfoStore.currentStuData.desc"></div>
+            <!-- <p v-for="desc , i in UseStuInfoStore.currentStuData.desc" :key="i">
                {{ desc }}
-            </p>
+            </p> -->
          </el-col>
       </el-row>
       <el-button @tap="back" color="rgb(200,20,20)">返回</el-button>
@@ -26,9 +27,6 @@ const back = () => {
    
    
 <style scoped lang='scss'>
-
-
-
 @include respondTo('mobile') {
    .stu-detail-row {
       text-indent: 0 !important;
@@ -65,12 +63,7 @@ const back = () => {
          margin-bottom: 100rpx;
       }
       .desc{
-         font-weight: normal;
-         text-indent: 70rpx;
-         line-height: 60rpx;
-         p{
-            margin: 40rpx auto;
-         }
+         height:fit-content ;
       }
    }
    .el-button{
