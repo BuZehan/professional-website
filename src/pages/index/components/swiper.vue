@@ -11,8 +11,8 @@
       </swiper>
     </view>
     <view class="pc-swiper">
-      <ul ref="ul">
-        <li v-for="item, i in DATA" :key="i" :class="{ active: currentImg === i }">
+      <ul ref="ul" v-if="DATA">
+        <li v-for="item, i in DATA.slice(0,4)" :key="i" :class="{ active: currentImg === i }">
           <view class="bg1"></view>
           <view class="bg"></view>
           <view v-if="item" class="text-content">
@@ -23,7 +23,7 @@
             <view class="btn" @tap="handleSelect(item.id)">查看详情</view>
             <view class="arrow">
               <p @tap="prev"></p>
-              <span>{{ i + 1 }}/{{ DATA.length }}</span>
+              <span>{{ i + 1 }}/{{ DATA.slice(0,4).length }}</span>
               <p @tap="next"></p>
             </view>
           </view>
@@ -47,7 +47,7 @@ import { WebDataStore } from '@/store/modules/web.js'
 import defaultImg from '@/static/banner-fm.png'
 const UseWebDataStore = WebDataStore();
 let DATA = computed(() => {
-  return UseWebDataStore?.newsData ?  toRaw(UseWebDataStore.newsData.list).slice(0,4) : []
+  return UseWebDataStore?.newsData ?  toRaw(UseWebDataStore.newsData.list) : []
   // return UseWebDataStore?.BannerData ?  toRaw(UseWebDataStore.BannerData.list).slice(0,4) : []
 })
 // 移动端
@@ -181,9 +181,8 @@ const handleSelect = (id) => {
             h3 {
               font-size: 24px;
               font-weight: normal;
-              line-height: 24px;
+              line-height: 35px;
               letter-spacing: 0em;
-
               font-feature-settings: "kern" on;
               color: #FFFFFF;
             }

@@ -45,8 +45,11 @@ onActivated(() => {
 const changePage = (i) => {
   UseStuInfoStore.updateCurrentRouterIndex(0)
 }
+
+// 导入默认图片
+import BannerFM from '@/static/banner-fm.png'
 const stu_img_list = computed(() => {
- return  UseStuInfoStore.currentStuData.imgList.length > 0 ? UseStuInfoStore.currentStuData.imgList : ''
+ return  UseStuInfoStore.currentStuData.imgList?.length > 0 ? UseStuInfoStore.currentStuData.imgList : []
 })
 // pc端监听点击首页教师事件
 PubSub.subscribe('index-student-event', (msg, data) => {

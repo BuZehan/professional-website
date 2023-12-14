@@ -101,6 +101,7 @@ onUnmounted(() => {
 const scrollValue = ref(0)
 nextTick(() => {
   layout.value.$el.addEventListener("scroll", (e) => {
+    // console.log(e,"Layout");
     scrollValue.value = e.target.scrollTop;
   })
 })

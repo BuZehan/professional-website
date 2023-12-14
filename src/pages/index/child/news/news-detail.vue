@@ -39,7 +39,7 @@ const UseWebDataStore = WebDataStore();
 const NewsData = computed(() => {
     return UseWebDataStore.newsData.list.filter(item => item.id === UseWebDataStore.NewsDataIndex)[0]
 });
-console.log(IsPC);
+// console.log(IsPC);
 const str = '<img class="image" style="max-height:500px;max-width:1000px; margin:10px auto !important;display:block; "'
 const strForMobile = '<img class="image" style="max-height:500px;max-width:80vw; margin:10px auto !important;display:block; "'
 // margin:10px auto !important;display:block; style="height:400px; "

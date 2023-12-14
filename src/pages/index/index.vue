@@ -93,8 +93,8 @@
         <view class="content">
           <Company :companyArr="companyArr" />
         </view>
-        <el-button class="m-el-btn-jump" @tap="navgationTo('teaching-team')">了解更多</el-button>
-        <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('6')">了解更多</el-button>
+        <!-- <el-button class="m-el-btn-jump" @tap="navgationTo('teaching-team')">了解更多</el-button>
+        <el-button class="pc-el-btn-jump" @tap="pcNavgationTo('6')">了解更多</el-button> -->
 
       </view>
       <!-- 优秀毕业生 -->

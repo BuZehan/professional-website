@@ -3,28 +3,36 @@ import { MainStore } from "@/store"
 import PubSub from "pubsub-js"
 import { ref, onMounted, onUnmounted,computed } from 'vue'
 
+
 const UseMian = MainStore()
+export const IsPC = computed(() => {
+  // console.log(window.location);
+  // let hash = window.location.hash
+  // let url1 = hash.substring(1, hash.length)
+  // let url2 = url1.split('?')[0]
+  // console.log(url2);
+  return UseMian.IsPC
+})
 export const windowResize = () => {
+  window.addEventListener('hashchange',(e) => {
+    if(IsPC.value) {
+      window.location.hash = '#/'
+    }
+  })
   window.addEventListener('resize', debounce((e) => {
+    console.log(IsPC.value);
     UseMian.SetIsPC()
-    let w = window.innerWidth;
-    if (w >= 992) {
+    if (IsPC.value) {
       // PC
       const hash = window.location.hash;
       if (hash === '#/') {
         // console.log('> 992 ');
+        console.log(window.location.hash);
       } else {
-        // console.log(window.location);
-        let hashValue = UseMian.hashMap.get(hash);
-        // console.log(hashValue);
-        // console.log(hashValue[0], hashValue[1]);
-        UseMian.updateRouterIndex( `${hashValue[0]}`)
-        window.location.href = '/';
-        // console.log('跳转首页');
+        window.location.replace('/');
       }
-      // window.location.href = '/'
     }
-    if (w < 992) {
+    if (!IsPC) {
       // mobile
 
     }
@@ -43,6 +51,3 @@ export function useMouse(target) {
   return { x, y }
 }
 
-export const IsPC = computed(() => {
-  return UseMian.IsPC
-})

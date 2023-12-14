@@ -1,7 +1,7 @@
 <template>
     <el-row class="stu-card">
         <el-col :xs="8" :sm="8" class="image-wrapper">
-            <el-image fit="cover" :src="data.imgList[0]" />
+            <el-image v-if="data.imgList" fit="cover" :src="data.imgList[0]" />
         </el-col>
         <el-col :xs="16" :sm="16" class="right-text">
             <view class="title">{{ data.title }}</view>

@@ -1,9 +1,12 @@
 <template>
     <view class="wrapper">
         <el-row justify="center">
-            <el-col   :xs="11" :sm="8" v-for="item,i in companyArr" :key="item.name" >
-                <view v-showMeta="i % 2 === 0 ?`animate__fadeInLeft` : `animate__fadeInRight`" class="company-container">
-                    <el-image :src="item.path" @tap="companyJump(i+1)" class="my_img" :class="{ h3c: item.name === 'h3c', trx: item.name === 'trx' }" fill="fill" />
+            <el-col :xs="11" :sm="8" v-for="item, i in companyArr" :key="item.name">
+                <view v-showMeta="i % 2 === 0 ? `animate__fadeInLeft` : `animate__fadeInRight`" class="company-container">
+                    <el-image v-if="UseMainStore.ISPC" :src="item.path" @tap="companyJump(i + 1)" class="my_img"
+                        :class="{ h3c: item.name === 'h3c', trx: item.name === 'trx' }" fill="fill" />
+                    <el-image v-else :src="item.path" @tap="companyJumpForMobile(i + 1)" class="my_img"
+                        :class="{ h3c: item.name === 'h3c', trx: item.name === 'trx' }" fill="fill" />
                 </view>
             </el-col>
         </el-row>
@@ -12,8 +15,11 @@
    
    
 <script setup>
+import { computed } from 'vue'
 import PubSub from 'pubsub-js';
-
+import { MainStore } from '@/store'
+import { uni } from '@dcloudio/uni-h5';
+const UseMainStore = MainStore()
 defineProps({
     companyArr: {
         type: Array,
@@ -21,22 +27,54 @@ defineProps({
     }
 })
 const companyJump = (i) => {
-    PubSub.publish('navgation-event', {e:`6-${i}`})
+    PubSub.publish('navgation-event', { e: `6-${i}` })
+}
+// 移动端跳转
+const companyJumpForMobile = (i) => {
+    console.log('###', i);
+    switch (i) {
+        case 1:
+            jumpForM(`/pages/index/child/enterprise/huawei`)
+            break;
+        case 2:
+            jumpForM(`/pages/index/child/enterprise/xin-xiang-hong-fu`)
+            break;
+        case 3:
+            jumpForM('/pages/index/child/enterprise/h3c')
+            break;
+        case 4:
+            jumpForM('/pages/index/child/enterprise/hao-jing-technology')
+            break;
+        case 5:
+            jumpForM('/pages/index/child/enterprise/tian-rong-xin')
+            break;
+        case 6:
+            jumpForM('/pages/index/child/enterprise/zhong-jing')
+            break;
+        default:
+            break;
+    }
+}
+const jumpForM = (url) => {
+    uni.navigateTo({
+        url
+    })
 }
 </script>
    
    
 <style scoped lang='scss'>
-
 @include respondTo('mobile') {
     .wrapper {
         width: 100vw;
+
         .el-col {
             display: flex;
             align-items: center;
             justify-content: center;
+
             .company-container {
-                width:300rpx;
+                width: 300rpx;
                 height: 150rpx;
                 border-radius: 8rpx;
                 display: flex;
@@ -47,6 +85,7 @@ const companyJump = (i) => {
                 transition: all .4s;
                 margin: 20rpx 0;
                 background-color: #fff;
+
                 .my_img {
                     transform: scale(.8);
                 }
@@ -56,7 +95,8 @@ const companyJump = (i) => {
         .h3c {
             transform: scale(.5) !important;
         }
-        .trx{
+
+        .trx {
             transform: scale(.85) !important;
         }
     }
@@ -66,6 +106,7 @@ const companyJump = (i) => {
     .wrapper {
         width: 70vw;
         max-width: 1200px;
+
         .el-col {
             display: flex;
             align-items: center;
@@ -96,15 +137,16 @@ const companyJump = (i) => {
         .h3c {
             transform: scale(.5) !important;
         }
-        .trx{
+
+        .trx {
             transform: scale(1.1) !important;
         }
     }
 }
 
 @include respondTo('pad') {
-    .wrapper{
+    .wrapper {
         width: 90vw;
     }
-  }
+}
 </style>

@@ -5,7 +5,7 @@
                 <div class="pdfWrapper" v-if="fileType.includes(item.honorImage[0].image_path.match(/\.([^.]+)$/)[1])"
                     v-pdf="item.honorImage[0].image_path">
                 </div>
-                <el-image v-else :src="item.honorImage[0].image_path" class="image" />
+                <el-image v-else :src="item.honorImage[0].image_path" class="image" fit="fill" />
                 <!-- <el-image fit="fill" :src="item.honorImage[0].image_path" /> -->
                 <view v-if="!item.label" style="padding: 6px">
                     <view class="card-title">{{ item.news_title }}</view>
@@ -116,6 +116,12 @@ const mobileClickHandler = (i) => {
             position: absolute;
             bottom: 5rpx;
             right: 5rpx;
+        }
+
+        .image {
+            width: 100%;
+            height: 300rpx;
+            max-height: 300rpx;
         }
     }
 }

@@ -184,7 +184,7 @@ const goToDetail = (i) => {
 // 移动端跳转
 const goToDetailM = (i) => {
     // console.log(i);
-    // UseWebDataStore.SetNewsDataIndex(i)
+    UseWebDataStore.SetNewsDataIndex(i)
     uni.navigateTo({
         url: '/pages/index/child/news/news-detail?id=1',
     })

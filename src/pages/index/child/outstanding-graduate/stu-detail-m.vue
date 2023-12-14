@@ -7,7 +7,7 @@
       <view class="container-content">
          <backgroundImg :img="stu_img_list" />
          <view class="trans">
-            <AppBreadcrumb class="bread" :currentPageTxtArr="['优秀校友',UseStuInfoStore.currentStuData.title.substring(0,8)+'...']" @changePage="changePage" />
+            <AppBreadcrumb class="bread" :currentPageTxtArr="['优秀校友',UseStuInfoStore.currentStuData[0].title.substring(0,8)+'...']" @changePage="changePage" />
             <el-row justify="center">
                <el-col :xs="{ span: 23 }" :sm="{ span: 22 }" :xl="20">
                   <view class="title">优秀校友</view>
@@ -15,10 +15,10 @@
                   <view class="content">
                      <el-row class="stu-detail-row" justify="center">
                         <el-col class="desc-title" :xs="24" :sm="24" :md="20">
-                           {{ UseStuInfoStore.currentStuData.title }}
+                           {{ UseStuInfoStore.currentStuData[0].title }}
                         </el-col>
                         <el-col class="desc" :xs="24" :sm="24" :md="20">
-                           <div class="con" v-html="UseStuInfoStore.currentStuData.desc.replace(/<img/g, str)">
+                           <div class="con" v-html="UseStuInfoStore.currentStuData[0].desc.replace(/<img/g, str)">
                            </div>
                         </el-col>
                      </el-row>
@@ -38,8 +38,7 @@ import { ref,computed } from 'vue';
 import { StuInfoStore } from '@/store/modules/stu.js';
 const UseStuInfoStore = StuInfoStore();
 const back = () => {
-   UseStuInfoStore.updateCurrentRouterIndex(0)
-   console.log(UseStuInfoStore.currentRouterIndex);
+   uni.navigateBack()
 }
 const changePage = (i) => {
   uni.navigateTo({
@@ -47,8 +46,9 @@ const changePage = (i) => {
   });
 }
 const stu_img_list = computed(() => {
- return  UseStuInfoStore.currentStuData.imgList.length > 0 ? UseStuInfoStore.currentStuData.imgList : ''
-})
+   // console.log(UseStuInfoStore.currentStuData[0]);
+ return  UseStuInfoStore.currentStuData[0].imgList.length > 0 ? UseStuInfoStore.currentStuData.imgList : ''
+}) 
 
 const str = '<img class="image" style="max-height:500rpx;max-width:80vw; margin:10px auto !important;display:block; "'
 

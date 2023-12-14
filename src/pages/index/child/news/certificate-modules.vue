@@ -69,6 +69,8 @@ const goToDetail = (i) => {
 }
 // 移动端跳转
 const goToDetailM = (i) => {
+    UseWebDataStore.SetCertificateIndex(i)
+    UseWebDataStore.SetNewsDetailIndex([1, 5])
     uni.navigateTo({
         url: `/pages/index/child/news/certificate-detail?id=${i}`
     })

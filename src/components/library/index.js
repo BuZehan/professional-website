@@ -71,7 +71,7 @@ const defineDirective = (app) => {
             const observer = new IntersectionObserver(([{ isIntersecting }]) => {
                 if (isIntersecting) {
                     observer.unobserve(el)
-                    console.log(binding.value);
+                    // console.log(binding.value);
 
                     if (!binding.value) {
                         el.src = defaultImg //error 图片加载失败默认图片

@@ -37,10 +37,10 @@ const clickNewsItem = (i) => {
     .pc-card {
         display: none;
     }
-
     .m-card {
         display: block;
     }
+   
 }
 
 @include respondTo('desktop') {

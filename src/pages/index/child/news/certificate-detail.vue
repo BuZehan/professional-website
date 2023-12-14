@@ -4,29 +4,33 @@
             <AppPopup />
             <AppHeader />
         </template>
-        <el-row justify="center">
-            <el-col class="title" :xs="22" :md="24">{{ Certificate.news_title }}</el-col>
-
+        <el-row justify="center" v-if="Certificate">
+            <el-col class="title" :xs="22" :md="24">{{ Certificate?.news_title }}</el-col>
             <el-col class="time" :xs="22" :md="24"><el-icon :size="20" color="rgb(200,20,20)">
                     <Clock />
                 </el-icon>{{ Certificate.release_time }}</el-col>
             <!-- <el-col class="content" :xs="22" :md="24" v-for="c in newsData.content"> -->
             <el-col class="content" :xs="22" :md="24">
                 <!-- <el-image v-if="c == 'img'" :src="newsData.imgUrl" fit="cover" /> -->
-                <div class="pdfWrapper" v-if="fileType.includes(Certificate.honorImage[0].image_path.match(/\.([^.]+)$/)[1])">
-                    <div  v-pdf="Certificate.honorImage[0].image_path">
+                <div class="pdfWrapper"
+                    v-if="fileType.includes(Certificate.honorImage[0].image_path.match(/\.([^.]+)$/)[1])">
+                    <div v-pdf="Certificate.honorImage[0].image_path">
                     </div>
                     <div class="down">
                         <a v-if="isPDF(Certificate.honorImage[0].image_path)" class="download hidden-sm-and-down"
                             :href="Certificate.honorImage[0].image_path" target="_blank">查看证书PDF</a>
-                        <a v-if="isPDF(Certificate.honorImage[0].image_path)" class="download" @tap="download">下载证书附件</a>
+                        <a v-if="isPDF(Certificate.honorImage[0].image_path)" class="download"
+                            @tap="download(Certificate.honorImage[0].image_path, Certificate.honorImage[0].image_name)">下载证书附件</a>
                     </div>
                 </div>
                 <el-image v-else :src="Certificate.honorImage[0].image_path" class="image" />
                 <!-- <el-image v-if="Certificate.honorImage" :src="Certificate.honorImage[0].image_path" fit="cover" /> -->
             </el-col>
+            <!-- <div v-if="Certificate?.honorImage[0].image_path">{{ Certificate.honorImage[0].image_name.replace(/\.pdf$/, "")
+            }}</div> -->
+
             <el-col class="content" :xs="22" :md="24">
-                <p>{{ Certificate.news_content }}</p>
+                <view>{{ Certificate.news_content }}</view>
             </el-col>
         </el-row>
 
@@ -38,6 +42,8 @@
    
    
 <script setup>
+import { WebDataStore } from '@/store/modules/web.js'
+const UseWebDataStore = WebDataStore();
 import { Clock } from '@element-plus/icons-vue'
 import { onActivated, ref, onMounted, computed } from 'vue'
 import PubSub from 'pubsub-js';
@@ -64,27 +70,28 @@ const back = () => {
 }
 // 移动端返回
 const Mback = () => {
+    PubSub.publish('back-event', { index: 2 })
     uni.navigateBack({
         delta: 1
     })
 }
 // 新闻数据
-import { WebDataStore } from '@/store/modules/web.js'
-const UseWebDataStore = WebDataStore();
+
 const Certificate = computed(() => {
     let data = UseWebDataStore.Certificate.list.filter(item => item.id === UseWebDataStore.CertificateIndex)
     return data[0]
 });
 // console.log(Certificate.value);
 
-const download = (url) => {
+const download = (url, fileName) => {
     uni.downloadFile({
-        url: '../../../../static/k.pdf',
+        url,
         success: (res) => {
             // 将 URL 赋给一个链接的 href 属性，用户点击链接时可以下载或查看文件
+            console.log(res);
             var link = document.createElement('a');
             link.href = res.tempFilePath;
-            link.download = '22版人培--网络工程--最终版2023.4.20.pdf'; // 可选，指定下载时的文件名
+            link.download = fileName; // 可选，指定下载时的文件名
             document.body.appendChild(link);
             link.click();
         }
@@ -102,8 +109,6 @@ const isPDF = computed(() => url => fileType.includes(url.match(/\.([^.]+)$/)[1]
     margin-bottom: 200rpx;
     float: right;
 }
-
-
 
 @include respondTo('mobile') {
     .news-detail {
@@ -144,33 +149,31 @@ const isPDF = computed(() => url => fileType.includes(url.match(/\.([^.]+)$/)[1]
         .content {
             display: flex;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+
             .pdfWrapper {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+
                 .down {
                     display: flex;
                     margin-bottom: 40rpx;
-                   a{
-                    color: #999;
-                    font-size: 14px;
-                   }
+                    a {
+                        color: #999;
+                        font-size: 14px;
+                    }
                 }
             }
-            
+
             .download {
                 cursor: pointer;
                 margin: 0 10px;
                 text-decoration: underline;
             }
-            p {
-                text-indent: 70rpx;
-                line-height: 44rpx;
-                text-align: justify;
-            }
+
 
             .el-image {
                 height: 400rpx;
@@ -211,27 +214,32 @@ const isPDF = computed(() => url => fileType.includes(url.match(/\.([^.]+)$/)[1]
             text-indent: 70rpx;
             display: flex;
             align-items: center;
+
             .pdfWrapper {
                 width: 100%;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
+                text-indent: 0 !important;
+
                 .down {
                     transform: translateY(-30px);
                     display: flex;
-                   a{
-                    color: #999;
-                    font-size: 14px;
-                   }
+
+                    a {
+                        color: #999;
+                        font-size: 14px;
+                    }
                 }
             }
-            
+
             .download {
                 cursor: pointer;
                 margin: 0 10px;
                 text-decoration: underline;
             }
+
             .el-image {
                 text-indent: 0 !important;
                 margin: 40rpx auto;

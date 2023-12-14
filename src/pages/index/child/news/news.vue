@@ -70,7 +70,7 @@ let currentIndex = ref(0);
 import sl from '@/static/sl.jpg';
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
-  currentIndex.value = !UseMainStore.IsPC ? 0 : UseWebDataStore.NewsDetailIndexArr[1];
+  currentIndex.value = !UseMainStore.IsPC ? UseWebDataStore.NewsDataIndex : UseWebDataStore.NewsDetailIndexArr[1];
   // console.log(currentIndex.value);
 })
 // 动态组件

@@ -2,7 +2,7 @@
     <el-row class="daohang" justify="center" style="padding: 20px 0;">
         <el-col :xs="{ span: 20 }" :sm="{ span: 20 }" :md="{ span: 18 }">
             <el-image src="../../static/wz.png" />
-            <el-breadcrumb :separator-icon="ArrowRight">
+            <el-breadcrumb  :separator-icon="ArrowRight">
                 <el-breadcrumb-item  @tap="navgationTo(mParams)" class="hidden-sm-and-up">{{ txt }}</el-breadcrumb-item>
                 <el-breadcrumb-item  @tap="pcNavgationTo(pcParams)" class="hidden-xs-only">{{ txt }}</el-breadcrumb-item>
                 <el-breadcrumb-item  v-for="t,i in currentPageTxtArr" @tap="changePage(i,t)" :key="t">{{ t }}</el-breadcrumb-item>
@@ -72,6 +72,7 @@ const changePage = (i) => {
             .el-breadcrumb__inner {
                 cursor: pointer !important;
                 color: #fff;
+                font-weight: bolder;
             }
         }
     }
