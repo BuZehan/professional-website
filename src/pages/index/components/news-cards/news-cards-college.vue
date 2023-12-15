@@ -3,9 +3,13 @@
         <SwiperCard :dataArray="collegeData" class="m-card" />
         <view class="pc-card">
             <el-row justify="start" :gutter="20">
-                <el-col v-for="book, i in collegeData.slice(0,8)" :key="i" :sm="8" :lg="6">
+                <el-col v-for="book, i in collegeData.slice(0, 8)" :key="i" :sm="8" :lg="6">
                     <el-card shadow="hover" :body-style="{ padding: '0px' }" @tap="clickNewsItem(book.id)">
-                        <el-image :src="book.honorImage[0].image_path" class="image" />
+                        <div class="pdfWrapper"
+                            v-if="fileType.includes(book.honorImage[0].image_path.match(/\.([^.]+)$/)[1])"
+                            v-pdf="book.honorImage[0].image_path">
+                        </div>
+                        <el-image v-else :src="book.honorImage[0].image_path" class="image" />
                         <div style="padding: 14px">
                             <view class="title">{{ book.news_title }}</view>
                             <view class="desc">{{ book.news_content }}</view>
@@ -29,6 +33,7 @@ const clickNewsItem = (i) => {
     UseWebDataStore.SetNewsDetailIndex([1, 5])
     PubSub.publish('navgation-event', { e: '8' })
 }
+const fileType = ['pdf', 'doc', 'docx']
 
 </script>
 
@@ -37,10 +42,11 @@ const clickNewsItem = (i) => {
     .pc-card {
         display: none;
     }
+
     .m-card {
         display: block;
     }
-   
+
 }
 
 @include respondTo('desktop') {
@@ -68,15 +74,10 @@ const clickNewsItem = (i) => {
                 justify-content: center;
 
                 .el-card {
+                              
                     cursor: pointer;
-                    max-width: 400rpx;
-                    height: fit-content;
-                    max-height: 400px;
-
-                    .image {
-                        max-height: 300px;
-                        min-height: 250;
-                    }
+                    height: 500rpx;
+                    width: fit-content;
 
                     .title {
                         font-weight: bold;
@@ -143,5 +144,6 @@ const clickNewsItem = (i) => {
     .m-card {
         display: none;
     }
-}</style>
+}
+</style>
   

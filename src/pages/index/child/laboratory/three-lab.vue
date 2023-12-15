@@ -28,9 +28,9 @@ import PubSub from "pubsub-js";
 //导入轨道控制器
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import img1 from "@/static/HDR/office.jpg"
-import img2 from "@/static/HDR/night.jpg"
-import img3 from "@/static/HDR/sky.jpg"
-const sceneList = [{ name: "B207", url: img1, type: 'jpg' }, { name: "测试-夜晚", url: img2, type: 'jpg' }, { name: "测试-白天", url: img3, type: 'jpg' }]
+import img2 from "@/static/HDR/B312.jpg"
+import img3 from "@/static/HDR/X426.jpg"
+const sceneList = [{ name: "X426", url: img3, type: 'jpg' },{ name: "B207", url: img1, type: 'jpg' }, { name: "B312", url: img2, type: 'jpg' }]
 const currentTexture = ref(sceneList[0].url)
 
 // 1、 创建场景    

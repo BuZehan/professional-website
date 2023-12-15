@@ -5,7 +5,7 @@
                {{ UseStuInfoStore.currentStuData.title }}
          </el-col>
          <el-col class="desc" :xs="24" :sm="24" :md="20">
-            <div v-html="UseStuInfoStore.currentStuData.desc"></div>
+            <div v-html="UseStuInfoStore.currentStuData.desc.replace(/<img/g, str)"></div>
             <!-- <p v-for="desc , i in UseStuInfoStore.currentStuData.desc" :key="i">
                {{ desc }}
             </p> -->
@@ -23,6 +23,8 @@ const back = () => {
    UseStuInfoStore.updateCurrentRouterIndex(0)
    console.log(UseStuInfoStore.currentRouterIndex);
 }
+const str = '<img class="image" style="max-height:500px;max-width:1000px; margin:10px auto !important;display:block; "'
+
 </script>
    
    

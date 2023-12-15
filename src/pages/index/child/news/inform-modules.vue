@@ -9,7 +9,7 @@
             </el-col>
             <el-col v-if="notice" class="content" :xs="20" :sm="20">
                 <view class="title">{{ notice.news_title }}</view>
-                <view class="desc">{{ notice.news_content }}</view>
+                <!-- <view class="desc">{{ notice.news_content }}</view> -->
             </el-col>
         </el-row>
         <!-- mobile -->
@@ -90,7 +90,7 @@ const goToDetailM = (i) => {
         cursor: pointer;
         transition: all .25s;
         margin-bottom: 40rpx;
-
+        overflow: hidden;
         &:hover {
             box-shadow: 0 6px 20rpx 0 #aaaaaaa9;
         }
@@ -103,6 +103,23 @@ const goToDetailM = (i) => {
     .content {
         display: flex;
         align-items: center;
+        display: -webkit-box;
+
+        .title {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .desc {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
     }
 
     :deep(.el-pagination) {
@@ -148,6 +165,7 @@ const goToDetailM = (i) => {
 @include respondTo('mobile') {
     .inform-item {
         padding: 16rpx !important;
+        overflow: hidden;
 
         .time {
             padding-left: 0 !important;
@@ -169,6 +187,22 @@ const goToDetailM = (i) => {
             color: #333;
             box-sizing: border-box;
             padding-left: 40rpx;
+
+            .title {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .desc {
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         }
     }
 
@@ -191,5 +225,4 @@ const goToDetailM = (i) => {
             font-size: 40rpx;
         }
     }
-}
-</style>
+}</style>

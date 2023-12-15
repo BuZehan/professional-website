@@ -5,7 +5,11 @@
             <el-row justify="start" :gutter="20">
                 <el-col v-for="teacher, i in teacherData" :key="i"  :sm="8" :lg="6">
                     <el-card @tap="clickNewsItem(teacher.id)" shadow="hover" :body-style="{ padding: '0px' }">
-                        <el-image :src="teacher.honorImage[0].image_path" class="image" />
+                        <div class="pdfWrapper"
+                            v-if="fileType.includes(teacher.honorImage[0].image_path.match(/\.([^.]+)$/)[1])"
+                            v-pdf="teacher.honorImage[0].image_path">
+                        </div>
+                        <el-image v-else :src="teacher.honorImage[0].image_path" class="image" />
                         <div style="padding: 14px">
                             <view class="title">{{teacher.news_content}}</view>
                             <view class="desc">{{teacher.news_title}}</view>
@@ -29,6 +33,8 @@ const clickNewsItem = (id) => {
     UseWebDataStore.SetNewsDetailIndex([1, 5])
     PubSub.publish('navgation-event', { e: '8' })
 }
+const fileType = ['pdf', 'doc', 'docx']
+
 </script>
 
 <style scoped lang="scss">
@@ -70,9 +76,8 @@ const clickNewsItem = (id) => {
 
                 .el-card {
                     cursor: pointer;
-                    max-width: 460rpx;
                     height: 500rpx;
-
+                    width: fit-content;
                     .title {
                         font-weight: bold;
                         display: -webkit-box;

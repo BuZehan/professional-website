@@ -9,8 +9,8 @@
             <el-col class="time" :xs="22" :md="24"><el-icon :size="20" color="rgb(200,20,20)">
                     <Clock />
                 </el-icon>{{ NoticeData[NoticeDataIndex].release_time }}</el-col>
-            <el-col class="content" :xs="22" :md="24">
-                <el-image :src="NoticeData[NoticeDataIndex].notificationImage[0].image_path" fit="cover" />
+            <el-col v-if="NoticeData[NoticeDataIndex].notificationImage[0].image_path" class="content" :xs="22" :md="24">
+                <el-image  :src="NoticeData[NoticeDataIndex].notificationImage[0]?.image_path" fit="cover" />
                 <!-- <p v-else>{{ c }}</p> -->
             </el-col>
             <el-col>

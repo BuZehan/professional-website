@@ -17,7 +17,7 @@
         </el-row>
         <!-- 分页 -->
         <el-pagination v-if="!isPC" v-model:current-page="currentPage" v-model:page-size="pageSize" :background="true"
-            layout="prev, pager, next" :total="16" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
+            layout="prev, pager, next" :total="UseWebDataStore.AlumniData.total" @size-change="handleSizeChange" @current-change="handleCurrentChange" />
     </view>
 </template>
    
