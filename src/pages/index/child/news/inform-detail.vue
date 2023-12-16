@@ -9,8 +9,8 @@
             <el-col class="time" :xs="22" :md="24"><el-icon :size="20" color="rgb(200,20,20)">
                     <Clock />
                 </el-icon>{{ NoticeData[NoticeDataIndex].release_time }}</el-col>
-            <el-col v-if="NoticeData[NoticeDataIndex].notificationImage[0].image_path" class="content" :xs="22" :md="24">
-                <el-image  :src="NoticeData[NoticeDataIndex].notificationImage[0]?.image_path" fit="cover" />
+            <el-col v-if="NoticeData[NoticeDataIndex].notificationImage[0]" class="content" :xs="22" :md="24">
+                <el-image v-if="NoticeData[NoticeDataIndex].notificationImage[0]" :src="NoticeData[NoticeDataIndex]?.notificationImage[0]?.image_path" fit="cover" />
                 <!-- <p v-else>{{ c }}</p> -->
             </el-col>
             <el-col>
@@ -56,7 +56,7 @@ onMounted(() => {
     })
 })
 const back = () => {
-    console.log(123);
+    // console.log(123);
     PubSub.publish('back-event', { index: 1 })
 }
 // 移动端返回

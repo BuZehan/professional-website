@@ -43,6 +43,11 @@ export const WebDataStore = defineStore('WebData', () => {
     const SetCertificateIndex = (index) => {
         CertificateIndex.value = index
     }
+    // 教师证书
+    const TeacherCertificate = ref([])
+    const SetTeacherCertificate = (data) => {
+        TeacherCertificate.value =data
+    }
 
     // 轮播图数据
     const BannerData = ref([]);
@@ -80,7 +85,9 @@ export const WebDataStore = defineStore('WebData', () => {
         SetBannerData,
         AlumniData,
         SetAlumniData,
-        SetAlumniDataIndex
+        SetAlumniDataIndex,
+        TeacherCertificate,
+        SetTeacherCertificate
     }
 }, {
     persist: true

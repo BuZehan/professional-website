@@ -74,7 +74,7 @@ const fileType = ['pdf', 'doc', 'docx']
                 justify-content: center;
 
                 .el-card {
-                              
+
                     cursor: pointer;
                     height: 500rpx;
                     width: fit-content;

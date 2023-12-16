@@ -2,26 +2,34 @@
     <view class="inform-modules">
         <!-- PC -->
         <el-row v-if="IsPC" class="inform-item " @tap="goToDetail(book.id)"
-            v-for="book, i in UseWebDataStore.Certificate.list" :key="i" v-showMeta="`animate__fadeInRight`">
+            v-for="book, i in ShowData" :key="i" v-showMeta="`animate__fadeInRight`">
             <el-col v-if="book" class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
                         <view class="year">{{ book.release_time }}</view>
             </el-col>
             <el-col class="content" :xs="20" :sm="20">
-                <view class="title">{{ book.news_title }}</view>
-                <view class="desc"></view>
+                <view class="title">{{ book.news_title }}/</view>
+                <view v-if="book.type === '教师证书'" style="color:rgb(223, 26, 26);display: flex;">
+                    <view style="margin-right: 20r  px;">{{ book.type }}</view>
+                    <el-image :src="top" fit="cover" />
+                </view>
+                <view v-else style="color:#666;">{{ book.type }}</view>
             </el-col>
         </el-row>
         <!-- mobile -->
         <el-row v-if="!IsPC" class="inform-item" @tap="goToDetailM(book.id)"
-            v-for="book, i in UseWebDataStore.Certificate.list" :key="i" v-showMeta="`animate__fadeInRight`">
+            v-for="book, i in ShowData" :key="i" v-showMeta="`animate__fadeInRight`">
             <el-col class="time" :xs="4" :sm="4">
                 <view class="day">{{ i + 5 < 10 ? `0${i + 5}` : (i + 5) }}</view>
                         <view class="year">{{ book.release_time }}</view>
             </el-col>
             <el-col class="content" :xs="20" :sm="20">
-                <view class="title">{{ book.news_title }}</view>
-                <view class="desc"></view>
+                <view class="title">{{ book.news_title }}/</view>
+                <view v-if="book.type === '教师证书'" style="color:rgb(223, 26, 26);display: flex;">
+                    <view style="margin-right: 20r  px;">{{ book.type }}</view>
+                    <el-image :src="top" fit="cover" />
+                </view>
+                <view v-else style="color:#666;">{{ book.type }}</view>
             </el-col>
         </el-row>
         <!-- 分页 -->
@@ -33,13 +41,26 @@
    
    
 <script setup>
-import {IsPC} from '@/hooks'
+import { IsPC } from '@/hooks'
 import { ref, computed } from 'vue';
 import PubSub from 'pubsub-js';
 import { getNews, getCertificate, getNotice } from "@/api"
+import top from './image/top.png'
 // 新闻数据
 import { WebDataStore } from '@/store/modules/web.js'
 const UseWebDataStore = WebDataStore();
+// 教师证书 -> 置顶
+const TeacherCertificate = computed(() => {
+    return UseWebDataStore.TeacherCertificate.list
+})
+// 展示数据
+const ShowData = computed(() => {
+    let res = TeacherCertificate.value
+    let cer = UseWebDataStore.Certificate.list.filter((item) => {
+        return item.type != '教师证书'
+    })
+    return [...res, ...cer]
+})
 // 分页
 const currentPage = computed({
     get() {
@@ -51,7 +72,7 @@ const currentPage = computed({
 })
 const pageSize = ref(10)
 const handleSizeChange = (val) => {
-    console.log(`${val} items per page`)
+    // console.log(`${val} items per page`)
 }
 const handleCurrentChange = async (val) => {
     // console.log(`current page: ${val}`)
@@ -83,12 +104,11 @@ const goToDetailM = (i) => {
 <style scoped lang='scss'>
 .inform-modules {
     text-indent: 0 !important;
-
     .inform-item {
         border: 1px solid #ccc;
         background-color: #fff;
         box-sizing: border-box;
-        padding: 40rpx;
+        padding: 20rpx;
         cursor: pointer;
         transition: all .25s;
         margin-bottom: 40rpx;
@@ -105,6 +125,7 @@ const goToDetailM = (i) => {
     .content {
         display: flex;
         align-items: center;
+        justify-content: space-between;
     }
 
     :deep(.el-pagination) {

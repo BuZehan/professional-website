@@ -2,12 +2,13 @@
     <el-row class="stu-card">
         <el-col :xs="8" :sm="8" class="image-wrapper">
             <el-image v-if="data.imgList" fit="cover" :src="data.imgList[0]" />
+            <el-image v-else fit="cover" :src="defaultImg" />
         </el-col>
         <el-col :xs="16" :sm="16" class="right-text">
             <view class="title">{{ data.title }}</view>
             <view class="line"></view>
             <view class="desc">
-                <p ></p>
+                <p></p>
             </view>
             <view class="detail">查看详情<el-icon class="icon" style="vertical-align: middle">
                     <DArrowRight />
@@ -18,6 +19,8 @@
    
    
 <script setup>
+// 默认图片
+import defaultImg from '@/static/banner-fm.png'
 // 学生图片 展示
 import { DArrowRight } from '@element-plus/icons-vue'
 const $props = defineProps({
@@ -30,7 +33,6 @@ const $props = defineProps({
    
    
 <style scoped lang='scss'>
-
 @include respondTo('mobile') {
     .stu-card {
         width: 100%;
@@ -159,7 +161,8 @@ const $props = defineProps({
                 font-weight: normal;
                 line-height: 46rpx;
                 font-size: 28rpx;
-                p{
+
+                p {
                     min-height: 100px;
                 }
             }
@@ -177,4 +180,5 @@ const $props = defineProps({
             }
         }
     }
-}</style>
+}
+</style>

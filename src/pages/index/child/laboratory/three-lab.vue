@@ -70,7 +70,7 @@ scene.add(sphere)
 //     }
 // }
 PubSub.subscribe('changeScene',(msg,data) => {
-    console.log('贴图切换');
+    //console.log('贴图切换');
     currentTexture.value = sceneList[data.i].url
     material.map = new THREE.TextureLoader().load(currentTexture.value)
     if (sceneList[data.i].type === 'jpg') {

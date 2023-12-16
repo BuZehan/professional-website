@@ -1,12 +1,19 @@
 <template>
     <view>
-        <view class="show-card-container" @tap="clikCardEvent"  :style="{ width: width + 'vw' }">
-            <view class="title"  >{{ data.title }}</view>
-            <view class="des"  ></view>
+        <view class="show-card-container" @tap="clikCardEvent" :style="{ width: width + 'vw' }">
+            <view class="title">{{ data.title }}</view>
+            <view class="des"></view>
             <!-- <view class="des">{{ data.desc }}</view> -->
+
+            <!-- 无图片 则使用默认图 -->
+                <!-- <view :class="{ image__wrapper_less1: imgArrLength === 0 }">
+                    <el-image :hide-on-click-modal="true" :lazy="true"
+                        v-if="contentImageData.length === 0 && data.label !== 'video'" class="img-1" mode="center"
+                        :src="defaultImage" />
+                </view> -->
             <!-- 一张图 -->
             <view :class="{ image__wrapper_less1: imgArrLength === 1 }">
-                <el-image   :hide-on-click-modal="true" :lazy="true"
+                <el-image :hide-on-click-modal="true" :lazy="true"
                     v-if="contentImageData.length === 1 && data.label !== 'video'" class="img-1" mode="center"
                     :src="BaseUrl + contentImageData[0]" />
                 <!-- <view v-if="data.label === 'video'" class="video-container">
@@ -21,36 +28,33 @@
                     </template>
                     <!-- 图片张数为 2 -->
                     <template v-else-if="contentImageData.length === 2">
-                        <el-image   :hide-on-click-modal="true" :lazy="true" mode="aspectFill"
+                        <el-image :hide-on-click-modal="true" :lazy="true" mode="aspectFill"
                             v-for="(img, i) in contentImageData" :key="img" :src="BaseUrl + img" />
                     </template>
                     <!-- 图片张数为 3 -->
                     <template v-else-if="contentImageData.length === 3">
-                        <el-image   :hide-on-click-modal="true" :lazy="true" mode="aspectFill"
+                        <el-image :hide-on-click-modal="true" :lazy="true" mode="aspectFill"
                             v-for="(img, i) in contentImageData" :key="img" :src="BaseUrl + img" />
                     </template>
                     <!-- 图片张数为 4 -->
                     <template v-else-if="contentImageData.length === 4">
-                        <el-image   :hide-on-click-modal="true" :lazy="true" mode="aspectFill"
+                        <el-image :hide-on-click-modal="true" :lazy="true" mode="aspectFill"
                             v-for="(img, i) in contentImageData" :key="img" :src="BaseUrl + img" />
                     </template>
                     <template v-else-if="imgNum578">
                         <!-- 前两张大图显示 -->
-                        <image   :hide-on-click-modal="true" :lazy="true" mode="aspectFill"
-                            class="item-1-2" v-for="(img, i) in contentImageData.slice(0, 2)" :key="img"
-                            :src="BaseUrl + img" />
+                        <image :hide-on-click-modal="true" :lazy="true" mode="aspectFill" class="item-1-2"
+                            v-for="(img, i) in contentImageData.slice(0, 2)" :key="img" :src="BaseUrl + img" />
                         <!-- 七张图则限制显示位6张 -->
-                        <el-image   :hide-on-click-modal="true" :lazy="true"
-                            v-if="imgArrLength === 7" mode="aspectFill"
+                        <el-image :hide-on-click-modal="true" :lazy="true" v-if="imgArrLength === 7" mode="aspectFill"
                             v-for="(img, i) in contentImageData.slice(2, imgArrLength - 2)" :key="img"
                             :src="BaseUrl + img" />
                         <!-- 否则全部显示 最大9张 -->
-                        <el-image   :hide-on-click-modal="true" :lazy="true" v-else
-                            mode="aspectFill" v-for="(img, i) in contentImageData.slice(2, imgArrLength)" :key="i"
-                            :src="BaseUrl + img" />
+                        <el-image :hide-on-click-modal="true" :lazy="true" v-else mode="aspectFill"
+                            v-for="(img, i) in contentImageData.slice(2, imgArrLength)" :key="i" :src="BaseUrl + img" />
                     </template>
                     <template v-else>
-                        <el-image   :hide-on-click-modal="true" :lazy="true" mode="aspectFill"
+                        <el-image :hide-on-click-modal="true" :lazy="true" mode="aspectFill"
                             v-for="(img, i) in contentImageData.slice(0, 9)" :key="img" :src="BaseUrl + img" />
                         <!-- <view class="image_child_wrapper" v-if="contentImageData.slice(2, 6).length">
                         <image   mode="aspectFill" v-for="(img, i) in contentImageData.slice(2, 6)" :key="img"
@@ -68,6 +72,8 @@
 <script setup lang='ts'>
 import { computed, onMounted, ref, onUnmounted } from 'vue'
 // const BaseUrl = import.meta.env.VITE_APP_SERVER_IP + '/used/'
+// 默认图片
+import defaultImage from '../../../static/shiliu.png'
 const BaseUrl = ''
 const $props = defineProps({
     data: {
@@ -81,11 +87,11 @@ const $props = defineProps({
 })
 // 图片数据
 const contentImageData = computed(() => {
-    return $props.data.imgArr
+    return $props.data.imgArr ? $props.data.imgArr : []
 })
 // 图片数量
 const imgArrLength = computed((): number => {
-    return $props.data?.imgArr.length
+    return $props.data.imgArr ? $props.data.imgArr.length : 0
 })
 // 发布时间
 // import { calculateTime } from '@/utils/utils'
@@ -100,7 +106,7 @@ const imgNum578 = computed(() => {
     const numArr = [4, 5, 7, 8]
     return numArr.includes(len)
 })
-const $emits = defineEmits(['PlayHandler','clikCardEvent']);
+const $emits = defineEmits(['PlayHandler', 'clikCardEvent']);
 
 // 视频播放
 // const videoPlay = () => {
@@ -139,6 +145,7 @@ const clikCardEvent = () => {
     align-items: center;
     justify-content: flex-start;
     box-shadow: 0 0 20rpx 2rpx #c7c7c744;
+
     .title {
         text-align: center;
         font-weight: 600;
@@ -175,7 +182,8 @@ const clikCardEvent = () => {
         column-gap: 20rpx;
         row-gap: 20rpx;
 
-        .el-image,image {
+        .el-image,
+        image {
             width: 200rpx;
             height: 200rpx;
             border-radius: 8rpx;
@@ -194,7 +202,8 @@ const clikCardEvent = () => {
         justify-content: space-evenly;
         flex-wrap: wrap;
 
-        .el-image ,image{
+        .el-image,
+        image {
             border-radius: 10rpx;
             min-height: 400rpx !important;
             margin: 20rpx auto;
@@ -210,7 +219,8 @@ const clikCardEvent = () => {
         justify-content: space-between !important;
         column-gap: 8rpx;
 
-        .el-image ,image{
+        .el-image,
+        image {
             box-sizing: border-box;
             height: 380rpx !important;
             width: 50% !important;
@@ -226,7 +236,8 @@ const clikCardEvent = () => {
             height: 280rpx !important;
         }
 
-        .el-image ,image{
+        .el-image,
+        image {
             grid-column-start: span 2;
         }
     }
@@ -258,9 +269,10 @@ const clikCardEvent = () => {
             width: 100%;
             height: 100%;
         }
-        .video-container{
-            .video{
-                width:620rpx;
+
+        .video-container {
+            .video {
+                width: 620rpx;
                 border-radius: 8rpx;
             }
         }
@@ -285,7 +297,8 @@ const clikCardEvent = () => {
             overflow: hidden;
             border-radius: 10rpx;
 
-            .el-image,image {
+            .el-image,
+            image {
                 width: 100%;
                 height: 200rpx;
                 overflow: hidden;
@@ -300,7 +313,8 @@ const clikCardEvent = () => {
                 justify-content: space-between;
                 align-items: flex-start;
 
-                .el-image ,image{
+                .el-image,
+                image {
                     width: 46%;
                     height: 100rpx;
                     margin: 3rpx;
@@ -314,17 +328,16 @@ const clikCardEvent = () => {
 }
 
 @include respondTo('desktop') {
-    .show-card-container{
+    .show-card-container {
         box-shadow: none;
         box-sizing: border-box;
         cursor: pointer;
         transition: all 0.5s;
-    min-height: 389px;
+        min-height: 389px;
 
-       &:hover{
-        box-shadow: 0 0 20px 0 #aaaaaabd;
-        transform: translateY(-7px);
-       }
+        &:hover {
+            box-shadow: 0 0 20px 0 #aaaaaabd;
+            transform: translateY(-7px);
+        }
     }
-}
-</style>
+}</style>

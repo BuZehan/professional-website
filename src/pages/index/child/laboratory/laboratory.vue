@@ -153,7 +153,7 @@ const RoomData = ref([
 const currentRoomIndex = ref(0)
 const j = ref(0)
 const toogleIndex = (index,type) => {
-  console.log("index", index,type);
+  //console.log("index", index,type);
 
   let numArr = index.split("-");
   if (numArr.length === 1) {

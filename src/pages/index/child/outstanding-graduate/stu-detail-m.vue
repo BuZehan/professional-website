@@ -45,9 +45,11 @@ const changePage = (i) => {
     url: '/pages/index/child/outstanding-graduate/outstanding-graduate'
   });
 }
+
+import BannerFM from '@/static/banner-fm.png'
 const stu_img_list = computed(() => {
    // console.log(UseStuInfoStore.currentStuData[0]);
- return  UseStuInfoStore.currentStuData[0].imgList.length > 0 ? UseStuInfoStore.currentStuData.imgList : ''
+ return  UseStuInfoStore.currentStuData[0].imgList ? UseStuInfoStore.currentStuData.imgList : BannerFM
 }) 
 
 const str = '<img class="image" style="max-height:500rpx;max-width:80vw; margin:10px auto !important;display:block; "'
