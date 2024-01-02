@@ -46,5 +46,6 @@ export default defineConfig(({ mode, command, ssrBuild }) => {
       },
     },
     // publicDir:"public"
+    // base:'./'
   };
 });

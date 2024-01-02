@@ -1,5 +1,5 @@
 <template>
-  <view class="app-popup" :class="{ popupActive: isActive }">
+  <view class="app-popup" :class="{ popupActive: UseMainStore.MenuActive }">
     <el-collapse v-model="activeNames" @change="handleChange">
       <template v-for="item in listData" :key="item.title">
         <view
@@ -22,33 +22,37 @@
 </template>
 
 <script setup>
-import { ref, watch } from "vue";
+import { ref } from "vue";
 import PubSub from "pubsub-js";
+import { MainStore } from "../../store";
 // 菜单弹窗
-const isActive = ref(false);
+const UseMainStore = MainStore();
 PubSub.subscribe("clickMenu", (msg, data) => {
-  isActive.value = !isActive.value;
+  UseMainStore.UpdateMenuActive(!UseMainStore.MenuActive);
 });
 
 const activeNames = ref(["0"]);
 const handleChange = (val) => {
-  console.log(val);
+  // console.log(val);
 };
 
 // 列表数据
 const listData = ref([
   { title: "首页", name: "1", path: "/pages/Layout/Layout" },
+  { title: "专业新闻", name: "8", path: "/pages/index/child/news/news" },
+
   {
     title: "专业介绍",
     name: "2",
     path: "/pages/index/child/specialty-instruction/specialty-instruction",
   },
+  { title: "课程介绍", name: "4", path:"/pages/index/child/specialized-courses/specialized-courses" },
+
   {
     title: "师资团队",
     name: "3",
     path:"/pages/index/child/teaching-team/teaching-team"
   },
-  { title: "专业课程", name: "4", path:"/pages/index/child/specialized-courses/specialized-courses" },
   { title: "实验室", name: "5", path:"/pages/index/child/laboratory/laboratory" },
   {
     title: "合作企业",
@@ -91,10 +95,10 @@ const listData = ref([
     name: "7",
     path: "/pages/index/child/outstanding-graduate/outstanding-graduate",
   },
-  { title: "新闻动态", name: "8", path: "/pages/index/child/news/news" },
 ]);
 // 跳转详情页
 const navgationTo = (url) => {
+  UseMainStore.UpdateMenuActive(false);
   uni.navigateTo({
     url: url,
   });
@@ -140,8 +144,6 @@ const navgationTo = (url) => {
     transform: translateX(0);
   }
 }
-
-
 
 @include respondTo("desktop") {
   .app-popup {

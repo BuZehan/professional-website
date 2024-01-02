@@ -14,7 +14,7 @@
                 <!-- <el-image v-if="c == 'img'" :src="newsData.imgUrl" fit="cover" /> -->
                 <div class="pdfWrapper"
                     v-if="fileType.includes(Certificate.honorImage[0].image_path.match(/\.([^.]+)$/)[1])">
-                    <div v-pdf="Certificate.honorImage[0].image_path">
+                    <div v-pdf="Certificate.honorImage[0].image_path" class="image">
                     </div>
                     <div class="down">
                         <a v-if="isPDF(Certificate.honorImage[0].image_path)" class="download hidden-sm-and-down"
@@ -177,6 +177,11 @@ const isPDF = computed(() => url => fileType.includes(url.match(/\.([^.]+)$/)[1]
 
             .el-image {
                 height: 400rpx;
+                box-shadow: 8rpx 8rpx 20rpx 4rpx #33333349;
+                margin: 50rpx auto;
+            }
+
+            .image{
                 box-shadow: 8rpx 8rpx 20rpx 4rpx #33333349;
                 margin: 50rpx auto;
             }

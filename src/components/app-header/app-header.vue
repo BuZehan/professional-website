@@ -1,15 +1,15 @@
 <template>
   <view class="app-header">
+        <!-- 移动端菜单栏 -->
     <el-row class="hidden-md-and-up" justify="space-between">
       <el-col class="app-logo" :xs="16" :sm="9">
         <image mode="widthFix" src="../../static/logo-sm.png" />
       </el-col>
       <el-col class="app-menu" :xs="4" :sm="2">
-        <!-- 移动端菜单栏 -->
         <view class="app-mobile-navigation" @tap="clickMenuHandler">
           <!-- <image v-show="menuActive" src="../../static/menu.png" />
           <image v-show="!menuActive" src="../../static/cancle.png" /> -->
-          <view :class="{ 'menu-hamburger': true, active: !menuActive }">
+          <view :class="{ 'menu-hamburger': true, active: UseMainStore.MenuActive }">
             <view class="hamburge hamburger-1"></view>
             <view class="hamburge hamburger-2"></view>
             <view class="hamburge hamburger-3"></view>
@@ -45,7 +45,7 @@
 </template>
 
 <script setup>
-import { ref, onBeforeUnmount, watch } from "vue";
+import { ref } from "vue";
 import PubSub from "pubsub-js";
 import { MainStore } from "../../store";
 const UseMainStore = MainStore();
@@ -69,16 +69,11 @@ const $props = defineProps({
   }
 })
 
-// import { useRouter } from 'uni-mini-router'
-// import { getCurrentInstance } from 'vue'
 
 // 使用hooks（推荐）
-// let router = useRouter()
 // 移动端事件
-const menuActive = ref(true);
 const clickMenuHandler = () => {
-  menuActive.value = !menuActive.value;
-  PubSub.publish("clickMenu", { data: menuActive.value });
+  UseMainStore.UpdateMenuActive(!UseMainStore.MenuActive)
 };
 
 // 菜单数据
@@ -106,10 +101,10 @@ const handleSelect = (key, keyPath) => {
 PubSub.subscribe("changeActive", (msg, data) => {
   activeStr.value = data.index;
 });
-// watch(() => $props.scrollValue, (v) => {
-//   // console.log(v <= 50, "@@@@@");
-// })
-
+// 监听浏览器刷新
+window.addEventListener('beforeunload',() => {
+  UseMainStore.updateIsIndex(true)
+})
 
 </script>
 

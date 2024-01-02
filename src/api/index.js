@@ -11,3 +11,5 @@ export const getNotice = (data) => request('GET','/notification/getNotification'
 export const getBanner = (data) => request('GET','/swiper/getBanner',data)
 // 校友数据
 export const getAlumni = (data) => request('GET','/stu/getStu',data)
+// 教师数据
+export const getTeacherInfoData = (data) => request('GET','/teacher/getTeacher',data)

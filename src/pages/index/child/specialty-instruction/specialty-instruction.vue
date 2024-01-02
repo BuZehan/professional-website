@@ -45,8 +45,6 @@ onActivated(() => {
 
 .container {
   position: relative;
-
-
   .container-content {
     height: fit-content !important;
     .instruction{
@@ -55,7 +53,6 @@ onActivated(() => {
     .trans {
       transform: translateY(-40rpx);
     }
-
     .daohang {
       .el-col {
         display: flex;

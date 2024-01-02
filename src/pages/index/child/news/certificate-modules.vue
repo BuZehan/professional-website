@@ -9,8 +9,8 @@
             </el-col>
             <el-col class="content" :xs="20" :sm="20">
                 <view class="title">{{ book.news_title }}/</view>
-                <view v-if="book.type === '教师证书'" style="color:rgb(223, 26, 26);display: flex;">
-                    <view style="margin-right: 20r  px;">{{ book.type }}</view>
+                <view v-if="book.type === '教师证书'" style="color:rgb(223, 26, 26);display: flex;align-items: center;">
+                    <view style="margin-right: 20rpx;">{{ book.type }}</view>
                     <el-image :src="top" fit="cover" />
                 </view>
                 <view v-else style="color:#666;">{{ book.type }}</view>
@@ -25,8 +25,8 @@
             </el-col>
             <el-col class="content" :xs="20" :sm="20">
                 <view class="title">{{ book.news_title }}/</view>
-                <view v-if="book.type === '教师证书'" style="color:rgb(223, 26, 26);display: flex;">
-                    <view style="margin-right: 20r  px;">{{ book.type }}</view>
+                <view v-if="book.type === '教师证书'" style="color:rgb(223, 26, 26);display: flex;align-items: center;">
+                    <view style="margin-right: 20rpx;">{{ book.type }}</view>
                     <el-image :src="top" fit="cover" />
                 </view>
                 <view v-else style="color:#666;">{{ book.type }}</view>
@@ -126,6 +126,11 @@ const goToDetailM = (i) => {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        .el-image{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     }
 
     :deep(.el-pagination) {

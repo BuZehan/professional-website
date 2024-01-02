@@ -6,7 +6,7 @@
                 <view v-if="i % 2 === 1" @tap="goToDetailM(news.id)" class="pc-container-r hidden-md-and-up"
                     v-showMeta="`animate__fadeInRight`">
                     <el-row class="news-item">
-                        <el-col v-if="news" :xs="24" :xl="5" class="img-wrapper">
+                        <el-col v-if="news.image_list" :xs="24" :xl="5" class="img-wrapper">
                             <el-image class="image" fit="fill" :src="news.image_list[0]" />
                         </el-col>
                         <el-col :xs="24" :xl="2" class="time">
@@ -34,7 +34,7 @@
                 </view>
                 <view v-if="i % 2 === 0" @tap="goToDetailM(news.id)" class="pc-container-l hidden-md-and-up"
                     v-showMeta="`animate__fadeInLeft`">
-                    <el-col v-if="news" :xs="24" :md="6" class="img-wrapper">
+                    <el-col v-if="news.image_list" :xs="24" :md="6" class="img-wrapper">
                         <el-image class="image" fit="fill" :src="news.image_list[0]" />
                     </el-col>
                     <el-row class="news-item">
@@ -112,7 +112,7 @@
                             <!-- <p>{{ news.news_content }}
                             </p> -->
                         </el-col>
-                        <el-col v-if="news" :xs="24" :md="6" :xl="5" class="img-wrapper">
+                        <el-col v-if="news.image_list" :xs="24" :md="6" :xl="5" class="img-wrapper">
                             <el-image v-if="news.image_list" class="image" fit="fill" :src="news.image_list[0]" />
                             <el-image v-else fit="cover" :src="defaultImg" />
                         </el-col>
@@ -201,11 +201,6 @@ const goToDetailM = (i) => {
 
     .img-wrapper {
         overflow: hidden;
-
-        .el-image {
-            width: 100%;
-            height: 100%;
-        }
     }
 
     :deep(.el-pagination) {
@@ -273,12 +268,28 @@ const goToDetailM = (i) => {
             bottom: 0;
             z-index: -1;
         }
-
+        .img-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 360rpx;
+                overflow: hidden;
+                position: relative;
+                box-sizing: border-box;
+                max-height: 420rpx;
+                .image {
+                    transition: all .9s;
+                    position: absolute;
+                    height: 100%;
+                    bottom: 0;
+                }
+            }
         .news-item {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+    
         }
 
         .time {

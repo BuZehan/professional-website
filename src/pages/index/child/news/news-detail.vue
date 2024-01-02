@@ -48,10 +48,7 @@ onMounted(() => {
     PubSub.publish('scroll-top', { data: true });
 })
 const target = ref(null)
-onMounted(() => {
-    nextTick(() => {
-    })
-})
+// PC端返回
 const back = () => {
     PubSub.publish('back-event', { index: 0 })
 }

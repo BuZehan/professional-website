@@ -1,40 +1,44 @@
 <template>
   <view class="swiper-container">
     <view class="m-swiper">
-      <swiper class="swiper" circular indicator-dots :autoplay="true" :interval="6000" :duration="600">
-        <swiper-item v-for="img in MSwiperArr" :key="img">
+      <swiper v-if="DATA" class="swiper" circular indicator-dots :autoplay="true" indicator-active-color="#833"
+        :interval="6000" :duration="600">
+        <swiper-item class="s-item" v-for="item, i in DATA.slice(0, 4)" :key="i" @tap="GotoDetail(item.id)">
           <view class="swiper-item">
-            <image v-if="img.name == 'img'" class="swiper-img" :src="img.url" />
-            <video style="width: 100%;height:100%" v-else :src="img.url" loop autoplay="true" controls="false" />
+            <image v-if="item.image_list" class="swiper-img" :src="item.image_list[0]" />
+            <image style="width: 100%;height:100%" v-else :src="defaultImg" loop autoplay="true" controls="false" />
+            <view class="text-content">
+              <!-- <text>{{ item.title }}</text> -->
+              <!-- <p class="desc">{{ item.title || item.news_title }}</p> -->
+              <!-- <h4 style="color: #eee;margin-top:20px;">{{ item.release_time }}</h4> -->
+            </view>
           </view>
         </swiper-item>
       </swiper>
     </view>
     <view class="pc-swiper">
       <ul ref="ul" v-if="DATA">
-        <li v-for="item, i in DATA.slice(0,4)" :key="i" :class="{ active: currentImg === i }">
+        <li v-for="item, i in DATA.slice(0, 4)" :key="i" :class="{ active: currentImg === i }">
           <view class="bg1"></view>
           <view class="bg"></view>
           <view v-if="item" class="text-content">
-            <h3>{{item.title}}</h3>
+            <h3>{{ item.title }}</h3>
             <p class="desc">{{ item.title || item.news_title }}</p>
-            <h4 style="color: #eee;margin-top:20px;">{{item.release_time}}</h4>
+            <h4 style="color: #eee;margin-top:20px;">{{ item.release_time }}</h4>
 
             <view class="btn" @tap="handleSelect(item.id)">查看详情</view>
             <view class="arrow">
               <p @tap="prev"></p>
-              <span>{{ i + 1 }}/{{ DATA.slice(0,4).length }}</span>
+              <span>{{ i + 1 }}/{{ DATA.slice(0, 4).length }}</span>
               <p @tap="next"></p>
             </view>
           </view>
           <!-- 联合新闻 -->
-          <el-image v-if="item.image_list" fit="cover"
-            :src="item.image_list[0]" />
-            <el-image v-else fit="cover"
-            :src="defaultImg" />
-            <!-- <el-image v-if="item" fit="cover"
+          <el-image v-if="item.image_list" fit="cover" :src="item.image_list[0]" />
+          <el-image v-else fit="cover" :src="defaultImg" />
+          <!-- <el-image v-if="item" fit="cover"
             :src="item.swiperImage[0].image_path" /> -->
-            
+
         </li>
       </ul>
     </view>
@@ -43,40 +47,48 @@
 
 <script setup>
 import { ref, onMounted, computed, toRaw } from "vue";
+// 仓库
 import { WebDataStore } from '@/store/modules/web.js'
+// 默认图
 import defaultImg from '@/static/banner-fm.png'
+import { uni } from "@dcloudio/uni-h5";
+// PC端轮播图数据
 const UseWebDataStore = WebDataStore();
 let DATA = computed(() => {
-  return UseWebDataStore?.newsData ?  toRaw(UseWebDataStore.newsData.list) : []
+  return UseWebDataStore?.newsData ? toRaw(UseWebDataStore.newsData.list) : []
   // return UseWebDataStore?.BannerData ?  toRaw(UseWebDataStore.BannerData.list).slice(0,4) : []
 })
-// 移动端
-// 实验室
-import mbanner1 from "@/static/mbanner/1.jpg";
-const MSwiperArr = [{ name: "img", url: mbanner1 }, { name: "img", url: 'https://test.hebic.cn/uploadfile/2023/1106/20231106083424630.jpg' }];
-
 // 轮播
 const currentImg = ref(0)
 let timer = setInterval(() => {
   next()
-}, 8000); 
+}, 8000);
 
-const next = () => {
-  clearInterval(timer)
-  timer = setInterval(() => {
-    next()
-  }, 8000);
-  if (currentImg.value >= DATA.value.length - 1) currentImg.value = 0;
-  else currentImg.value++
-}
-const prev = () => {
-  clearInterval(timer)
-  timer = setInterval(() => {
-    next()
-  }, 8000);
-  if (currentImg.value <= 0) currentImg.value = DATA.value.length - 1;
-  else currentImg.value--
-}
+let next = null;
+let prev = null;
+// let i = ref(0)
+onMounted(() => {
+  // i.value = DATA.value.length >= 4 ? 4 : DATA.value.length
+  // console.log(DATA.value.length);
+  next = () => {
+    clearInterval(timer)
+    timer = setInterval(() => {
+      next()
+    }, 8000);
+    currentImg.value++;
+    if (currentImg.value >= 4) currentImg.value = 0;
+    // console.log(currentImg.value, i, "###");
+  }
+  prev = () => {
+    clearInterval(timer)
+    timer = setInterval(() => {
+      next()
+    }, 8000);
+    if (currentImg.value <= 0) currentImg.value = DATA.value.length - 1;
+    else currentImg.value--
+  }
+})
+
 const ul = ref(null)
 // 路由跳转
 const handleSelect = (id) => {
@@ -84,7 +96,15 @@ const handleSelect = (id) => {
   UseWebDataStore.SetNewsDetailIndex([0, 3])
   PubSub.publish('navgation-event', { e: '8' })
 }
-
+// 移动端跳转
+const GotoDetail = (id) => {
+  console.log(id);
+  UseWebDataStore.SetNewsDataIndex(id)
+  UseWebDataStore.SetNewsDetailIndex([0, 3])
+  uni.navigateTo({
+    url: '/pages/index/child/news/news-detail'
+  })
+}
 </script>
 
 <style scoped lang="scss">
@@ -97,12 +117,34 @@ const handleSelect = (id) => {
     .m-swiper {
       .swiper {
         height: 50vmin;
-        min-height: 460rpx;
+        min-height: 420rpx;
       }
 
       .swiper-item {
         display: block;
         height: 100%;
+        position: relative;
+
+        .text-content {
+          position: absolute;
+          z-index: 100;
+          top: 50rpx;
+          width: 100%;
+          height: 140rpx;
+
+          text {
+            color: #fff;
+            font-size: 28rpx;
+          }
+
+          p {
+            font-size: 26rpx;
+          }
+
+          h4 {
+            margin: 0 !important;
+          }
+        }
 
         .swiper-img {
           width: 100vw;
@@ -275,4 +317,20 @@ const handleSelect = (id) => {
     }
   }
 }
+
+// @media screen and (max-width: 500px){
+//   .m-swiper{
+//     margin-top: 120rpx;
+//     .swiper{
+//       width: 94vw;
+//       margin: 0 auto;
+//       height:380rpx !important;
+//       overflow: hidden;
+//       border-radius: 10rpx;
+//       .s-item{
+//         height: 100%;
+//       }
+//     }
+//   }
+// }
 </style>

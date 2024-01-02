@@ -2,10 +2,16 @@
     <view class="wrapper">
         <el-row justify="center">
             <el-col :xs="11" :sm="8" v-for="item, i in companyArr" :key="item.name">
-                <view v-showMeta="i % 2 === 0 ? `animate__fadeInLeft` : `animate__fadeInRight`" class="company-container">
-                    <el-image v-if="UseMainStore.ISPC" :src="item.path" @tap="companyJump(i + 1)" class="my_img"
+                <!-- PC端 -->
+                <view v-if="IsPC" v-showMeta="i % 2 === 0 ? `animate__fadeInLeft` : `animate__fadeInRight`"
+                    class="company-container" @tap="companyJump(i + 1)">
+                    <el-image :src="item.path"  class="my_img"
                         :class="{ h3c: item.name === 'h3c', trx: item.name === 'trx' }" fill="fill" />
-                    <el-image v-else :src="item.path" @tap="companyJumpForMobile(i + 1)" class="my_img"
+                </view>
+                <!-- 移动端 -->
+                <view v-else v-showMeta="i % 2 === 0 ? `animate__fadeInLeft` : `animate__fadeInRight`"
+                    class="company-container"  @tap="companyJumpForMobile(i + 1)">
+                    <el-image :src="item.path" class="my_img"
                         :class="{ h3c: item.name === 'h3c', trx: item.name === 'trx' }" fill="fill" />
                 </view>
             </el-col>
@@ -15,11 +21,9 @@
    
    
 <script setup>
-import { computed } from 'vue'
 import PubSub from 'pubsub-js';
-import { MainStore } from '@/store'
 import { uni } from '@dcloudio/uni-h5';
-const UseMainStore = MainStore()
+import { IsPC } from '@/hooks'
 defineProps({
     companyArr: {
         type: Array,
@@ -27,6 +31,7 @@ defineProps({
     }
 })
 const companyJump = (i) => {
+    console.log(i, "pc跳转");
     PubSub.publish('navgation-event', { e: `6-${i}` })
 }
 // 移动端跳转

@@ -73,6 +73,12 @@ export const MainStore = defineStore('main', () => {
       path: "/pages/index/child/connect/connect",
     },
   ])
+  // 菜单栏状态
+  const MenuActive =ref(false)
+  // 更新菜单栏状态
+  const UpdateMenuActive = (bool) => {
+    MenuActive.value = bool;
+  }
   // 页面滚动距离 --- 移动端
   const mobileScrollY = ref(0);
   const setMobileScrollY = (value) => {
@@ -105,6 +111,8 @@ export const MainStore = defineStore('main', () => {
   hashMap.set("#/pages/index/child/outstanding-graduate/outstanding-graduate", '7');
   // 新闻动态 -- 8
   hashMap.set("#/pages/index/child/news/news", '8');
+
+  
   return {
     mobileScrollY,
     setMobileScrollY,
@@ -116,6 +124,10 @@ export const MainStore = defineStore('main', () => {
     menuData,
     hashMap,
     IsPC,
-    SetIsPC
+    SetIsPC,
+    MenuActive,
+    UpdateMenuActive,
   }
+},{
+  persist:true
 })

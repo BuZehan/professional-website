@@ -21,8 +21,9 @@
     </view>
 </template>
 <script setup>
-import { ref,computed } from 'vue'
+import { computed } from 'vue'
 import SwiperCard from "./swiper-card.vue"
+
 import { WebDataStore } from '@/store/modules/web.js'
 const UseWebDataStore = WebDataStore();
 const teacherData = computed(() => UseWebDataStore.Certificate.list.filter(item => item.type === '教师证书'));
@@ -33,6 +34,8 @@ const clickNewsItem = (id) => {
     UseWebDataStore.SetNewsDetailIndex([1, 5])
     PubSub.publish('navgation-event', { e: '8' })
 }
+
+// 文档类型
 const fileType = ['pdf', 'doc', 'docx']
 
 </script>

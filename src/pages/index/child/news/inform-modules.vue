@@ -21,7 +21,7 @@
             </el-col>
             <el-col v-if="notice" class="content" :xs="20" :sm="20">
                 <view class="title">{{ notice.news_title }}</view>
-                <view class="desc">{{ notice.news_content }}</view>
+                <!-- <view class="desc">{{ notice.news_content }}</view> -->
             </el-col>
         </el-row>
         <!-- 分页 -->

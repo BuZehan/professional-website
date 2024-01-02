@@ -39,7 +39,9 @@ const $props = defineProps({
         }
     }
 })
+// 文档类型
 const fileType = ['pdf', 'doc', 'docx']
+// 获取数据，点击后切换路由
 import { WebDataStore } from '@/store/modules/web.js';
 const UseWebDataStore = WebDataStore();
 const mobileClickHandler = (i) => {

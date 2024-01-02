@@ -22,25 +22,15 @@
    
 <script setup>
 import { ref } from 'vue'
+// 组件
 import NewsCardsCollege from "./news-cards-college.vue"
 import NewsCardStu from "./news-cards-stu.vue"
 import NewsCardsTeacher from './news-cards-teacher.vue';
 const components = [NewsCardsCollege,NewsCardsTeacher, NewsCardStu]
 
-// 菜单
+// 菜单数据
 const i = ref(0)
 const menuArr = ['获奖', '教师证书','学生证书']
-const cardNum = ref(8)
-// 分页
-const currentPage3 = ref(8)
-const pageSize3 = ref(100)
-const handleSizeChange = (val) => {
-    console.log(`${val} items per page`)
-}
-const handleCurrentChange = (val) => {
-    console.log(`current page: ${val}`)
-}
-
 
 </script>
    

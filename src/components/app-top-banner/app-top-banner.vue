@@ -29,7 +29,7 @@
             <el-col class="logo" :md="24" :lg="8">
                 <el-row>
                     <el-col>
-                        <el-image src="../../static/animate-banner/banner-fm1-logo.png" />
+                        <el-image :src="logo" />
                     </el-col>
                     <!-- <el-col>
                         <el-image src="../../static/animate-banner/logo-IP.png" />
@@ -71,6 +71,7 @@ import { useMouse } from '@/hooks'
 const { x, y } = useMouse()
 const banner = ref(null)
 
+import logo from '../../static/animate-banner/banner-fm1-logo.png'
 let i = 0
 let disX = 0
 let layers = null

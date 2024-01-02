@@ -51,6 +51,8 @@ const handleCurrentChange = (val) => {
    
 <style scoped lang='scss'>
 .teacher-list-wrapper {
+    box-sizing: border-box;
+    padding: 0 10rpx;
     :deep(.el-pagination) {
         display: flex;
         justify-content: center;

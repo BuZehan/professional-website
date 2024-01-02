@@ -5,7 +5,7 @@
       <AppHeader @changeComponents="changeComponents" :i="i" :j="j" :scrollValue="scrollValue" />
     </template>
     <Index v-if="!IsPC" />
-    <template  v-if="IsPC">
+    <template v-if="IsPC">
       <transition name="el-fade-in-linear" mode="out-in">
         <KeepAlive>
           <component :is="ComponentsArray[i][j]" />
@@ -18,13 +18,14 @@
 </template>
 
 <script setup>
-import { ref, onUnmounted, onMounted, nextTick, watch ,computed} from "vue";
+import { ref, onUnmounted, onMounted, nextTick, watch, computed } from "vue";
+import PubSub from "pubsub-js";
+import { windowResize, IsPC } from '@/hooks'
+import { MainStore } from "@/store"
+// 引入组件
 import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
 import Index from "../index/index.vue";
-import { windowResize } from '@/hooks'
-import { MainStore } from "@/store"
-import PubSub from "pubsub-js";
 // 页脚
 import AppFooter from "@/components/app-footer/app-footer.vue"
 // 专业介绍
@@ -47,6 +48,7 @@ import XinXiangHongFu from "../index/child/enterprise/xin-xiang-hong-fu.vue";
 import HaoJingTechnology from "../index/child/enterprise/hao-jing-technology.vue";
 import TianRongXin from "../index/child/enterprise/tian-rong-xin.vue";
 import ZhongJing from "../index/child/enterprise/zhong-jing.vue";
+// 使用pinia仓库数据
 const UseMainStore = MainStore()
 const ComponentsArray = [
   [Index],
@@ -58,6 +60,16 @@ const ComponentsArray = [
   [OutstandingGraduate],
   [News],
 ];
+// 布局滚动事件
+const scrollValue = ref(0)
+nextTick(() => {
+  layout.value.$el.addEventListener("scroll", (e) => {
+    let dis = e.target.scrollTop;
+    scrollValue.value = dis;
+    // if (UseMainStore.isIndex) {
+    // }
+  })
+})
 const i = ref(0);
 const j = ref(0);
 const changeComponents = (index) => {
@@ -66,6 +78,14 @@ const changeComponents = (index) => {
     UseMainStore.updateIsIndex(false)
   } else {
     UseMainStore.updateIsIndex(true)
+    // 返回首页
+    nextTick(() => {
+      layout.value.$el.scrollTo({
+        left: 0,
+        top: 0,
+        // behavior: "smooth"
+      })
+    })
   }
   let numArr = index.split("-");
   if (numArr.length === 1) {
@@ -76,13 +96,14 @@ const changeComponents = (index) => {
     j.value = +numArr[1] - 1;
   }
 };
-// jian
+// 监听其他组件事件，路由切换。
 PubSub.subscribe('navgation-event', (msg, data) => {
   PubSub.publish('changeActive', { index: data.e });
   changeComponents(data.e);
 })
-
-const layout = ref(null)
+// 获取Layout组件
+const layout = ref(null);
+// 置顶操作
 PubSub.subscribe('scroll-top', (msg, data) => {
   if (data.data) {
     layout.value.$el.scrollTo({
@@ -92,22 +113,24 @@ PubSub.subscribe('scroll-top', (msg, data) => {
 })
 
 
+
+windowResize()
 onUnmounted(() => {
   PubSub.unsubscribe('navgation-event');
   PubSub.unsubscribe('scroll-top');
 })
 
-// 布局滚动事件
-const scrollValue = ref(0)
-nextTick(() => {
-  layout.value.$el.addEventListener("scroll", (e) => {
-    // console.log(e,"Layout");
-    scrollValue.value = e.target.scrollTop;
-  })
-})
-import {IsPC} from '@/hooks'
-
-windowResize()
+// uni-app onShow事件
+// import { onShow } from '@dcloudio/uni-app';
+// onShow(() => {
+// })
+// const IndexScroll = () => {
+//   // 首滚动距离
+//   layout.value.$el.addEventListener("scroll", (e) => {
+//     console.log(e.target.scrollTop, "首页滚动");
+//     scrollValue.value = e.target.scrollTop;
+//   })
+// }
 </script>
 
 <style scoped lang="scss">
@@ -164,4 +187,5 @@ windowResize()
   .pc {
     display: block;
   }
-}</style>
+}
+</style>

@@ -69,7 +69,7 @@ const scrollPage = (v) => {
   }
 }
 onActivated(() => {
-  PubSub.publish('scroll-top', { data: true });
+  PubSub.publish('scroll-top', { data: true });  
 })
 onBeforeUnmount(() => {
   PubSub.unsubscribe('teacher-event')

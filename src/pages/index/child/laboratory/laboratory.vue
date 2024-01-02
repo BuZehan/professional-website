@@ -20,8 +20,8 @@
                       <template #title>
                         <span>{{ item.name }}</span>
                       </template>
-                      <el-menu-item v-if="item.room" v-for="child, j in item.room" @tap="toogleIndex(`${i + 1}-${j + 1}`,child.type)"
-                        :index="`${i + 1}-${j + 1}`">
+                      <el-menu-item v-if="item.room" v-for="child, j in item.room"
+                        @tap="toogleIndex(`${i + 1}-${j + 1}`, child.type)" :index="`${i + 1}-${j + 1}`">
                         <el-icon>
                           <location />
                         </el-icon>
@@ -42,13 +42,13 @@
                         <template #title>
                           <span>{{ item.name }}</span>
                         </template>
-                        <el-menu-item v-if="item.room" v-for="child, j in item.room" @tap="toogleIndex(`${i + 1}-${j + 1}`,child.type)"
-                          :index="`${i + 1}-${j + 1}`">
+                        <el-menu-item v-if="item.room" v-for="child, j in item.room"
+                          @tap="toogleIndex(`${i + 1}-${j + 1}`, child.type)" :index="`${i + 1}-${j + 1}`">
                           <el-icon v-if="!child.type">
                             <location />
                           </el-icon>
                           <el-icon v-else>
-                            <el-image style="transform: scale(.72);" :src="VrIcon"/>
+                            <el-image style="transform: scale(.72);" :src="VrIcon" />
                           </el-icon>
                           {{ child.name }}</el-menu-item>
                       </el-sub-menu>
@@ -62,7 +62,8 @@
                 <el-container>
                   <el-header>
                     <text class="el-header-title">{{ RoomData[currentRoomIndex].name.split('.')[1] }}</text>
-                    <text class="tip" v-if="currentRoomIndex == 3">双击场景进入全屏</text>
+                    <text class="tip" v-if="j == 3">
+                    </text>
                   </el-header>
                   <el-main>
                     <Transition name="el-fade-in" mode="out-in">
@@ -121,7 +122,7 @@ const RoomData = ref([
       dataList: []
     }, {
       name: 'VR全景',
-      type:'VR',
+      type: 'VR',
       dataList: []
     }]
   },
@@ -135,7 +136,7 @@ const RoomData = ref([
       dataList: []
     }, {
       name: 'VR全景',
-      type:'VR'
+      type: 'VR'
     }],
   },
   {
@@ -145,16 +146,15 @@ const RoomData = ref([
       dataList: []
     }, {
       name: 'VR全景',
-      type:'VR'
+      type: 'VR'
     }]
   },
 
 ])
 const currentRoomIndex = ref(0)
 const j = ref(0)
-const toogleIndex = (index,type) => {
-  //console.log("index", index,type);
-
+const toogleIndex = (index, type) => {
+  // console.log("index", index, type);
   let numArr = index.split("-");
   if (numArr.length === 1) {
     currentRoomIndex.value = +index - 1;
@@ -163,10 +163,16 @@ const toogleIndex = (index,type) => {
     currentRoomIndex.value = +numArr[0] - 1;
     j.value = +numArr[1] - 1;
   }
-  if(type === 'VR') {
-    PubSub.publish('changeScene',{i:+numArr[0]-1})
-  }
-};
+
+  if (type === 'VR') {
+    PubSub.subscribe('three-ok', (msg, data) => {
+      if (1 === data.state) {
+        PubSub.publish('changeScene', { i: +numArr[0] - 1 })
+      }
+    })
+    PubSub.publish('changeScene', { i: +numArr[0] - 1 })
+  };
+}
 const Rooms = [
   [Xin426Room, Xin426Equ, ThreeLab],
   [Xin207Room, Xin207Equ, ThreeLab],
@@ -230,7 +236,7 @@ const Rooms = [
     box-sizing: border-box;
 
     .el-container {
-      height: 1300rpx;
+      height: 1500rpx;
 
       .el-aside {
         //background-color: #545c64;

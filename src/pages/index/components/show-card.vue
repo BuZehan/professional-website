@@ -70,8 +70,7 @@
 </template>
     
 <script setup lang='ts'>
-import { computed, onMounted, ref, onUnmounted } from 'vue'
-// const BaseUrl = import.meta.env.VITE_APP_SERVER_IP + '/used/'
+import { computed } from 'vue'
 // 默认图片
 import defaultImage from '../../../static/shiliu.png'
 const BaseUrl = ''
@@ -95,8 +94,6 @@ const imgArrLength = computed((): number => {
 })
 // 发布时间
 // import { calculateTime } from '@/utils/utils'
-import { uni } from '@dcloudio/uni-h5';
-import PubSub from 'pubsub-js';
 // const releaseTime = computed(() => {
 //     return calculateTime(+$props.data.timestamp)
 // })

@@ -114,10 +114,9 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { onMounted } from 'vue';
 import PubSub from "pubsub-js";
-import { WebDataStore } from '@/store/modules/web.js'
-const UseWebDataStore = WebDataStore();
+// 组件
 import AppHeader from "@/components/app-header/app-header.vue";
 import AppPopup from "@/components/app-popup/app-popup.vue";
 import AppFooter from "@/components/app-footer/app-footer.vue";
@@ -141,15 +140,27 @@ import OutstandingGraduate from "./components/outstanding-graduate/outstanding-g
 import PcOutandingGraduate from "@/pages/index/child/outstanding-graduate/stu-show.vue";
 // 专业介绍 左图右文
 import SpecialtyInstruction from "./components/specialty-instruction/specialty-instruction.vue";
+// 合作企业
+import huawei from "@/static/company/huawei_logo.png"
+import hjkj from "@/static/company/hjkj.png"
+import H3C from "@/static/company/H3C.png"
+import trx from "@/static/company/trx.jpg"
+import xxfh from "@/static/company/xxhf.png"
+import zjb from "@/static/company/zj-b.png"
+const companyArr = [
+  { name: 'huawei', path: huawei },
+  { name: "xxfh", path: xxfh },
+  { name: "h3c", path: H3C },
+  { name: "hjkj", path: hjkj },
+  { name: "trx", path: trx },
+  { name: "zjb", path: zjb }
+]
 // 跳转专业介绍---移动端
 const navgationTo = (url) => {
   uni.navigateTo({
     url: `/pages/index/child/${url}/${url}`,
   });
 };
-// 仓库状态数据
-import { StuInfoStore } from '@/store/modules/stu.js';
-const UseStuInfoStore = StuInfoStore();
 // pc端跳转
 const pcNavgationTo = (e) => {
   switch (e) {
@@ -168,23 +179,15 @@ const pcNavgationTo = (e) => {
   }
   PubSub.publish('navgation-event', { e, index: true })
 };
-// 合作企业
-import huawei from "@/static/company/huawei_logo.png"
-import hjkj from "@/static/company/hjkj.png"
-import H3C from "@/static/company/H3C.png"
-import trx from "@/static/company/trx.jpg"
-import xxfh from "@/static/company/xxhf.png"
-import zjb from "@/static/company/zj-b.png"
-const companyArr = [
-  { name: 'huawei', path: huawei },
-  { name: "xxfh", path: xxfh },
-  { name: "h3c", path: H3C },
-  { name: "hjkj", path: hjkj },
-  { name: "trx", path: trx },
-  { name: "zjb", path: zjb }]
-// 网站数据请求
-import { getNews, getCertificate, getNotice, getBanner,getAlumni,getTeacher } from "@/api"
-
+// 网站数据请求 ==> 存储于仓库
+// 仓库状态数据
+import { StuInfoStore } from '@/store/modules/stu.js';
+import { WebDataStore } from '@/store/modules/web.js';
+import {TeacherInfoStore} from '@/store/modules/teacherInfo.js'
+import { getNews, getCertificate, getNotice, getBanner, getAlumni, getTeacher ,getTeacherInfoData} from "@/api"
+const UseStuInfoStore = StuInfoStore();
+const UseWebDataStore = WebDataStore();
+const UseTeacherInfoStore = TeacherInfoStore()
 onMounted(() => {
   // 新闻动态
   getNewsData({ page: 1, limit: 5 })
@@ -195,20 +198,18 @@ onMounted(() => {
   // 轮播图数据
   getBannerData({ page: 1, limit: 10 })
   // 获取校友数据
-  getAlumniData({page:1,limit:10})
+  getAlumniData({ page: 1, limit: 10 })
   // 教师证书
   getTeacherData()
+  // 教师数据
+  getTeacherInfo()
 })
-
 // 获取新闻动态
 const getNewsData = async (data) => {
   let newsData = await getNews(data)
-
   let list = newsData.list.map(news => {
-
     // 匹配<img />标签的个数
-    const imgCount = (news.content.match(/<img\s.*?>/g) || []).length;
-
+    // const imgCount = (news.content.match(/<img\s.*?>/g) || []).length;
     // 匹配<img />标签的href链接
     const hrefList = news.content.match(/<img\s.*?src="(.*?)".*?>/g)?.map(imgTag => {
       const hrefMatch = imgTag.match(/src="(.*?)"/);
@@ -250,6 +251,11 @@ const getAlumniData = async (data) => {
 const getTeacherData = async (data) => {
   let TeacherCertificate = await getTeacher(data)
   UseWebDataStore.SetTeacherCertificate(TeacherCertificate)
+}
+// 教师信息
+const getTeacherInfo = async (data) => {
+  let TeacherInfo = await getTeacherInfoData(data)
+  UseTeacherInfoStore.SetALLTeacherInfo(TeacherInfo)
 }
 
 
@@ -588,7 +594,6 @@ button {
     }
   }
 }
-
 // 专业课程
 .zykc {
   width: 100vw;

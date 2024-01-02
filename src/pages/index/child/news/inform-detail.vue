@@ -10,7 +10,8 @@
                     <Clock />
                 </el-icon>{{ NoticeData[NoticeDataIndex].release_time }}</el-col>
             <el-col v-if="NoticeData[NoticeDataIndex].notificationImage[0]" class="content" :xs="22" :md="24">
-                <el-image v-if="NoticeData[NoticeDataIndex].notificationImage[0]" :src="NoticeData[NoticeDataIndex]?.notificationImage[0]?.image_path" fit="cover" />
+                <el-image v-if="NoticeData[NoticeDataIndex].notificationImage[0]"
+                    :src="NoticeData[NoticeDataIndex]?.notificationImage[0]?.image_path" fit="cover" />
                 <!-- <p v-else>{{ c }}</p> -->
             </el-col>
             <el-col>
@@ -91,7 +92,7 @@ const Mback = () => {
             top: 0;
             z-index: 5000;
         }
-     
+
         .title {
             margin-top: 140rpx;
             text-align: center;
@@ -117,11 +118,7 @@ const Mback = () => {
             align-items: center;
             justify-content: center;
 
-            p {
-                text-indent: 70rpx;
-                line-height: 44rpx;
-                text-align: justify;
-            }
+
 
             .el-image {
                 height: 400rpx;
@@ -129,6 +126,14 @@ const Mback = () => {
                 box-shadow: 8rpx 8rpx 20rpx 4rpx #33333349;
                 margin: 50rpx auto;
             }
+        }
+
+        p {
+            text-indent: 68rpx;
+            line-height: 44rpx;
+            text-align: justify;
+            box-sizing: border-box;
+            padding: 0 20rpx;
         }
     }
 

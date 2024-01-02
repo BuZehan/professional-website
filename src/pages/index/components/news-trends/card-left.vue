@@ -2,14 +2,12 @@
     <view class="card-left" v-showMeta="`animate__fadeInLeft`">
         <view v-if="news_data" class="content" @tap="fn(news_data.id)">
             <el-image v-if="news_data.image_list" fit="fill" :src="news_data.image_list[0]" />
-            <el-image v-else fit="cover"
-            :src="defaultImg" />
+            <el-image v-else fit="cover" :src="defaultImg" />
             <view class="time">
                 <view class="day">{{ news_data.release_time.split('-')[2] }}</view>
                 <view class="year">{{ news_data.release_time.split('-')[0] }}-{{ news_data.release_time.split('-')[1] }}
                 </view>
             </view>
-
             <view class="title">
                 {{ news_data.title }}
             </view>
@@ -44,11 +42,13 @@ const $props = defineProps({
     }
 });
 const fn = computed(() => id => UseMainStore.IsPC ? clickNewsItem(id) : clickNewsItemM(id))
+// PC端点击事件
 const clickNewsItem = (id) => {
     UseWebDataStore.SetNewsDataIndex(id)
     UseWebDataStore.SetNewsDetailIndex([0, 3])
     PubSub.publish('navgation-event', { e: '8' })
 }
+// 移动端点击事件
 const clickNewsItemM = (id) => {
     // console.log('跳转新闻动态页');
     UseWebDataStore.SetNewsDataIndex(id)
@@ -63,7 +63,7 @@ const clickNewsItemM = (id) => {
 <style scoped lang='scss'>
 .card-left {
     width: 94%;
-    height: 750rpx;
+    height: 620rpx;
     margin-bottom: 40rpx;
     cursor: pointer;
     transition: all .4s;
@@ -73,7 +73,7 @@ const clickNewsItemM = (id) => {
     max-width: 400px;
 
     .content {
-        height: 740rpx;
+        height: 600rpx;
         transform: translateY(40rpx);
         transition: all .7s;
         overflow: hidden;
@@ -163,9 +163,7 @@ const clickNewsItemM = (id) => {
                 padding: 0 40rpx;
             }
 
-            .title {
-                padding-top: 20rpx;
-            }
+
 
             .desc {
                 -webkit-line-clamp: 3 !important;
@@ -181,21 +179,16 @@ const clickNewsItemM = (id) => {
         transition: all .4s;
     }
 
-    .title,
-    .desc {
+    .title {
+        margin: 20rpx 10rpx;
+        font-weight: 600;
         display: -webkit-box;
         -webkit-box-orient: vertical;
         -webkit-line-clamp: 2;
         /* 省略号显示的行数 */
         overflow: hidden;
         text-overflow: ellipsis;
-        line-height: 44rpx;
-    }
-
-    .title {
-        margin: 20rpx 10rpx;
-        font-weight: 600;
-        line-height: 48rpx;
+        height:fit-content;
     }
 
     .desc {
@@ -230,6 +223,20 @@ const clickNewsItemM = (id) => {
 @include respondTo('mobile') {
     .card-left {
         margin: 0 auto;
+        height: fit-content !important;
+
+        .content {
+            height: 600rpx !important;
+
+            .title {
+                display: -webkit-box;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                /* 省略号显示的行数 */
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
     }
 }
 </style>

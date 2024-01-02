@@ -55,9 +55,11 @@ const mClickDetail = () => {
 .teacher-wrapper {
     width: 100%;
     margin: 40rpx auto;
-    height: 420rpx;
+    height: 400rpx;
     box-sizing: border-box;
     padding: 10rpx;
+    padding-left: 0;
+    padding-bottom: 0;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -65,8 +67,8 @@ const mClickDetail = () => {
     &::before{
         content: '';
         position: absolute;
-        background: url('../../../../static/sl.jpg') no-repeat center / cover;
-        background-image: linear-gradient(to left,rgba(255,255,255,1),rgba(255,255,255,0)),url('../../../../static/sl.jpg');
+        // background: url('../../../../static/sl.jpg') no-repeat center / cover;
+        background-image: linear-gradient(to left,rgba(255,255,255,1),rgba(243, 243, 243, 0.911)),url('../../../../static/sl.jpg');
         width: 100%;
         height: 100%;
         opacity: 0.3;
@@ -77,6 +79,7 @@ const mClickDetail = () => {
     .el-image {
         width: 300rpx;
         height: 400rpx;
+
     }
 
     .right-wrapper {

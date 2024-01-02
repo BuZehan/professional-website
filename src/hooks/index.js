@@ -11,7 +11,7 @@ export const IsPC = computed(() => {
   // let url1 = hash.substring(1, hash.length)
   // let url2 = url1.split('?')[0]
   // console.log(url2);
-  return UseMian.IsPC
+  return UseMian?.IsPC
 })
 export const windowResize = () => {
   window.addEventListener('hashchange',(e) => {

@@ -64,6 +64,7 @@ export const WebDataStore = defineStore('WebData', () => {
     const SetAlumniDataIndex = (index) => {
         AlumniDataIndex.value = index
     }
+    
 
     return {
         newsData,
@@ -87,7 +88,7 @@ export const WebDataStore = defineStore('WebData', () => {
         SetAlumniData,
         SetAlumniDataIndex,
         TeacherCertificate,
-        SetTeacherCertificate
+        SetTeacherCertificate,
     }
 }, {
     persist: true

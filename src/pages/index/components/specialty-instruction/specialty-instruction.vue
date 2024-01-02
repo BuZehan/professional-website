@@ -4,7 +4,7 @@
         <view class="title-e" style="color: #eee;">Specialty Instruction</view>
         <el-row justify="center">
             <el-col class="image-wrapper" :sm="9">
-                <el-image fit="cover" src="../../../../static/banner-scholl.jpg" />
+                <el-image fit="cover" :src="image" />
             </el-col>
             <el-col class="text-wrapper" :sm="15">
                 <view class="title">网络工程</view>
@@ -20,9 +20,11 @@
    
 <script setup>
 import PubSub from 'pubsub-js';
+import image from '../../../../static/banner-scholl.jpg'
 const pcNavgationTo = (e) => {
     PubSub.publish('navgation-event', { e, index: true })
 };
+
 </script>
    
    

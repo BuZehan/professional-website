@@ -52,13 +52,13 @@
           </el-col>
         </el-row>
       </view>
+      <Footer class="footer" />
     </view>
-    <Footer class="footer" />
   </view>
 </template>
 
 <script setup>
-import {IsPC} from '@/hooks'
+import { IsPC } from '@/hooks'
 import { onActivated, ref, computed, onMounted } from 'vue';
 import PubSub from 'pubsub-js';
 import { WebDataStore } from '@/store/modules/web.js';
@@ -70,7 +70,8 @@ let currentIndex = ref(0);
 import sl from '@/static/sl.jpg';
 onActivated(() => {
   PubSub.publish('scroll-top', { data: true });
-  currentIndex.value = !UseMainStore.IsPC ? UseWebDataStore.NewsDataIndex : UseWebDataStore.NewsDetailIndexArr[1];
+  let i = !UseMainStore.IsPC ? UseWebDataStore.NewsDataIndex : UseWebDataStore.NewsDetailIndexArr[1];
+  currentIndex.value = i
   // console.log(currentIndex.value);
 })
 // 动态组件
@@ -208,6 +209,9 @@ const CurrentTitle = computed(() => {
 
 @include respondTo("mobile") {
   .container-news {
+    height: 100vh;
+    overflow: hidden;
+
     .footer {
       display: flex;
     }
@@ -222,19 +226,16 @@ const CurrentTitle = computed(() => {
     .container-content {
       margin-top: 100rpx;
       overflow-y: scroll;
-
+      height: 100vh !important;
       .trans {
         transform: translateY(-100rpx);
       }
-
       .title {
         height: 80rpx;
         font-size: 70rpx;
       }
-
       .content {
         line-height: 50rpx;
-
         .c {
           text-indent: 60rpx;
           margin-bottom: 20px;
@@ -249,35 +250,28 @@ const CurrentTitle = computed(() => {
     .footer {
       display: none;
     }
-
     .container-content {
       .trans {
         transform: translateY(-145px);
       }
     }
-
     .m-header {
       display: none;
     }
-
     .title {
       height: 80rpx;
       font-size: 90rpx;
       color: #fff;
     }
-
-
     .content {
       line-height: 40px;
       font-size: 32rpx;
       font-weight: bold;
       color: #333;
-
       view {
         text-indent: 60rpx;
         margin-bottom: 20rpx;
       }
-
       .component-wrapper {
         padding-left: 80rpx;
       }
